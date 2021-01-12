@@ -13,13 +13,7 @@ a:hover, a:active{
 }
 
 mat-toolbar{
-    border-radius: 3px;
-}
-
-@media(max-width: 959px){
-    mat-toolbar{
-        border-radius: 0px;
-    }
+    border-radius: 0px;
 }
 
 @media(min-width: 768px){
@@ -32,8 +26,4 @@ mat-toolbar{
     .hide-xs{
         display: none;
     }
-}
-
-.align-right{
-    margin-left: auto;
 }
