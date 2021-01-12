@@ -1,0 +1,39 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover, a:active{
+    color: lightgray;
+}
+
+.navigation-items{
+    padding-left: 10px;
+    margin: 0;
+}
+
+mat-toolbar{
+    border-radius: 3px;
+}
+
+@media(max-width: 959px){
+    mat-toolbar{
+        border-radius: 0px;
+    }
+}
+
+@media(min-width: 768px){
+    .show-xs{
+        display: none;
+    }
+}
+
+@media(max-width: 767px){
+    .hide-xs{
+        display: none;
+    }
+}
+
+.align-right{
+    margin-left: auto;
+}
