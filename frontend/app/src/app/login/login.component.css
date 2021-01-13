@@ -2,3 +2,19 @@
     display: inline-block;
     line-height: 19px;
 }
+
+.login-link{
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 3px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover, a:active{
+    color: whitesmoke;
+    box-shadow: 0 0 12px 8px rgba(0, 0, 0, 0.35);
+}

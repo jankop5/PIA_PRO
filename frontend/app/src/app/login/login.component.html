@@ -10,19 +10,22 @@
     </mat-form-field>
     &nbsp;
     <div class="group">
-    <label for="loginButton"><span *ngIf="!loginSuccess" style="font-size: 11px;">Nevalidni podaci!</span></label><br>
+    <label for="loginButton"><span *ngIf="!loginSuccess" style="font-size: 11px; color:rgb(48, 48, 48);">Nevalidni podaci!</span></label><br>
     <button name="loginButton" mat-raised-button color="primary" (click)="login()">
         Uloguj se
     </button>
     </div>
-
     &nbsp;
-    <button mat-raised-button>
+    <a routerLink="/" class="login-link">
         Registruj se
-    </button>
+    </a>
 </div>
 <div *ngIf="loggedIn">
-    <button mat-raised-button color="primary" (click)="logout()">
+    <button mat-raised-button (click)="logout()">
         Izloguj se
     </button>
+    &nbsp;
+    <a routerLink="/" class="login-link">
+        Promeni lozinku
+    </a>
 </div>
