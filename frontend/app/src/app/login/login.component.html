@@ -1,0 +1,28 @@
+<div *ngIf="!loggedIn">
+    <mat-form-field style="width: 150px;">
+        <mat-label style="font-size: 16px;">Korisničko ime</mat-label>
+        <input matInput type="text" [(ngModel)]="username" style="font-size: 16px;">
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field style="width: 150px;">
+        <mat-label style="font-size: 16px;">Lozinka</mat-label>
+        <input matInput type="password" [(ngModel)]="password" style="font-size: 16px;">
+    </mat-form-field>
+    &nbsp;
+    <div class="group">
+    <label for="loginButton"><span *ngIf="!loginSuccess" style="font-size: 11px;">Nevalidni podaci!</span></label><br>
+    <button name="loginButton" mat-raised-button color="primary" (click)="login()">
+        Uloguj se
+    </button>
+    </div>
+
+    &nbsp;
+    <button mat-raised-button>
+        Registruj se
+    </button>
+</div>
+<div *ngIf="loggedIn">
+    <button mat-raised-button color="primary" (click)="logout()">
+        Izloguj se
+    </button>
+</div>

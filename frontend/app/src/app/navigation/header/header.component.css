@@ -1,10 +1,20 @@
+.login-toolbar{
+    min-height: 100px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.link-toolbar{
+    margin-top: -15px;
+}
+
 a {
     text-decoration: none;
     color: white;
 }
 
 a:hover, a:active{
-    color: lightgray;
+    color: whitesmoke;
 }
 
 .home-icon a:active{
@@ -23,6 +33,8 @@ a:hover, a:active{
 }
 
 mat-toolbar{
+    padding-left: 1%;
+    padding-right: 1%;
     border-radius: 0px;
 }
 

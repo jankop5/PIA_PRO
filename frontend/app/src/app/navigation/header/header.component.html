@@ -1,34 +1,41 @@
-<mat-toolbar color="primary">
-    <div class="show-xs">
-        <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
-    </div>
-    <div class="hide-xs home-icon">
-        <a routerLink="/">
-            <mat-icon>home</mat-icon>
-        </a>
-    </div>
-    <div class="hide-xs align-right">
-        <a routerLink="/employees" class="navigation-items">Zaposleni</a>
-        <a routerLink="/news" class="navigation-items">Obaveštenja</a>
-        <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="bachelorStudies">
-            <span matline>Studije</span>
-        </a>
-        <mat-menu #bachelorStudies="matMenu">
-          <a mat-menu-item>Odsek RTI</a>
-          <a mat-menu-item>Odsek SI</a>
-          <a mat-menu-item>Ostali odseci</a>
-        </mat-menu>
-        <a routerLink="/master" class="navigation-items">Master</a>
-        <a routerLink="/projects" class="navigation-items">Projekti</a>
-        <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="Science">
-            <span matline>Nauka</span>
-        </a>
-        <mat-menu #Science="matMenu">
-          <a mat-menu-item>Istraživanja</a>
-          <a mat-menu-item>Projekti</a>
-        </mat-menu>
-        <a routerLink="/contact" class="navigation-items">Kontakt</a>
-    </div>
+<mat-toolbar color="warn">
+    <mat-toolbar-row class="login-toolbar">
+        <div class="show-xs">
+            <button mat-icon-button (click)="onToggleSidenav()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+        <div class="hide-xs home-icon">
+            <a routerLink="/">
+                <mat-icon>home</mat-icon>
+            </a>
+        </div>
+        <div class="align-right">
+            <app-login ></app-login>
+        </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="hide-xs link-toolbar">
+        <div class="align-right">
+            <a routerLink="/employees" class="navigation-items">Zaposleni</a>
+            <a routerLink="/news" class="navigation-items">Obaveštenja</a>
+            <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="bachelorStudies">
+                <span matline>Studije</span>
+            </a>
+            <mat-menu #bachelorStudies="matMenu">
+            <a mat-menu-item>Odsek RTI</a>
+            <a mat-menu-item>Odsek SI</a>
+            <a mat-menu-item>Ostali odseci</a>
+            </mat-menu>
+            <a routerLink="/master" class="navigation-items">Master</a>
+            <a routerLink="/projects" class="navigation-items">Projekti</a>
+            <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="Science">
+                <span matline>Nauka</span>
+            </a>
+            <mat-menu #Science="matMenu">
+            <a mat-menu-item>Istraživanja</a>
+            <a mat-menu-item>Projekti</a>
+            </mat-menu>
+            <a routerLink="/contact" class="navigation-items">Kontakt</a>
+        </div>
+    </mat-toolbar-row>
 </mat-toolbar>
