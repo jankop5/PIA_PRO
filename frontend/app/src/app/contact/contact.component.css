@@ -1,0 +1,19 @@
+.contact-card{
+    min-width: 400px;
+    width: 60%;
+    text-align: center;
+}
+
+p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-card-content a{
+    color: lightgray;
+}
+
+hr{
+    border: 1px solid var(--purple-color);
+}

@@ -19,13 +19,24 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ContactComponent } from './contact/contact.component';
+import { MatCardModule } from '@angular/material/card';
+import { ResearchComponent } from './science/research/research.component';
+import { ProjectsComponent } from './science/projects/projects.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { OffersComponent } from './offers/offers.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    LoginComponent
+    LoginComponent,
+    ContactComponent,
+    ResearchComponent,
+    ProjectsComponent,
+    OffersComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +51,9 @@ import { FormsModule } from '@angular/forms';
     MatTabsModule,
     MatInputModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

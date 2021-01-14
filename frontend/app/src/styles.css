@@ -3,6 +3,11 @@
 html, body { margin: 0; height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+* {
+	--purple-color: #7b1fa2;
+	--red-color: #f44336;
+}
+
 .align-right{
     margin-left: auto;
 }
@@ -14,16 +19,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .heading {
 	padding-top: 10px;
 	padding-bottom: 40px;
-	font-size: 36px;
+	font-size: 38px;
 	line-height: 46px;
-	font-weight: bold;
+	font-weight: 700;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 .cursor-pointer{ cursor: pointer; }
 
 .page-content{
-    min-height: 70vh;
+    min-height: 60vh;
 }
 
 .breadcrumb {
@@ -87,7 +92,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	z-index: 1;
 	/*background same as links but the gradient will be rotated to compensate with the transform applied*/
 	background: #666;
-	background: linear-gradient(135deg, #666, #333);
+	background: linear-gradient(135deg, #333, #666);
 	/*stylish arrow design using box shadow*/
 	box-shadow: 
 		2px -2px 0 2px rgba(0, 0, 0, 0.4), 
@@ -134,29 +139,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
   ::-webkit-scrollbar-thumb {
 		width: 10px;
-		background: #7b1fa2;
-		background: -moz-linear-gradient(-45deg, #7b1fa2 0%, #f44336 100%);
-		background: -webkit-gradient(left top, right bottom, color-stop(0%, #7b1fa2), color-stop(100%, #f44336));
-		background: -webkit-linear-gradient(-45deg, #7b1fa2 0%, #f44336 100%);
-		background: -o-linear-gradient(-45deg, #7b1fa2 0%, #f44336 100%);
-		background: -ms-linear-gradient(-45deg, #7b1fa2 0%, #f44336 100%);
-		background: -webkit-linear-gradient(315deg, #7b1fa2 0%, #f44336 100%);
-		background: -o-linear-gradient(315deg, #7b1fa2 0%, #f44336 100%);
-		background: linear-gradient(135deg, #7b1fa2 0%, #f44336 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7b1fa2', endColorstr='#f44336', GradientType=1 ); 
+		background: var(--purple-color);
+		background: -moz-linear-gradient(-45deg, var(--purple-color) 0%,var(--red-color) 100%);
+		background: -webkit-gradient(left top, right bottom, color-stop(0%, var(--purple-color)), color-stop(100%,var(--red-color)));
+		background: -webkit-linear-gradient(-45deg, var(--purple-color) 0%,var(--red-color) 100%);
+		background: -o-linear-gradient(-45deg, var(--purple-color) 0%,var(--red-color) 100%);
+		background: -ms-linear-gradient(-45deg, var(--purple-color) 0%,var(--red-color) 100%);
+		background: -webkit-linear-gradient(315deg, var(--purple-color) 0%,var(--red-color) 100%);
+		background: -o-linear-gradient(315deg, var(--purple-color) 0%,var(--red-color) 100%);
+		background: linear-gradient(135deg, var(--purple-color) 0%,var(--red-color) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='var(--purple-color)', endColorstr='var(--red-color)', GradientType=1 ); 
   }
   
   ::-webkit-scrollbar-thumb:hover {
   
-		background: -moz-linear-gradient(-45deg, #f44336 0%, #7b1fa2 100%);
-		background: -webkit-gradient(left top, right bottom, color-stop(0%, #f44336), color-stop(100%, #7b1fa2));
-		background: -webkit-linear-gradient(-45deg, #f44336 0%, #7b1fa2 100%);
-		background: -o-linear-gradient(-45deg, #f44336 0%, #7b1fa2 100%);
-		background: -ms-linear-gradient(-45deg, #f44336 0%, #7b1fa2 100%);
-		background: -webkit-linear-gradient(315deg, #f44336 0%, #7b1fa2 100%);
-		background: -o-linear-gradient(315deg, #f44336 0%, #7b1fa2 100%);
-		background: linear-gradient(135deg, #f44336 0%, #7b1fa2 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f44336', endColorstr='#7b1fa2', GradientType=1 ); 
+		background: -moz-linear-gradient(-45deg,var(--red-color) 0%, var(--purple-color) 100%);
+		background: -webkit-gradient(left top, right bottom, color-stop(0%,var(--red-color)), color-stop(100%, var(--purple-color)));
+		background: -webkit-linear-gradient(-45deg,var(--red-color) 0%, var(--purple-color) 100%);
+		background: -o-linear-gradient(-45deg,var(--red-color) 0%, var(--purple-color) 100%);
+		background: -ms-linear-gradient(-45deg,var(--red-color) 0%, var(--purple-color) 100%);
+		background: -webkit-linear-gradient(315deg,var(--red-color) 0%, var(--purple-color) 100%);
+		background: -o-linear-gradient(315deg,var(--red-color) 0%, var(--purple-color) 100%);
+		background: linear-gradient(135deg,var(--red-color) 0%, var(--purple-color) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='var(--red-color)', endColorstr='var(--purple-color)', GradientType=1 ); 
   }
   
   /* strelice */
@@ -184,4 +189,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	border-color: #111111 transparent transparent transparent;
   }
   
- 
+  .mat-expansion-indicator::after {
+	color: var(--purple-color);
+  }

@@ -1,0 +1,21 @@
+.contact-card{
+    min-width: 300px;
+    width: 40%;
+    text-align: center;
+}
+
+p {
+    height: 35vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-card-content a{
+    color: lightgray;
+    font-size: 16px;
+}
+
+hr{
+    border: 1px solid var(--purple-color);
+}

@@ -16,8 +16,8 @@
         <a matline>Nauka</a>
     </a>
     <mat-menu #sci="matMenu">
-        <a mat-menu-item (click)="onSidenavClose()">Istraživanja</a>
-        <a mat-menu-item (click)="onSidenavClose()">Projekti</a>
+        <a mat-menu-item routerLink="/science/research" (click)="onSidenavClose()">Istraživanja</a>
+        <a mat-menu-item routerLink="/science/projects" (click)="onSidenavClose()">Projekti</a>
     </mat-menu>
     <a mat-list-item routerLink="/contact" (click)="onSidenavClose()">Kontakt</a>
     
