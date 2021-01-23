@@ -31,7 +31,7 @@ let Users = new Schema({
         type: String
     },
     cabinet: {
-        type: Number
+        type: String
     },
     status: {
         type: String
@@ -42,7 +42,7 @@ let Users = new Schema({
     typeOfStudy:{
         type: String
     },
-    type:{
+    type:{// 0 - admin, 1 - zaposleni, 2 - student
         type: Number
     }
 });

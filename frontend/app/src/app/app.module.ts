@@ -25,6 +25,8 @@ import { ResearchComponent } from './science/research/research.component';
 import { ProjectsComponent } from './science/projects/projects.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OffersComponent } from './offers/offers.component';
+import { EmployeesComponent } from './employees/employees.component';
+import { EmployeeinfoComponent } from './employees/employeeinfo/employeeinfo.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { OffersComponent } from './offers/offers.component';
     ContactComponent,
     ResearchComponent,
     ProjectsComponent,
-    OffersComponent
+    OffersComponent,
+    EmployeesComponent,
+    EmployeeinfoComponent
   ],
   imports: [
     BrowserModule,

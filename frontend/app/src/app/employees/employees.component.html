@@ -1,0 +1,25 @@
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+	<a routerLink="/employees" class="active">Zaposleni</a>
+</div>
+<div class="page-content">
+    <div class="text-center heading">Zaposleni</div>
+
+    <div class="text-center subheading">Redovni profesori</div>
+    <app-employeeinfo [employees]="employeesFP" [prefix]="'prof. dr '"></app-employeeinfo>
+    <br>
+    <div class="text-center subheading">Vanredni profesori</div>
+    <app-employeeinfo [employees]="employeesAP" [prefix]="'prof. dr '"></app-employeeinfo>
+    <br>
+    <div class="text-center subheading">Docenti</div>
+    <app-employeeinfo [employees]="employeesD" [prefix]="'doc. dr '"></app-employeeinfo>
+    <br>
+    <div class="text-center subheading">Asistenti</div>
+    <app-employeeinfo [employees]="employeesA" [prefix]="'as. ms '" [sufix]="', dipl. inž. el. i rač.'"></app-employeeinfo>
+    <br>
+    <div class="text-center subheading">Saradnici u nastavi</div>
+    <app-employeeinfo [employees]="employeesTA" [sufix]="', dipl. inž. el. i rač.'"></app-employeeinfo>
+    <br>
+    <div class="text-center subheading">Ostali</div>
+    <app-employeeinfo [employees]="employeesO"></app-employeeinfo>
+</div>

@@ -1,0 +1,20 @@
+<mat-accordion multi>
+    <div *ngFor="let employee of employees">
+        <mat-expansion-panel class="emplinfo">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                  {{prefix}}{{employee.firstName}} {{employee.lastName}}{{sufix}}
+                  <span *ngIf="employee.title.includes('ostali')">&nbsp;{{employee.title.substr(7)}}</span> 
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <br>
+            <span style="color: lightgray">Tip projekta:</span> Fond za nauku - AI
+            <br>
+            <span style="color: lightgray">Rukovodilac:</span> prof. dr Boško Nikolić
+            <br>
+            <span style="color: lightgray">Finansijer:</span> FOND ZA NAUKU REPUBLIKE SRBIJE
+            <br>
+            <span style="color: lightgray">Početak realizacije:</span> 02.09.2020.
+        </mat-expansion-panel>
+    </div>      
+</mat-accordion>

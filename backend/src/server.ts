@@ -31,5 +31,13 @@ router.route('/login').post((req, res)=>{
 });
 
 
+router.route('/allEmployees').post((req, res)=>{
+    users.find({type: 1}, (err, user)=>{
+        if(err) console.log(err);
+        else res.json(user);
+    })
+});
+
+
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

@@ -25,6 +25,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
+.subheading {
+	padding-top: 10px;
+	padding-bottom: 20px;
+	font-size: 30px;
+	line-height: 38px;
+	font-weight: 700;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
 .cursor-pointer{ cursor: pointer; }
 
 .page-content{
