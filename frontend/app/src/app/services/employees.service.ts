@@ -13,4 +13,12 @@ export class EmployeesService {
   getAllEmployees(){
     return this.http.post(`${this.uri}/allEmployees`, {});
   }
+
+  getEmployee(username: string){
+    let data = {
+      username: username
+    }
+
+    return this.http.post(`${this.uri}/findByUsername`, data);
+  }
 }

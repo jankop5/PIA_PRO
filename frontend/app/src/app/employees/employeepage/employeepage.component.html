@@ -1,0 +1,56 @@
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+    <a routerLink="/employees">Zaposleni</a>
+    <a routerLink="#" class="active">Profil</a>
+</div>
+<div class="page-content">
+    <div class="text-center heading">Profil zaposlenog</div>
+
+    <p>
+    <mat-card class="employee-card">
+      <mat-card-header style="text-align: left;">
+        <div mat-card-avatar class="example-header-image material-icons" style="font-size: 40px;">account_box</div>
+        <mat-card-title>{{employee.firstName}} {{employee.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{employee.title}}</mat-card-subtitle>
+        
+      </mat-card-header>
+      
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      
+      <mat-card-content>
+        <span style="color: lightgray;">Status zaposlenog:</span> {{employee.status}}
+        <br><br>
+        <span *ngIf="employee.website">
+          <span style="color: lightgray;">Lični veb sajt:</span> {{employee.website}}
+          <br><br>
+        </span>
+        <div *ngIf="!employee.personalData" class="employee-data">
+        <span style="color: lightgray;">Lični podaci:</span> {{employee.personalData}}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+          <br><br>
+        </div>
+        <hr>
+        <br>
+        <p>
+          <span class="material-icons">email</span>&nbsp; 
+          <a href="mailto:{{employee.username}}@etf.bg.ac.rs" >
+            {{employee.username}}@etf.bg.ac.rs
+          </a>
+        </p>
+        <span *ngIf="employee.phone">
+          <p>
+            <span class="material-icons">
+              phone
+              </span> &nbsp;
+              <a href="tel:{{employee.phone}}">{{employee.phone}}</a>
+          </p>
+        </span>
+        <p>
+          
+          <span class="material-icons">
+            location_on
+            </span> Kabinet {{employee.cabinet}}, {{employee.address}}
+        </p>
+      </mat-card-content>
+      </mat-card>
+    </p>
+</div>

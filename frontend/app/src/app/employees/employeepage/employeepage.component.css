@@ -1,0 +1,23 @@
+hr{
+    border: 1px solid var(--purple-color);
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.employee-data{
+    word-break: break-all;
+}
+
+.mat-card-content a{
+    color: lightgray;
+}
+
+.employee-card{
+    min-width: 400px;
+    width: 60%;
+    text-align: center;
+}

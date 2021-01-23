@@ -38,6 +38,15 @@ router.route('/allEmployees').post((req, res)=>{
     })
 });
 
+router.route('/findByUsername').post((req, res)=>{
+    let username = req.body.username;
+
+    users.findOne({'username': username}, (err, user)=>{
+        if(err) console.log(err);
+        else res.json(user);
+    })
+});
+
 
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

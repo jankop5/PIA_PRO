@@ -27,6 +27,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { OffersComponent } from './offers/offers.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeinfoComponent } from './employees/employeeinfo/employeeinfo.component';
+import { EmployeepageComponent } from './employees/employeepage/employeepage.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EmployeeinfoComponent } from './employees/employeeinfo/employeeinfo.com
     ProjectsComponent,
     OffersComponent,
     EmployeesComponent,
-    EmployeeinfoComponent
+    EmployeeinfoComponent,
+    EmployeepageComponent
   ],
   imports: [
     BrowserModule,
