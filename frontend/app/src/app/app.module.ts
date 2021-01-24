@@ -28,6 +28,7 @@ import { OffersComponent } from './offers/offers.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeinfoComponent } from './employees/employeeinfo/employeeinfo.component';
 import { EmployeepageComponent } from './employees/employeepage/employeepage.component';
+import { EmployeecoursesComponent } from './employees/employeecourses/employeecourses.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { EmployeepageComponent } from './employees/employeepage/employeepage.com
     OffersComponent,
     EmployeesComponent,
     EmployeeinfoComponent,
-    EmployeepageComponent
+    EmployeepageComponent,
+    EmployeecoursesComponent
   ],
   imports: [
     BrowserModule,

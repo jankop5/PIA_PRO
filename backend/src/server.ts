@@ -3,6 +3,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import users from './model/users';
+import courses from './model/courses';
+import teaching from './model/teaching';
 
 const app = express();
 
@@ -32,7 +34,7 @@ router.route('/login').post((req, res)=>{
 
 
 router.route('/allEmployees').post((req, res)=>{
-    users.find({type: 1}, (err, user)=>{
+    users.find({'type': 1}, (err, user)=>{
         if(err) console.log(err);
         else res.json(user);
     })
@@ -46,6 +48,24 @@ router.route('/findByUsername').post((req, res)=>{
         else res.json(user);
     })
 });
+
+router.route('/teachingCoursesByUsername').post((req, res)=>{
+    let username = req.body.username;
+
+    teaching.find({'username': username}, (err, t)=>{
+        if(err) console.log(err);
+        else res.json(t);
+    })
+});
+
+router.route('/findByCoursename').post((req, res)=>{
+    let coursename = req.body.coursename;
+
+    courses.findOne({'coursename': coursename}, (err, course)=>{
+        if(err) console.log(err);
+        else res.json(course);
+    })
+})
 
 
 app.use('/', router);

@@ -1,0 +1,5 @@
+<ul *ngFor="let course of courses">
+    <li>
+        <a [routerLink]="['/courses', course[0]]">{{course[1]}}</a> 
+    </li>
+</ul>

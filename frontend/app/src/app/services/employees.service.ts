@@ -21,4 +21,12 @@ export class EmployeesService {
 
     return this.http.post(`${this.uri}/findByUsername`, data);
   }
+
+  getTeachingCourses(username: string){
+    let data = {
+      username: username
+    }
+
+    return this.http.post(`${this.uri}/teachingCoursesByUsername`, data);
+  }
 }
