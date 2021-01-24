@@ -10,9 +10,11 @@
                 </mat-expansion-panel-header>
                 <a class="profile-icon" [routerLink]="['/employees', employee.username]"><span style="font-size: 50px; margin-left: -7px;" class="material-icons">account_box</span></a>
                 <br>
-                Predmeti:
-                <app-employeecourses [employeeUsername]="employee.username"></app-employeecourses>
-                <br>
+                <span *ngIf="!employee.title.includes('ostali')">
+                    Predmeti:
+                    <app-employeecourses [employeeUsername]="employee.username"></app-employeecourses>
+                    <br>
+                </span>
             </mat-expansion-panel>
         </div>      
     </mat-accordion>

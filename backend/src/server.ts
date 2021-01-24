@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import users from './model/users';
 import courses from './model/courses';
 import teaching from './model/teaching';
+import coursesinfo from './model/coursesinfo';
 
 const app = express();
 
@@ -67,6 +68,14 @@ router.route('/findByCoursename').post((req, res)=>{
     })
 })
 
+router.route('/allCoursesByModule').post((req, res)=>{
+    let module = req.body.module;
+
+    coursesinfo.find({'module': module}, (err, ci)=>{
+        if(err) console.log(err);
+        else res.json(ci);
+    })
+})
 
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

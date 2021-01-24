@@ -22,11 +22,11 @@
                 <span matline>Studije</span>
             </a>
             <mat-menu #bachelorStudies="matMenu">
-            <a mat-menu-item>Odsek RTI</a>
-            <a mat-menu-item>Odsek SI</a>
-            <a mat-menu-item>Ostali odseci</a>
+            <a mat-menu-item routerLink="/courses/RTI">Odsek RTI</a>
+            <a mat-menu-item routerLink="/courses/SI">Odsek SI</a>
+            <a mat-menu-item routerLink="/courses/ostali">Ostali odseci</a>
             </mat-menu>
-            <a routerLink="/master" class="navigation-items">Master</a>
+            <a routerLink="/courses/master" class="navigation-items">Master</a>
             <a routerLink="/projects" class="navigation-items">Projekti</a>
             <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="Science">
                 <span matline>Nauka</span>

@@ -17,4 +17,12 @@ export class CoursesService {
 
     return this.http.post(`${this.uri}/findByCoursename`, data);
   }
+
+  getCoursesByModule(module: string){
+    let data = {
+      module: module
+    }
+
+    return this.http.post(`${this.uri}/allCoursesByModule`, data);
+  }
 }
