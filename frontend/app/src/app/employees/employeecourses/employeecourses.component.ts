@@ -22,6 +22,7 @@ export class EmployeecoursesComponent implements OnInit {
         coursenames.push(teachingCourses[i].coursename);
       }
       
+      this.courses = [];
       coursenames.forEach(coursename => {
         this.coursesService.getCourse(coursename).subscribe((course: Course)=>{
           let c = [coursename, coursename + " - " + course.codes.toString()];
@@ -32,5 +33,5 @@ export class EmployeecoursesComponent implements OnInit {
   }
 
   @Input() employeeUsername: string;
-  courses: string[][] = [];
+  courses: string[][];
 }

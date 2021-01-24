@@ -1,1 +1,25 @@
-<p>courses works!</p>
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+    <a routerLink="#">Studije</a>
+    <a routerLink="#" class="active">{{modulename}}</a>
+</div>
+<div class="page-content">
+    <div class="text-center heading">{{modulename}} - predmeti</div>
+
+    <div *ngFor="let semcourses of courses; index as i">
+        <div class="text-center subheading">Semestar {{semesters[i]}}</div>
+        <p>
+            <mat-card class="courses-card">
+                <mat-card-content>
+                    <ul *ngFor="let course of semcourses">
+                        <li>
+                            <a [routerLink]="['/course', course.coursename]">{{course.coursename}} - {{course.code}}</a> 
+                        </li>
+                    </ul>
+                </mat-card-content>
+            </mat-card>
+        </p>
+        <br><br>
+    </div>
+
+</div>

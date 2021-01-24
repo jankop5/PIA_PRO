@@ -19,14 +19,14 @@
             <a routerLink="/employees" class="navigation-items">Zaposleni</a>
             <a routerLink="/news" class="navigation-items">Obaveštenja</a>
             <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="bachelorStudies">
-                <span matline>Studije</span>
+                <span matline>Osnovne studije</span>
             </a>
             <mat-menu #bachelorStudies="matMenu">
             <a mat-menu-item routerLink="/courses/RTI">Odsek RTI</a>
             <a mat-menu-item routerLink="/courses/SI">Odsek SI</a>
             <a mat-menu-item routerLink="/courses/ostali">Ostali odseci</a>
             </mat-menu>
-            <a routerLink="/courses/master" class="navigation-items">Master</a>
+            <a routerLink="/courses/master" class="navigation-items">Master studije</a>
             <a routerLink="/projects" class="navigation-items">Projekti</a>
             <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="Science">
                 <span matline>Nauka</span>

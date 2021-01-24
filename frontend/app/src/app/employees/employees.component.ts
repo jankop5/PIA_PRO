@@ -20,7 +20,7 @@ export class EmployeesComponent implements OnInit {
         else if(a.lastName > b.lastName) return 1;
         else return 0;
       });
-      console.log(allEmployees);
+      
       this.employeesFP = allEmployees.filter(function(employee){
         return employee.title == "redovan profesor";
       });

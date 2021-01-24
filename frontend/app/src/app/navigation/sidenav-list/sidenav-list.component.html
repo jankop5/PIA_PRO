@@ -3,14 +3,14 @@
     <a mat-list-item routerLink="/employees" (click)="onSidenavClose()">Zaposleni</a>
     <a mat-list-item routerLink="/news" (click)="onSidenavClose()">Obaveštenja</a>
     <a mat-list-item class="cursor-pointer" [matMenuTriggerFor]="bStudies">
-        <a matline>Studije</a>
+        <a matline>Osnovne studije</a>
     </a>
     <mat-menu #bStudies="matMenu">
         <a mat-menu-item routerLink="/courses/RTI" (click)="onSidenavClose()">Odsek RTI</a>
         <a mat-menu-item routerLink="/courses/SI" (click)="onSidenavClose()">Odsek SI</a>
         <a mat-menu-item routerLink="/courses/ostali" (click)="onSidenavClose()">Ostali odseci</a>
     </mat-menu>
-    <a mat-list-item routerLink="/courses/master" (click)="onSidenavClose()">Master</a>
+    <a mat-list-item routerLink="/courses/master" (click)="onSidenavClose()">Master studije</a>
     <a mat-list-item routerLink="/projects" (click)="onSidenavClose()">Projekti</a>
     <a mat-list-item class="cursor-pointer" [matMenuTriggerFor]="sci">
         <a matline>Nauka</a>
