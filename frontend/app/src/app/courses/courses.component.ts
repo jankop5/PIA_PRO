@@ -15,6 +15,7 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       let module = params['module'];
+      this.studylevel = "Osnovne studije";
       switch (module) {
         case "SI":
           this.modulename = "Odsek SI";
@@ -24,6 +25,7 @@ export class CoursesComponent implements OnInit {
           break;
         case "master":
           this.modulename = "Master";
+          this.studylevel = "Master studije";
           break;
         default:
           this.modulename = "Ostali odseci";
@@ -60,6 +62,7 @@ export class CoursesComponent implements OnInit {
     return courses;
   }
 
+  studylevel: string;
   modulename: string;
   semesters: number[];
   courses: CourseInfo[][];

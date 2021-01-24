@@ -31,6 +31,7 @@ import { EmployeepageComponent } from './employees/employeepage/employeepage.com
 import { EmployeecoursesComponent } from './employees/employeecourses/employeecourses.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CourseComponent } from './course/course.component';
     HttpClientModule,
     FormsModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

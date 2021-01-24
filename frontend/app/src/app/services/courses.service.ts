@@ -25,4 +25,28 @@ export class CoursesService {
 
     return this.http.post(`${this.uri}/allCoursesByModule`, data);
   }
+
+  getCourseInfosByCoursename(coursename: String){
+    let data = {
+      coursename: coursename
+    }
+
+    return this.http.post(`${this.uri}/courseInfosByCoursename`, data);
+  }
+
+  getTeachers(coursename: String){
+    let data = {
+      coursename: coursename
+    }
+
+    return this.http.post(`${this.uri}/teachersByCoursename`, data);
+  }
+
+  getTeachingByCoursename(coursename: String){
+    let data = {
+      coursename: coursename
+    }
+
+    return this.http.post(`${this.uri}/teachingCoursesByCoursename`, data);
+  }
 }

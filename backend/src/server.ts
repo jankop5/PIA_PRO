@@ -59,6 +59,30 @@ router.route('/teachingCoursesByUsername').post((req, res)=>{
     })
 });
 
+router.route('/teachingCoursesByCoursename').post((req, res)=>{
+    let coursename = req.body.coursename;
+
+    teaching.find({'coursename': coursename}, (err, t)=>{
+        if(err) console.log(err);
+        else res.json(t);
+    })
+});
+
+// ne koristim al neka ga
+router.route('/teachersByCoursename').post((req, res)=>{
+    let coursename = req.body.coursename;
+
+    teaching.find({'coursename': coursename}, (err, t: any[])=>{
+        if(err) console.log(err);
+        else {
+            users.find({ username: { $in: t.map(x => x.username) } }, (err, emp) => {
+                if(err) console.log(err);
+                else res.json(emp);
+            });
+        }
+    })
+});
+
 router.route('/findByCoursename').post((req, res)=>{
     let coursename = req.body.coursename;
 
@@ -72,6 +96,15 @@ router.route('/allCoursesByModule').post((req, res)=>{
     let module = req.body.module;
 
     coursesinfo.find({'module': module}, (err, ci)=>{
+        if(err) console.log(err);
+        else res.json(ci);
+    })
+})
+
+router.route('/courseInfosByCoursename').post((req, res)=>{
+    let coursename = req.body.coursename;
+    
+    coursesinfo.find({'coursename': coursename}, (err, ci)=>{
         if(err) console.log(err);
         else res.json(ci);
     })

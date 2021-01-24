@@ -1,1 +1,66 @@
-<p>course works!</p>
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+    <a routerLink="#">Predmeti</a>
+    <a routerLink="#" class="active">{{course.coursename}}</a>
+</div>
+<div class="page-content">
+    <div class="text-center heading">{{course.coursename}}</div>
+
+    <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
+        <mat-tab label="Obaveštenja">
+            
+        </mat-tab>
+
+        <mat-tab label="Informacije">
+            <mat-tab-group class="course-info-tabs" headerPosition="below" color="primary" mat-align-tabs="center" mat-stretch-tabs>
+                <div *ngFor="let courseInfo of courseInfos; index as i">
+                    <mat-tab label="{{courseInfo.module}}">
+                        <mat-table [dataSource]="dataSources[i]" class="mat-elevation-z8">
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="name">
+                              <mat-header-cell *matHeaderCellDef [ngClass]="'w-custom'"> Informacija </mat-header-cell>
+                              <mat-cell *matCellDef="let element" [ngClass]="'w-custom'"> {{element.name}} </mat-cell>
+                            </ng-container>
+                          
+                            <!-- Value Column -->
+                            <ng-container matColumnDef="value">
+                              <mat-header-cell *matHeaderCellDef> Opis </mat-header-cell>
+                              <mat-cell *matCellDef="let element"> 
+                                <div class="wrap-custom">
+                                    {{element.value}} 
+                                </div>
+                              </mat-cell>
+                            </ng-container>
+                          
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                          </mat-table>
+                    </mat-tab>
+                </div>
+            </mat-tab-group>
+        </mat-tab>
+
+        <mat-tab label="Predavanja">
+            <p>
+                ABRA
+            </p>
+        </mat-tab>
+
+        <mat-tab label="Vežbe">
+        
+        </mat-tab>
+        
+        <mat-tab label="Ispitna pitanja">
+            
+        </mat-tab>
+
+        <mat-tab label="Laboratorija">
+        
+        </mat-tab>
+
+        <mat-tab label="Projekat">
+        
+        </mat-tab>
+    </mat-tab-group>
+
+</div>

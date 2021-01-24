@@ -1,0 +1,76 @@
+.course-tabs{
+    min-height: 700px;
+}
+
+::ng-deep .course-tabs .mat-tab-label .mat-tab-label-content {
+    font-size: 16px;
+}
+
+::ng-deep .course-tabs .mat-tab-list .mat-tab-labels .mat-tab-label{
+    color:whitesmoke;
+    background-color: var(--purple-color);
+}
+
+/* active tab */
+::ng-deep .course-tabs  .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color:whitesmoke;
+    background-color: var(--purple-color);
+}
+    
+/* ink bar */
+::ng-deep .course-tabs  .mat-ink-bar {
+    background-color: var(--purple-color) !important;
+}
+
+/* strelice */
+::ng-deep .course-tabs  .mat-ripple {
+    background-color: var(--purple-color) !important;
+}
+
+
+.course-info-tabs{
+    min-height: 600px;
+    height: 600px;
+}
+
+::ng-deep .course-info-tabs .mat-tab-body-wrapper{
+    flex-direction: column!important;
+}
+
+::ng-deep .course-info-tabs .mat-tab-label .mat-tab-label-content {
+    font-size: 14px;
+}
+
+::ng-deep .course-info-tabs .mat-tab-list .mat-tab-labels .mat-tab-label{
+    color:whitesmoke;
+    background-color: var(--red-color);
+}
+
+/* active tab */
+::ng-deep .course-info-tabs .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color:whitesmoke;
+    background-color: var(--red-color);
+}
+    
+/* ink bar */
+::ng-deep .course-info-tabs .mat-ink-bar {
+    background-color: var(--red-color) !important;
+}
+
+/* strelice */
+::ng-deep .course-info-tabs .mat-ripple {
+    background-color: var(--red-color) !important;
+}
+
+table {
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; 
+}
+
+.w-custom{
+    max-width: 200px;
+}
+
+.wrap-custom{
+    min-width: 150px; word-wrap: break-word;
+}
