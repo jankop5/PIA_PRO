@@ -11,8 +11,12 @@ p {
 }
 
 .mat-card-content a{
-    color: lightgray;
+    color: whitesmoke;
     font-size: 16px;
+}
+
+.mat-card-content a:hover{
+    color: lightgray;
 }
 
 hr{

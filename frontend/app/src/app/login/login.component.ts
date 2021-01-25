@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../model/user.model';
 import { LoginService } from '../services/login.service';
 
@@ -9,7 +10,7 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     if(localStorage.getItem("username") != null){
@@ -25,10 +26,14 @@ export class LoginComponent implements OnInit {
   login(){
     this.loginService.login(this.username, this.password).subscribe((user: User)=>{
       if(user){
-        localStorage.setItem("username", user.username);
+        localStorage.setItem("username", this.username);
         localStorage.setItem("type", JSON.stringify(user.type));
+        localStorage.setItem("passwordChanged", JSON.stringify(user.passwordChanged));
         this.loginSuccess = true;
         this.loggedIn = true;
+        if(!user.passwordChanged){
+          this.router.navigate(['/passwordchange']);
+        }
       }
       else{
         this.loginSuccess = false;
@@ -39,7 +44,9 @@ export class LoginComponent implements OnInit {
   logout(){
     localStorage.removeItem("username");
     localStorage.removeItem("type");
+    localStorage.removeItem("passwordChanged");
     this.loggedIn = false;
+    this.router.navigate(['/']);
   }
 
 }

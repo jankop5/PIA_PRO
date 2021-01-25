@@ -7,19 +7,23 @@ import { EmployeepageComponent } from './employees/employeepage/employeepage.com
 import { EmployeesComponent } from './employees/employees.component';
 import { HomeComponent } from './home/home.component';
 import { OffersComponent } from './offers/offers.component';
+import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
+import { FirstLoginGuard } from './routeguards/firstlogin.guard';
+import { LoggedInGuard } from './routeguards/loggedin.guard';
 import { ProjectsComponent } from './science/projects/projects.component';
 import { ResearchComponent } from './science/research/research.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'contact', component: ContactComponent},
-  {path: 'science/research', component: ResearchComponent},
-  {path: 'science/projects', component: ProjectsComponent},
-  {path: 'projects', component: OffersComponent},
-  {path: 'employees', component: EmployeesComponent},
-  {path: 'employees/:username', component: EmployeepageComponent},
-  {path: 'courses/:module', component: CoursesComponent},
-  {path: 'course/:coursename', component: CourseComponent}
+  {path: 'contact', component: ContactComponent, canActivate: [FirstLoginGuard]},
+  {path: 'science/research', component: ResearchComponent, canActivate: [FirstLoginGuard]},
+  {path: 'science/projects', component: ProjectsComponent, canActivate: [FirstLoginGuard]},
+  {path: 'projects', component: OffersComponent, canActivate: [FirstLoginGuard]},
+  {path: 'employees', component: EmployeesComponent, canActivate: [FirstLoginGuard]},
+  {path: 'employees/:username', component: EmployeepageComponent, canActivate: [FirstLoginGuard]},
+  {path: 'courses/:module', component: CoursesComponent, canActivate: [FirstLoginGuard]},
+  {path: 'course/:coursename', component: CourseComponent, canActivate: [FirstLoginGuard]},
+  {path: 'passwordchange', component: PasswordchangeComponent, canActivate: [LoggedInGuard]}
 ];
 
 @NgModule({

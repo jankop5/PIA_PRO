@@ -42,6 +42,9 @@ let Users = new Schema({
     typeOfStudy:{
         type: String
     },
+    passwordChanged:{
+        type: Boolean
+    },
     type:{// 0 - admin, 1 - zaposleni, 2 - student
         type: Number
     }

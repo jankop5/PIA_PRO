@@ -90,7 +90,7 @@ router.route('/findByCoursename').post((req, res)=>{
         if(err) console.log(err);
         else res.json(course);
     })
-})
+});
 
 router.route('/allCoursesByModule').post((req, res)=>{
     let module = req.body.module;
@@ -99,7 +99,7 @@ router.route('/allCoursesByModule').post((req, res)=>{
         if(err) console.log(err);
         else res.json(ci);
     })
-})
+});
 
 router.route('/courseInfosByCoursename').post((req, res)=>{
     let coursename = req.body.coursename;
@@ -108,7 +108,31 @@ router.route('/courseInfosByCoursename').post((req, res)=>{
         if(err) console.log(err);
         else res.json(ci);
     })
-})
+});
+
+router.route('/changePassword').post((req, res)=>{
+    let username = req.body.username;
+    let oldPassword = req.body.oldPassword;
+    let newPassword = req.body.newPassword;
+
+    users.findOne({'username': username, 'password': oldPassword}, (err, user: any)=>{
+        if(err) console.log(err);
+        else {
+            if(user){
+                user.passwordChanged = true;
+                user.password = newPassword;
+                user.save().then(()=>{
+                    res.json("success");
+                }).catch(()=>{
+                    res.json("failed");
+                });
+            }
+            else{
+                res.json("failure");
+            }
+        }
+    })
+});
 
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

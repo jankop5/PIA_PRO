@@ -1,0 +1,7 @@
+.mat-expansion-panel a{
+    color: whitesmoke;
+}
+
+.mat-expansion-panel a:hover{
+    color: lightgray;
+}

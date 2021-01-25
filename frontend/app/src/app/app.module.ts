@@ -32,6 +32,7 @@ import { EmployeecoursesComponent } from './employees/employeecourses/employeeco
 import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
 import { MatTableModule } from '@angular/material/table';
+import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatTableModule } from '@angular/material/table';
     EmployeepageComponent,
     EmployeecoursesComponent,
     CoursesComponent,
-    CourseComponent
+    CourseComponent,
+    PasswordchangeComponent
   ],
   imports: [
     BrowserModule,

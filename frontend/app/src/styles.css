@@ -6,6 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 * {
 	--purple-color: #7b1fa2;
 	--red-color: #f44336;
+	--dark-color: #424242;
 }
 
 .align-right{
@@ -201,3 +202,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .mat-expansion-indicator::after {
 	color: var(--purple-color);
   }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+	color: var(--purple-color);
+  }
+  .mat-form-field-outline {
+	border-radius: 5px;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-label {
+    color: var(--purple-color);
+}
+
+   .mat-form-field-appearance-outline input.mat-input-element {
+	color: black;
+}
