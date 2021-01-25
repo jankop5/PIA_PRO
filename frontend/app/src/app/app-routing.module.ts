@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'employees', component: EmployeesComponent, canActivate: [FirstLoginGuard]},
   {path: 'employees/:username', component: EmployeepageComponent, canActivate: [FirstLoginGuard]},
   {path: 'courses/:module', component: CoursesComponent, canActivate: [FirstLoginGuard]},
-  {path: 'course/:coursename', component: CourseComponent, canActivate: [FirstLoginGuard]},
+  {path: 'course/:coursename', component: CourseComponent, canActivate: [FirstLoginGuard, LoggedInGuard]},
   {path: 'passwordchange', component: PasswordchangeComponent, canActivate: [LoggedInGuard]}
 ];
 

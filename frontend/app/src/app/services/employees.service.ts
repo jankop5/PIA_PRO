@@ -29,4 +29,13 @@ export class EmployeesService {
 
     return this.http.post(`${this.uri}/teachingCoursesByUsername`, data);
   }
+
+  isTeachingCourse(username: string, coursename: string){
+    let data = {
+      username: username,
+      coursename: coursename
+    }
+
+    return this.http.post(`${this.uri}/isTeaching`, data);
+  }
 }

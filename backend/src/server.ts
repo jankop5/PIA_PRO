@@ -6,6 +6,7 @@ import users from './model/users';
 import courses from './model/courses';
 import teaching from './model/teaching';
 import coursesinfo from './model/coursesinfo';
+import attending from './model/attending';
 
 const app = express();
 
@@ -131,6 +132,26 @@ router.route('/changePassword').post((req, res)=>{
                 res.json("failure");
             }
         }
+    })
+});
+
+router.route('/isTeaching').post((req, res)=>{
+    let username = req.body.username;
+    let coursename = req.body.coursename;
+
+    teaching.findOne({'username' : username, 'coursename': coursename}, (err, t)=>{
+        if(err) console.log(err);
+        else res.json(t);
+    })
+});
+
+router.route('/isAttending').post((req, res)=>{
+    let username = req.body.username;
+    let coursename = req.body.coursename;
+
+    attending.findOne({'username' : username, 'coursename': coursename}, (err, a)=>{
+        if(err) console.log(err);
+        else res.json(a);
     })
 });
 
