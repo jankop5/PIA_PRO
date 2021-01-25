@@ -18,22 +18,35 @@
                         <mat-table [dataSource]="dataSources[i]" class="mat-elevation-z8">
                             <!-- Name Column -->
                             <ng-container matColumnDef="name">
-                              <mat-header-cell *matHeaderCellDef [ngClass]="'w-custom'"> Informacija </mat-header-cell>
+                              <mat-header-cell *matHeaderCellDef [ngClass]="'w-custom'" style="font-size: 18px;"> Informacija </mat-header-cell>
                               <mat-cell *matCellDef="let element" [ngClass]="'w-custom'"> {{element.name}} </mat-cell>
+                              <mat-footer-cell *matFooterCellDef [ngClass]="'w-custom'"> Predmentni nastavnici </mat-footer-cell>
                             </ng-container>
                           
                             <!-- Value Column -->
                             <ng-container matColumnDef="value">
-                              <mat-header-cell *matHeaderCellDef> Opis </mat-header-cell>
+                              <mat-header-cell *matHeaderCellDef style="font-size: 18px;"> Opis </mat-header-cell>
                               <mat-cell *matCellDef="let element"> 
                                 <div class="wrap-custom">
                                     {{element.value}} 
                                 </div>
                               </mat-cell>
+                              <mat-footer-cell *matFooterCellDef [ngClass]="'w-custom'"> 
+                                
+                                <ul>
+                                    <div *ngFor="let teacher of teachers[i]" class="a-custom">
+                                        <li>
+                                            <a [routerLink]="['/employees', teacher.username]">{{teacher.firstName}} {{teacher.lastName}}</a>
+                                        </li>
+                                    </div>
+                                   
+                                </ul>
+                              </mat-footer-cell>
                             </ng-container>
                           
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
                           </mat-table>
                     </mat-tab>
                 </div>

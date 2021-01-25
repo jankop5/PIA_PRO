@@ -23,6 +23,7 @@ export class CourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSources = [];
+    this.teachers = [];
     this.route.params.subscribe(params => {
       let coursename = params['coursename'];
       this.coursesService.getCourse(coursename).subscribe((course: Course)=>{
@@ -37,8 +38,9 @@ export class CourseComponent implements OnInit {
             this.dataSources.push([
               {name: "Tip", value: ""}, {name: "Godina studija", value: ""}, {name: "Semseta", value: ""}, {name: "Šifra predmeta", value: ""},
               {name: "Fond časova", value: ""}, {name: "ESPB", value: ""}, {name: "Cilj", value: ""}, {name: "Ishod", value: ""},
-              {name: "Termini nastave", value: ""}, {name: "Nastavnici", value: ""}, {name: "Propozicije", value: ""}
+              {name: "Termini nastave", value: ""}, {name: "Grupe", value: ""}, {name: "Propozicije", value: ""}
             ]);
+            this.teachers.push([]);
           }
 
           for (let i = 0; i < courseInfos.length; i++) {
@@ -55,9 +57,14 @@ export class CourseComponent implements OnInit {
 
             this.coursesService.getTeachingByCoursename(coursename).subscribe((teaching: Teaching[])=>{
               console.log(teaching);
+              var flags = [];
               teaching.forEach(t => {
                 this.employeesService.getEmployee(t.username).subscribe((teacher: Employee)=>{
                   this.dataSources[i][9].value += t.group + ": " + teacher.firstName + " " + teacher.lastName + " ";
+                  if(!flags[teacher.username]){
+                    this.teachers[i].push(teacher);
+                    flags[teacher.username] = true;
+                  }
                 })
               });
             });
@@ -74,5 +81,6 @@ export class CourseComponent implements OnInit {
   courseInfos: CourseInfo[];
   displayedColumns: string[] = ['name', 'value'];
   dataSources: PeriodicElement[][] = [];
+  teachers: Employee[][] = [];
 
 }

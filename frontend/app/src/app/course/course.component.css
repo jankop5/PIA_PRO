@@ -74,3 +74,15 @@ table {
 .wrap-custom{
     min-width: 150px; word-wrap: break-word;
 }
+
+.a-custom{
+    margin-left: -25px;
+}
+
+.a-custom a{
+    color: whitesmoke;
+}
+
+.a-custom a:hover{
+    color: lightgray;
+}
