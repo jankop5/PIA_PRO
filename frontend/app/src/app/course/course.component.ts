@@ -8,6 +8,8 @@ import { CoursesService } from '../services/courses.service';
 import { EmployeesService } from '../services/employees.service';
 import { StudentsService } from '../services/students.service';
 import { Attending } from '../model/attending.model';
+import { FileUploader } from 'ng2-file-upload';
+import { FilesService } from '../services/files.service';
 
 export interface PeriodicElement {
   name: string;
@@ -23,9 +25,11 @@ export class CourseComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private coursesService: CoursesService, 
     private employeesService: EmployeesService, private studentsService: StudentsService,
-    private router: Router) { }
+    private router: Router, private filesService: FilesService) { }
 
   ngOnInit(): void {
+    this.uploaderSingle = this.filesService.uploaderSingle;
+    
     this.dataSources = [];
     this.teachers = [];
     this.route.params.subscribe(params => {
@@ -62,9 +66,6 @@ export class CourseComponent implements OnInit {
       this.course = course;
       this.coursesService.getCourseInfosByCoursename(coursename).subscribe((courseInfos: CourseInfo[])=>{
         this.courseInfos = courseInfos;
-        console.log(this.courseInfos);
-
-        
         for(let i = 0; i < courseInfos.length; i++){
           this.dataSources.push([
             {name: "Tip", value: ""}, {name: "Godina studija", value: ""}, {name: "Semseta", value: ""}, {name: "Šifra predmeta", value: ""},
@@ -87,7 +88,6 @@ export class CourseComponent implements OnInit {
           this.dataSources[i][8].value = ci.terms;
 
           this.coursesService.getTeachingByCoursename(coursename).subscribe((teaching: Teaching[])=>{
-            console.log(teaching);
             var flags = [];
             teaching.forEach(t => {
               this.employeesService.getEmployee(t.username).subscribe((teacher: Employee)=>{
@@ -107,4 +107,33 @@ export class CourseComponent implements OnInit {
     })
   }
 
+  uploaderSingle: FileUploader;
+  myfilename: string = "Naziv fajla";
+  showname(inputName: string) {
+    let element: HTMLInputElement = document.getElementById(inputName) as HTMLInputElement;
+    let file = element.files[0];
+    this.myfilename = file.name;
+  }
+
+  fileChangeEvent(fileInput: any) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      this.myfilename = fileInput.target.files[0].name;
+      /*Array.from(fileInput.target.files).forEach((file: File) => {
+        this.myfilename += file.name + ",";
+      });
+      this.myfilename = this.myfilename.slice(0, -1);*/
+    } else {
+      this.myfilename = "Naziv fajla";
+    }
+  }
+
+  sendFilesToServer() {
+    this.uploaderSingle.uploadAll();
+    this.myfilename = "Naziv fajla";
+  }
+
+  clearLoader(){
+    this.uploaderSingle.clearQueue();
+    this.myfilename = "Naziv fajla";
+  }
 }

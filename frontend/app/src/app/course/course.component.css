@@ -23,7 +23,7 @@
 }
 
 /* strelice */
-::ng-deep .course-tabs  .mat-ripple {
+::ng-deep .course-tabs  .mat-tab-header-pagination {
     background-color: var(--purple-color) !important;
 }
 
@@ -85,4 +85,17 @@ table {
 
 .a-custom a:hover{
     color: lightgray;
+}
+
+.tab-content{
+    min-height: 600px;
+    height: 600px;
+    background-color: var(--dark-color);
+}
+
+.h-custom {
+    color: white;
+    display: inline-block;
+    padding: 5px 10px;
+    line-height: 140%;
 }

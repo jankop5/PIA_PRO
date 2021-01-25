@@ -1,12 +1,13 @@
-import express from 'express';
+import express, { Request } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+import mongoose, { Error } from 'mongoose';
 import users from './model/users';
 import courses from './model/courses';
 import teaching from './model/teaching';
 import coursesinfo from './model/coursesinfo';
 import attending from './model/attending';
+import multer from 'multer';
 
 const app = express();
 
@@ -23,6 +24,30 @@ conn.once('open', ()=>{
 
 const router = express.Router();
 
+const storage = multer.diskStorage({
+    destination: function (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, destination: string) => void) {
+        callback(null, './uploads/');
+    },
+    filename: function (req: Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) {
+        callback(null, Date.now() + file.originalname);
+    }
+});
+  
+var uploadSingle = multer({ storage: storage }).single('myFile');
+
+router.route('/upload').post((req, res)=>{
+    var path = '';
+    uploadSingle(req, res, function (err) {
+        if (err) {
+          // An error occurred when uploading
+          console.log(err);
+          return res.status(422).send("an Error occured")
+        }  
+       // No error occured.
+        path = req.file.path;
+        return res.send("Upload Completed for "+path); 
+  });     
+});
 
 router.route('/login').post((req, res)=>{
     let username = req.body.username;

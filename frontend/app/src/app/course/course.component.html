@@ -11,7 +11,7 @@
             
         </mat-tab>
 
-        <mat-tab label="Informacije">
+        <mat-tab label="O predmetu">
             <mat-tab-group class="course-info-tabs" headerPosition="below" color="primary" mat-align-tabs="center" mat-stretch-tabs>
                 <div *ngFor="let courseInfo of courseInfos; index as i">
                     <mat-tab label="{{courseInfo.module}}">
@@ -54,9 +54,18 @@
         </mat-tab>
 
         <mat-tab label="Predavanja">
-            <p>
-                ABRA
-            </p>
+            <div class="tab-content">
+                
+                <input hidden #fileInputPredavanja id="fileInputPredavanja" 
+                type="file" ng2FileSelect [uploader]="uploaderSingle" (change)="fileChangeEvent($event)">
+                
+                <mat-form-field class="h-custom">
+                    <input matInput [(ngModel)]="myfilename" readonly name="memberContactNo" />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="fileInputPredavanja.click()">Odaberi fajl</button>
+                <button mat-raised-button (click)="sendFilesToServer()">Pošalji odabrane</button>
+                <button mat-raised-button (click)="clearLoader()" color="warn">Resetuj odabir</button>
+            </div>
         </mat-tab>
 
         <mat-tab label="Vežbe">
@@ -75,5 +84,4 @@
         
         </mat-tab>
     </mat-tab-group>
-
 </div>

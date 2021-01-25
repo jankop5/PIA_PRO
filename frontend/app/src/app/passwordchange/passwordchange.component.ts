@@ -12,13 +12,15 @@ export class PasswordchangeComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+    let passwordChanged: boolean = JSON.parse(localStorage.getItem("passwordChanged"));
+    this.changeFailed = passwordChanged ? "" : "Promena lozinke je obavezna prilikom prvog logovanja u sistem!";
   }
 
   hide1: boolean = true;
   hide2: boolean = true;
   oldPassword: string;
   newPassword: string;
-  changeFailed: string = "";
+  changeFailed: string;
 
   changePassword(){
     this.loginService.changePassword(this.oldPassword, this.newPassword).subscribe((res: String)=>{

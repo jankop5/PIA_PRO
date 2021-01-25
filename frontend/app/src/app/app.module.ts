@@ -33,6 +33,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
 import { MatTableModule } from '@angular/material/table';
 import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { PasswordchangeComponent } from './passwordchange/passwordchange.compone
     FormsModule,
     MatCardModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
