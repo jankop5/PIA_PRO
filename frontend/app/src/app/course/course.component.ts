@@ -10,6 +10,8 @@ import { StudentsService } from '../services/students.service';
 import { Attending } from '../model/attending.model';
 import { FileUploader } from 'ng2-file-upload';
 import { FilesService } from '../services/files.service';
+import { FileModel } from '../model/file.model';
+import { saveAs } from 'file-saver';
 
 export interface PeriodicElement {
   name: string;
@@ -25,11 +27,11 @@ export class CourseComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private coursesService: CoursesService, 
     private employeesService: EmployeesService, private studentsService: StudentsService,
-    private router: Router, private filesService: FilesService) { }
+    private router: Router, private filesService: FilesService) { 
+      this.initUploaders();
+    }
 
   ngOnInit(): void {
-    this.uploaderSingle = this.filesService.uploaderSingle;
-    
     this.dataSources = [];
     this.teachers = [];
     this.route.params.subscribe(params => {
@@ -52,6 +54,7 @@ export class CourseComponent implements OnInit {
       }
 
       this.loadCourse(coursename);
+      this.getAllFiles();
    });
   }
   
@@ -107,33 +110,62 @@ export class CourseComponent implements OnInit {
     })
   }
 
-  uploaderSingle: FileUploader;
-  myfilename: string = "Naziv fajla";
-  showname(inputName: string) {
-    let element: HTMLInputElement = document.getElementById(inputName) as HTMLInputElement;
-    let file = element.files[0];
-    this.myfilename = file.name;
-  }
+  
+  defaultFileName: string = "";
+  myFileNames: string[];
 
-  fileChangeEvent(fileInput: any) {
+  fileChangeEvent(fileInput: any, i: number) {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      this.myfilename = fileInput.target.files[0].name;
-      /*Array.from(fileInput.target.files).forEach((file: File) => {
-        this.myfilename += file.name + ",";
-      });
-      this.myfilename = this.myfilename.slice(0, -1);*/
-    } else {
-      this.myfilename = "Naziv fajla";
+      this.myFileNames[i] = fileInput.target.files[0].name;
+    } 
+  }
+
+  sendFilesToServer(i: number) {
+    // ako nije stranica sa obavestenjima onda se radi upload samo poslednjeg fajla
+    // ako je stranica sa obavestenjima onda se radi upload svih fajlova
+    if(i > 0){
+      while(this.uploaders[i].queue.length > 1 ){
+        this.uploaders[i].queue.shift();
+      }
     }
+    this.uploaders[i].uploadAll();
+    this.myFileNames[i] = "Naziv fajla";
   }
 
-  sendFilesToServer() {
-    this.uploaderSingle.uploadAll();
-    this.myfilename = "Naziv fajla";
+  clearLoader(i: number){
+    this.uploaders[i].clearQueue();
+    this.myFileNames[i] = "Naziv fajla";
   }
 
-  clearLoader(){
-    this.uploaderSingle.clearQueue();
-    this.myfilename = "Naziv fajla";
+  allFiles: FileModel[];
+
+  private getAllFiles(){
+    this.filesService.getAllFiles().subscribe((files: FileModel[])=>{
+      this.allFiles = files;
+      console.log(files);
+    })
+  }
+
+  download(uploadName: string){
+    this.filesService.download(uploadName).subscribe((data)=>{
+      saveAs(data, uploadName);
+    })
+  }
+
+  uploaders: FileUploader[];
+  fileKinds: string[] = ["obavestenja", "predavanja", "vezbe"];
+
+  private initUploaders(){
+    let URLSingle = 'http://localhost:4000/upload';
+    this.uploaders = [];
+    this.myFileNames = [];
+    for (let i = 0; i < 6; i++) {
+      this.myFileNames.push(this.defaultFileName);
+      this.uploaders.push(new FileUploader({url: URLSingle, itemAlias: 'myFile'}));
+      this.uploaders[i].onAfterAddingFile = (file)=> { file.withCredentials = false; };
+      this.uploaders[i].onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+        console.log("Upload:uploaded:", item, status, response);
+    };
+    }
   }
 }

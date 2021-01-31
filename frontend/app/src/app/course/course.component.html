@@ -8,7 +8,22 @@
 
     <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
         <mat-tab label="Obaveštenja">
-            
+            <div class="tab-content">
+                
+                <input hidden #fileInputObavestenja id="fileInputObavestenja" 
+                type="file" ng2FileSelect [uploader]="uploaders[0]" (change)="fileChangeEvent($event, 0)">
+                
+                <mat-form-field class="h-custom">
+                    <input matInput [(ngModel)]="myFileNames[0]" readonly name="memberContactNo" />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="fileInputObavestenja.click()">Odaberi fajl</button>
+                <button mat-raised-button (click)="sendFilesToServer(0)">Pošalji sve odabrane</button>
+                <button mat-raised-button (click)="clearLoader(0)" color="warn">Resetuj odabir</button>
+
+                <div *ngFor="let file of allFiles">
+                    {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
+                </div>
+            </div>
         </mat-tab>
 
         <mat-tab label="O predmetu">
@@ -57,19 +72,36 @@
             <div class="tab-content">
                 
                 <input hidden #fileInputPredavanja id="fileInputPredavanja" 
-                type="file" ng2FileSelect [uploader]="uploaderSingle" (change)="fileChangeEvent($event)">
+                type="file" ng2FileSelect [uploader]="uploaders[1]" (change)="fileChangeEvent($event, 1)">
                 
                 <mat-form-field class="h-custom">
-                    <input matInput [(ngModel)]="myfilename" readonly name="memberContactNo" />
+                    <input matInput [(ngModel)]="myFileNames[1]" readonly name="memberContactNo" />
                 </mat-form-field>
                 <button mat-raised-button color="primary" (click)="fileInputPredavanja.click()">Odaberi fajl</button>
-                <button mat-raised-button (click)="sendFilesToServer()">Pošalji odabrane</button>
-                <button mat-raised-button (click)="clearLoader()" color="warn">Resetuj odabir</button>
+                <button mat-raised-button (click)="sendFilesToServer(1)">Pošalji</button>
+
+                <div *ngFor="let file of allFiles">
+                    {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
+                </div>
             </div>
         </mat-tab>
 
         <mat-tab label="Vežbe">
-        
+            <div class="tab-content">
+                
+                <input hidden #fileInputVezbe id="fileInputVezbe" 
+                type="file" ng2FileSelect [uploader]="uploaders[2]" (change)="fileChangeEvent($event, 2)">
+                
+                <mat-form-field class="h-custom">
+                    <input matInput [(ngModel)]="myFileNames[2]" readonly name="memberContactNo" />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="fileInputVezbe.click()">Odaberi fajl</button>
+                <button mat-raised-button (click)="sendFilesToServer(2)">Pošalji</button>
+
+                <div *ngFor="let file of allFiles">
+                    {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
+                </div>
+            </div>
         </mat-tab>
         
         <mat-tab label="Ispitna pitanja">

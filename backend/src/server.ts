@@ -8,6 +8,9 @@ import teaching from './model/teaching';
 import coursesinfo from './model/coursesinfo';
 import attending from './model/attending';
 import multer from 'multer';
+import path from 'path';
+import file from './model/file';
+import files from './model/files';
 
 const app = express();
 
@@ -25,11 +28,11 @@ conn.once('open', ()=>{
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination: function (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, destination: string) => void) {
-        callback(null, './uploads/');
+    destination: function (req, file, cb) {
+        cb(null, './uploads');
     },
-    filename: function (req: Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) {
-        callback(null, Date.now() + file.originalname);
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname);
     }
 });
   
@@ -38,15 +41,42 @@ var uploadSingle = multer({ storage: storage }).single('myFile');
 router.route('/upload').post((req, res)=>{
     var path = '';
     uploadSingle(req, res, function (err) {
-        if (err) {
-          // An error occurred when uploading
-          console.log(err);
-          return res.status(422).send("an Error occured")
-        }  
-       // No error occured.
-        path = req.file.path;
-        return res.send("Upload Completed for "+path); 
+    //     if (err) {
+    //       // An error occurred when uploading
+    //       console.log(err);
+    //       return res.status(422).send("an Error occured")
+    //     }  
+    //    // No error occured.
+    //     path = req.file.path;
+    //     return res.send("Upload Completed for "+path); 
+        if(err){
+            console.log(err);
+        }
+        else{
+            let f = new files({
+                originalName: req.file.originalname,
+                uploadName: req.file.filename
+            });
+
+            f.save().then(succ => {
+                res.json({message: 1});
+            }).catch(err => {
+                res.json({message: -1});
+            })
+        }
   });     
+});
+
+router.route('/getAllFiles').get((req, res)=>{
+    files.find({}, (err, f)=>{
+        if(err) console.log(err);
+        else res.json(f);
+    })
+});
+
+router.route('/download').post((req, res)=>{
+    let filePath = path.join(__dirname, '../uploads') + '/' + req.body.fileName;
+    res.sendFile(filePath);
 });
 
 router.route('/login').post((req, res)=>{
