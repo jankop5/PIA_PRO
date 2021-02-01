@@ -17,6 +17,12 @@ let Courses = new Schema({
     },
     showProject: {
         type: Boolean
+    },
+    labInfo: {
+        type: String
+    },
+    projectInfo: {
+        type: String
     }
 });
 

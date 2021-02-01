@@ -4,4 +4,6 @@ export class Course{
     showExams: boolean;
     showLabs: boolean;
     showProject: boolean;
+    labInfo: string;
+    projectInfo: string;
 }

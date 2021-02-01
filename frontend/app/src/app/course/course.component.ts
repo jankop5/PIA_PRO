@@ -231,7 +231,8 @@ export class CourseComponent implements OnInit {
   }
 
   updateCourseShow(){
-    this.coursesService.updateCourseShow(this.course.coursename, this.course.showExams, this.course.showLabs, this.course.showProject).subscribe((res)=>{
+    this.coursesService.updateCourseShow(this.course.coursename, this.course.showExams, this.course.showLabs, this.course.showProject,
+      this.course.labInfo, this.course.projectInfo).subscribe((res)=>{
       if(res["message"] == 1){}
     });
   }

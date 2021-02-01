@@ -50,12 +50,14 @@ export class CoursesService {
     return this.http.post(`${this.uri}/teachingCoursesByCoursename`, data);
   }
 
-  updateCourseShow(coursename: string, showExams: boolean, showLabs: boolean, showProjects: boolean){
+  updateCourseShow(coursename: string, showExams: boolean, showLabs: boolean, showProjects: boolean, labInfo: string, projectInfo: string){
     let data = {
       coursename: coursename,
       showExams: showExams,
       showLabs: showLabs,
-      showProjects: showProjects
+      showProjects: showProjects,
+      labInfo: labInfo,
+      projectInfo: projectInfo
     }
 
     return this.http.post(`${this.uri}/updateCourseShow`, data);

@@ -132,10 +132,13 @@ router.route('/updateCourseShow').post((req, res)=>{
     let showExams = req.body.showExams;
     let showLabs = req.body.showLabs;
     let showProjects = req.body.showProjects;
+    let labInfo = req.body.labInfo;
+    let projectInfo = req.body.projectInfo;
     
     
     courses.collection.updateOne({'coursename': coursename}, { $set: {
-        "showExams": showExams, "showLabs": showLabs, "showProjects": showProjects
+        "showExams": showExams, "showLabs": showLabs, "showProjects": showProjects,
+        "labInfo": labInfo, "projectInfo": projectInfo
     }});
     
     
