@@ -117,23 +117,21 @@ export class CourseComponent implements OnInit {
 
   
   defaultFileName: string = "";
-  myFileNames: string[];
+  fileInfoNames: string[];
 
   fileChangeEvent(fileInput: any, i: number) {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      this.myFileNames[i] = fileInput.target.files[0].name;
+      this.fileInfoNames[i] = fileInput.target.files[0].name;
     } 
   }
 
   sendFilesToServer(i: number) {
     // ako nije stranica sa obavestenjima onda se radi upload samo poslednjeg fajla
-    // ako je stranica sa obavestenjima onda se radi upload svih fajlova
-    if(i > 0){
-      while(this.uploaders[i].queue.length > 1 ){
-        this.uploaders[i].queue.shift();
-        
-      }
+    while(this.uploaders[i].queue.length > 1 ){
+      this.uploaders[i].queue.shift();
+      
     }
+    
     /*let fi = {
       originalName: myFile.name,
       coursename: this.course.coursename,
@@ -156,22 +154,29 @@ export class CourseComponent implements OnInit {
       this.getAllFiles();
     }
     this.uploaders[i].uploadAll();
-    this.myFileNames[i] = this.defaultFileName;
+    this.fileInfoNames[i] = this.defaultFileName;
     
   }
 
   clearLoader(i: number){
     this.uploaders[i].clearQueue();
-    this.myFileNames[i] = this.defaultFileName;
+    this.fileInfoNames[i] = this.defaultFileName;
   }
 
-  allFiles: FileInfo[];
+  allFiles: FileInfo[][];
+  fileKinds: string[] = ["predavanja", "vežbe", "rokovi", "lab", "projekat"];
 
   private getAllFiles(){
+    this.allFiles = [];
     this.filesService.getAllFiles().subscribe((files: FileInfo[])=>{
-      this.allFiles = files.sort(function (a, b) {
+      let f = files.sort((a, b) => {
         return a.order - b.order;
       });
+      for (let i = 0; i < this.fileKinds.length; i++) {
+        this.allFiles.push(f.filter(file => {
+          return file.kind == this.fileKinds[i];
+        }));      
+      }
     })
   }
 
@@ -189,34 +194,45 @@ export class CourseComponent implements OnInit {
     })
   }
 
-  updateOrder(){
-    this.allFiles.forEach(f => {
-      if(f.order == null){
+  updateOrder(ix: number){
+    let uploadNames: string[] = [];
+    let orders: number[] = [];
+    for (let i = 0; i < this.allFiles[ix].length; i++) {
+      if(this.allFiles[ix][i].order == null){
         return;
       }
-    })
-    this.allFiles.forEach(f => {
-      this.filesService.updateFilesInfoOrder(f.uploadName, f.order).subscribe((res)=>{
-        
-      });
+      uploadNames.push(this.allFiles[ix][i].uploadName);
+      orders.push(this.allFiles[ix][i].order);
+    }
+
+    this.filesService.updateFilesInfoOrder(uploadNames, orders).subscribe((res)=>{
+      if(res["message"] == 1){
+        this.getAllFiles();
+      }
     });
-    setTimeout(() => { this.getAllFiles(); }, 1000);
+
   }
 
   uploaders: FileUploader[];
-  fileKinds: string[] = ["obavestenja", "predavanja", "vezbe"];
+
 
   private initUploaders(){
     let URLSingle = 'http://localhost:4000/upload';
     this.uploaders = [];
-    this.myFileNames = [];
-    for (let i = 0; i < 6; i++) {
-      this.myFileNames.push(this.defaultFileName);
-      this.uploaders.push(new FileUploader({url: URLSingle, itemAlias: 'myFile'}));
+    this.fileInfoNames = [];
+    for (let i = 0; i < this.fileKinds.length; i++) {
+      this.fileInfoNames.push(this.defaultFileName);
+      this.uploaders.push(new FileUploader({url: URLSingle, itemAlias: 'fileInfo'}));
       this.uploaders[i].onAfterAddingFile = (file)=> { file.withCredentials = false; };
       this.uploaders[i].onCompleteItem = (item:any, response:any, status:any, headers:any) => {
         console.log("Upload:uploaded:", item, status, response);
     };
     }
+  }
+
+  updateCourseShow(){
+    this.coursesService.updateCourseShow(this.course.coursename, this.course.showExams, this.course.showLabs, this.course.showProject).subscribe((res)=>{
+      if(res["message"] == 1){}
+    });
   }
 }

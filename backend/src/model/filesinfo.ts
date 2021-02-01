@@ -24,7 +24,7 @@ let FilesInfo = new Schema({
     date: {
         type: String
     },
-    username: {
+    teacher: {
         type: String
     },
     order: {

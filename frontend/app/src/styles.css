@@ -217,3 +217,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
    .mat-form-field-appearance-outline input.mat-input-element {
 	color: black;
 }
+
+.fill-remaining-space{
+	flex: 1 1 auto;
+}

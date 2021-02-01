@@ -36,18 +36,10 @@ const storage = multer.diskStorage({
     }
 });
   
-var uploadSingle = multer({ storage: storage }).single('myFile');
+var uploadFilesInfo = multer({ storage: storage }).single('fileInfo');
 
 router.route('/upload').post((req, res)=>{
-    uploadSingle(req, res, function (err) {
-    //     if (err) {
-    //       // An error occurred when uploading
-    //       console.log(err);
-    //       return res.status(422).send("an Error occured")
-    //     }  
-    //    // No error occured.
-    //     path = req.file.path;
-    //     return res.send("Upload Completed for "+path); 
+    uploadFilesInfo(req, res, function (err) {
         if(err){
             console.log(err);
         }
@@ -115,12 +107,38 @@ router.route('/deleteFilesInfo').post((req, res)=>{
     })
 });
 
+// router.route('/updateFilesInfoOrder').post((req, res)=>{
+//     let uploadName = req.body.uploadName;
+//     let order = req.body.order;
+//     console.log(uploadName);
+//     console.log(order);
+//     filesinfo.collection.updateOne({'uploadName': uploadName}, { $set: {"order": order} });
+//     res.json({message: 1});
+// });
+
 router.route('/updateFilesInfoOrder').post((req, res)=>{
-    let uploadName = req.body.uploadName;
-    let order = req.body.order;
-    console.log(uploadName);
-    console.log(order);
-    filesinfo.collection.updateOne({'uploadName': uploadName}, { $set: {"order": order} });
+    let uploadNames: string[] = req.body.uploadNames;
+    let orders: number[] = req.body.orders;
+    
+    for (let i = 0; i < uploadNames.length; i++) {
+        filesinfo.collection.updateOne({'uploadName': uploadNames[i]}, { $set: {"order": orders[i]} });
+    }
+    
+    res.json({message: 1});
+});
+
+router.route('/updateCourseShow').post((req, res)=>{
+    let coursename = req.body.coursename;
+    let showExams = req.body.showExams;
+    let showLabs = req.body.showLabs;
+    let showProjects = req.body.showProjects;
+    
+    
+    courses.collection.updateOne({'coursename': coursename}, { $set: {
+        "showExams": showExams, "showLabs": showLabs, "showProjects": showProjects
+    }});
+    
+    
     res.json({message: 1});
 });
 

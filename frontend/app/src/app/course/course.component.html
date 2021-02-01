@@ -10,11 +10,11 @@
         <mat-tab label="Obaveštenja">
             <div class="tab-content">
                 
-                <input hidden #fileInputObavestenja id="fileInputObavestenja" 
+                <!-- <input hidden #fileInputObavestenja id="fileInputObavestenja" 
                 type="file" ng2FileSelect [uploader]="uploaders[0]" (change)="fileChangeEvent($event, 0)">
                 
                 <mat-form-field class="h-custom">
-                    <input matInput [(ngModel)]="myFileNames[0]" readonly name="memberContactNo" />
+                    <input matInput [(ngModel)]="fileInfoNames[0]" readonly name="memberContactNo" />
                 </mat-form-field>
                 <button mat-raised-button color="primary" (click)="fileInputObavestenja.click()">Odaberi fajl</button>
                 <button mat-raised-button (click)="sendFilesToServer(0)">Pošalji sve odabrane</button>
@@ -22,7 +22,7 @@
 
                 <div *ngFor="let file of allFiles">
                     {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
-                </div>
+                </div> -->
             </div>
         </mat-tab>
 
@@ -71,62 +71,253 @@
         <mat-tab label="Predavanja">
             <div class="tab-content">
                 
-                <input hidden #fileInputPredavanja id="fileInputPredavanja" 
-                type="file" ng2FileSelect [uploader]="uploaders[1]" (change)="fileChangeEvent($event, 1)">
-                
-                <mat-form-field class="h-custom">
-                    <input matInput [(ngModel)]="myFileNames[1]" readonly name="memberContactNo" />
-                </mat-form-field>
-                <button mat-raised-button color="primary" (click)="fileInputPredavanja.click()">Odaberi fajl</button>
-                <button mat-raised-button (click)="sendFilesToServer(1)">Pošalji</button>
+                <div *ngIf="type == 1">
+                    <input hidden #fileInputPredavanja id="fileInputPredavanja" 
+                    type="file" ng2FileSelect [uploader]="uploaders[0]" (change)="fileChangeEvent($event, 0)">
+                    <mat-form-field class="h-custom">
+                        <input matInput [(ngModel)]="fileInfoNames[0]" readonly name="memberContactNo" />
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="fileInputPredavanja.click()">Odaberi fajl</button>
+                    &nbsp;
+                    <button mat-raised-button (click)="sendFilesToServer(0)">Pošalji</button>
+                    <br>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateOrder(0)">Ažuriraj redosled</button>
+                    <br><br>
+                    <mat-divider></mat-divider>
+                </div>      
 
-                <div *ngFor="let file of allFiles">
-                    {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
-                </div>
+                <mat-list>
+                    <mat-list-item *ngFor="let file of allFiles[0]">
+                      <mat-icon mat-list-icon>article</mat-icon>
+                      <div mat-line> {{file.originalName}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.type}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.size}} KB</div>
+                      <div mat-line *ngIf="type == 1"> {{file.date}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.teacher}} </div>
+                      <div *ngIf="type == 1">
+                        Redosled: &nbsp;
+                        <mat-form-field class="w-40" >
+                          <input type="number" matInput [(ngModel)]="file.order"/>
+                        </mat-form-field>
+                        &nbsp;
+                        <button mat-raised-button color="warn" (click)="delete(file.uploadName)">Obriši</button>
+                        &nbsp;
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+                      <div *ngIf="type != 1">
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+
+                      <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
             </div>
         </mat-tab>
 
         <mat-tab label="Vežbe">
             <div class="tab-content">
-                <input hidden #fileInputVezbe id="fileInputVezbe" 
-                type="file" ng2FileSelect [uploader]="uploaders[2]" (change)="fileChangeEvent($event, 2)">
-                
-                <mat-form-field class="h-custom">
-                    <input matInput [(ngModel)]="myFileNames[2]" readonly name="memberContactNo" />
-                </mat-form-field>
-                <button mat-raised-button color="primary" (click)="fileInputVezbe.click()">Odaberi fajl</button>
-                <button mat-raised-button (click)="sendFilesToServer(2)">Pošalji</button>
-                <mat-divider></mat-divider>
+                <div *ngIf="type == 1">
+                    <input hidden #fileInputVezbe id="fileInputVezbe" 
+                    type="file" ng2FileSelect [uploader]="uploaders[1]" (change)="fileChangeEvent($event, 1)">
+                    <mat-form-field class="h-custom">
+                        <input matInput [(ngModel)]="fileInfoNames[1]" readonly name="memberContactNo" />
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="fileInputVezbe.click()">Odaberi fajl</button>
+                    &nbsp;
+                    <button mat-raised-button (click)="sendFilesToServer(1)">Pošalji</button>
+                    <br>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateOrder(1)">Ažuriraj redosled</button>
+                    <br><br>
+                    <mat-divider></mat-divider>
+                </div>      
+
                 <mat-list>
-                    <mat-list-item *ngFor="let file of allFiles">
-                      <mat-icon mat-list-icon>folder</mat-icon>
+                    <mat-list-item *ngFor="let file of allFiles[1]">
+                      <mat-icon mat-list-icon>article</mat-icon>
                       <div mat-line> {{file.originalName}} </div>
-                      <div mat-line> {{file.type}} </div>
-                      <div mat-line> {{file.size}} </div>
-                      <div mat-line> {{file.date}} </div>
-                      <div mat-line> {{file.teacher}} </div>
-                      <mat-form-field >
-                        <input type="number" matInput [(ngModel)]="file.order"/>
-                      </mat-form-field>
-                      <button mat-raised-button color="warn" (click)="delete(file.uploadName)">Obrisi</button>
-                      <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      <div mat-line *ngIf="type == 1"> {{file.type}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.size}} KB</div>
+                      <div mat-line *ngIf="type == 1"> {{file.date}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.teacher}} </div>
+                      <div *ngIf="type == 1">
+                        Redosled: &nbsp;
+                        <mat-form-field class="w-40" >
+                          <input type="number" matInput [(ngModel)]="file.order"/>
+                        </mat-form-field>
+                        &nbsp;
+                        <button mat-raised-button color="warn" (click)="delete(file.uploadName)">Obriši</button>
+                        &nbsp;
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+                      <div *ngIf="type != 1">
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+
                       <mat-divider></mat-divider>
                     </mat-list-item>
                 </mat-list>
-                <button mat-raised-button (click)="updateOrder()">Azuriraj redosled</button>
             </div>
         </mat-tab>
         
-        <mat-tab label="Ispitna pitanja">
-            
+        <mat-tab label="Ispitna pitanja" *ngIf="type != 2 || course.showExams">
+            <div class="tab-content">
+                <div *ngIf="type == 1">
+                    <input hidden #fileInputRokovi id="fileInputRokovi" 
+                    type="file" ng2FileSelect [uploader]="uploaders[2]" (change)="fileChangeEvent($event, 2)">
+                    <mat-form-field class="h-custom">
+                        <input matInput [(ngModel)]="fileInfoNames[2]" readonly name="memberContactNo" />
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="fileInputRokovi.click()">Odaberi fajl</button>
+                    &nbsp;
+                    <button mat-raised-button (click)="sendFilesToServer(2)">Pošalji</button>
+                    <br>
+                    &nbsp;
+                    <mat-slide-toggle color="primary" [(ngModel)]="course.showExams">
+                        <span class="color-custom">Prikaz ispitnih pitanja</span>
+                    </mat-slide-toggle>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateCourseShow()">Sačuvaj</button>
+                    <br><br>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateOrder(2)">Ažuriraj redosled</button>
+                    <br><br>
+                    <mat-divider></mat-divider>
+                </div>      
+
+                <mat-list>
+                    <mat-list-item *ngFor="let file of allFiles[2]">
+                      <mat-icon mat-list-icon>article</mat-icon>
+                      <div mat-line> {{file.originalName}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.type}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.size}} KB</div>
+                      <div mat-line *ngIf="type == 1"> {{file.date}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.teacher}} </div>
+                      <div *ngIf="type == 1">
+                        Redosled: &nbsp;
+                        <mat-form-field class="w-40" >
+                          <input type="number" matInput [(ngModel)]="file.order"/>
+                        </mat-form-field>
+                        &nbsp;
+                        <button mat-raised-button color="warn" (click)="delete(file.uploadName)">Obriši</button>
+                        &nbsp;
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+                      <div *ngIf="type != 1">
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+
+                      <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+            </div>
         </mat-tab>
 
-        <mat-tab label="Laboratorija">
-        
+        <mat-tab label="Laboratorija" *ngIf="type != 2 || course.showLabs">
+            <div class="tab-content">
+                <div *ngIf="type == 1">
+                    <input hidden #fileInputLab id="fileInputLab" 
+                    type="file" ng2FileSelect [uploader]="uploaders[3]" (change)="fileChangeEvent($event, 3)">
+                    <mat-form-field class="h-custom">
+                        <input matInput [(ngModel)]="fileInfoNames[3]" readonly name="memberContactNo" />
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="fileInputLab.click()">Odaberi fajl</button>
+                    &nbsp;
+                    <button mat-raised-button (click)="sendFilesToServer(3)">Pošalji</button>
+                    <br>
+                    &nbsp;
+                    <mat-slide-toggle color="primary" [(ngModel)]="course.showLabs">
+                        <span class="color-custom">Prikaz laboratorijskih vežbi</span>
+                    </mat-slide-toggle>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateCourseShow()">Sačuvaj</button>
+                    <br><br>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateOrder(3)">Ažuriraj redosled</button>
+                    <br><br>
+                    <mat-divider></mat-divider>
+                </div>      
+
+                <mat-list>
+                    <mat-list-item *ngFor="let file of allFiles[3]">
+                      <mat-icon mat-list-icon>article</mat-icon>
+                      <div mat-line> {{file.originalName}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.type}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.size}} KB</div>
+                      <div mat-line *ngIf="type == 1"> {{file.date}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.teacher}} </div>
+                      <div *ngIf="type == 1">
+                        Redosled: &nbsp;
+                        <mat-form-field class="w-40" >
+                          <input type="number" matInput [(ngModel)]="file.order"/>
+                        </mat-form-field>
+                        &nbsp;
+                        <button mat-raised-button color="warn" (click)="delete(file.uploadName)">Obriši</button>
+                        &nbsp;
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+                      <div *ngIf="type != 1">
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+
+                      <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+            </div>
         </mat-tab>
 
-        <mat-tab label="Projekat">
-        
+        <mat-tab label="Projekat" *ngIf="type != 2 || course.showProject">
+            <div class="tab-content">
+                <div *ngIf="type == 1">
+                    <input hidden #fileInputProjekat id="fileInputProjekat" 
+                    type="file" ng2FileSelect [uploader]="uploaders[4]" (change)="fileChangeEvent($event, 4)">
+                    <mat-form-field class="h-custom">
+                        <input matInput [(ngModel)]="fileInfoNames[4]" readonly name="memberContactNo" />
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="fileInputProjekat.click()">Odaberi fajl</button>
+                    &nbsp;
+                    <button mat-raised-button (click)="sendFilesToServer(4)">Pošalji</button>
+                    <br>
+                    &nbsp;
+                    <mat-slide-toggle color="primary" [(ngModel)]="course.showProject">
+                        <span class="color-custom">Prikaz projekta</span>
+                    </mat-slide-toggle>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateCourseShow()">Sačuvaj</button>
+                    <br><br>
+                    &nbsp;
+                    <button mat-raised-button color="primary" (click)="updateOrder(3)">Ažuriraj redosled</button>
+                    <br><br>
+                    <mat-divider></mat-divider>
+                </div>      
+
+                <mat-list>
+                    <mat-list-item *ngFor="let file of allFiles[4]">
+                      <mat-icon mat-list-icon>article</mat-icon>
+                      <div mat-line> {{file.originalName}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.type}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.size}} KB</div>
+                      <div mat-line *ngIf="type == 1"> {{file.date}} </div>
+                      <div mat-line *ngIf="type == 1"> {{file.teacher}} </div>
+                      <div *ngIf="type == 1">
+                        Redosled: &nbsp;
+                        <mat-form-field class="w-40" >
+                          <input type="number" matInput [(ngModel)]="file.order"/>
+                        </mat-form-field>
+                        &nbsp;
+                        <button mat-raised-button color="warn" (click)="delete(file.uploadName)">Obriši</button>
+                        &nbsp;
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+                      <div *ngIf="type != 1">
+                        <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      </div>
+
+                      <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+            </div>
         </mat-tab>
     </mat-tab-group>
 </div>

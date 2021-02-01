@@ -31,6 +31,7 @@
 .course-info-tabs{
     min-height: 600px;
     height: 600px;
+    overflow-y: auto;
 }
 
 ::ng-deep .course-info-tabs .mat-tab-body-wrapper{
@@ -89,6 +90,8 @@ table {
 
 .tab-content{
     min-height: 600px;
+    height: 600px;
+    overflow-y: auto;
     background-color: var(--dark-color);
 }
 
@@ -97,4 +100,14 @@ table {
     display: inline-block;
     padding: 5px 10px;
     line-height: 140%;
+    max-width: 100px;
+}
+
+.w-40 {
+    max-width: 40px;
+}
+
+.color-custom{
+    font-size: 16px;
+    color: white;
 }

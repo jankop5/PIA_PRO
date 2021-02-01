@@ -34,7 +34,7 @@ import { CourseComponent } from './course/course.component';
 import { MatTableModule } from '@angular/material/table';
 import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +71,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MatCardModule,
     MatExpansionModule,
     MatTableModule,
-    FileUploadModule
+    FileUploadModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
