@@ -10,8 +10,8 @@ import { StudentsService } from '../services/students.service';
 import { Attending } from '../model/attending.model';
 import { FileUploader } from 'ng2-file-upload';
 import { FilesService } from '../services/files.service';
-import { FileModel } from '../model/file.model';
 import { saveAs } from 'file-saver';
+import { FileInfo } from '../model/fileinfo.model';
 
 export interface PeriodicElement {
   name: string;
@@ -36,17 +36,17 @@ export class CourseComponent implements OnInit {
     this.teachers = [];
     this.route.params.subscribe(params => {
       let coursename = params['coursename'];
-      let username = localStorage.getItem("username");
+      this.username  = localStorage.getItem("username");
       let type:number = JSON.parse(localStorage.getItem("type"));
       if(type == 1){
-        this.employeesService.isTeachingCourse(username, coursename).subscribe((t: Teaching)=>{
+        this.employeesService.isTeachingCourse(this.username, coursename).subscribe((t: Teaching)=>{
           if(!t){
             this.router.navigate(['/']);
           }
         });
       }
       else if(type == 2){
-        this.studentsService.isAttendingCourse(username, coursename).subscribe((a: Attending)=>{
+        this.studentsService.isAttendingCourse(this.username, coursename).subscribe((a: Attending)=>{
           if(!a){
             this.router.navigate(['/']);
           }
@@ -58,6 +58,7 @@ export class CourseComponent implements OnInit {
    });
   }
   
+  username: string;
   course: Course;
   courseInfos: CourseInfo[];
   displayedColumns: string[] = ['name', 'value'];
@@ -126,29 +127,59 @@ export class CourseComponent implements OnInit {
     if(i > 0){
       while(this.uploaders[i].queue.length > 1 ){
         this.uploaders[i].queue.shift();
+        
       }
     }
+    /*let fi = {
+      originalName: myFile.name,
+      coursename: this.course.coursename,
+      type: this.uploaders[i].queue[0].file.name.split('.').pop(),
+      size: Math.round((this.uploaders[i].queue[0].file.size / 1024)),
+      kind: this.fileKinds[i],
+      date: (new Date()).toLocaleDateString(),
+      username: this.username,
+      order: 0
+    }*/
+    this.uploaders[i].onBuildItemForm = (item, form) => {
+      form.append("coursename", this.course.coursename);
+      form.append("type", this.uploaders[i].queue[0].file.name.split('.').pop());
+      form.append("size", Math.round((this.uploaders[i].queue[0].file.size / 1024)));
+      form.append("kind", this.fileKinds[i]);
+      form.append("date", (new Date()).toLocaleDateString());
+      form.append("username", this.username);
+    };
+    this.uploaders[i].onCompleteAll = ()=>{
+      this.getAllFiles();
+    }
     this.uploaders[i].uploadAll();
-    this.myFileNames[i] = "Naziv fajla";
+    this.myFileNames[i] = this.defaultFileName;
+    
   }
 
   clearLoader(i: number){
     this.uploaders[i].clearQueue();
-    this.myFileNames[i] = "Naziv fajla";
+    this.myFileNames[i] = this.defaultFileName;
   }
 
-  allFiles: FileModel[];
+  allFiles: FileInfo[];
 
   private getAllFiles(){
-    this.filesService.getAllFiles().subscribe((files: FileModel[])=>{
+    this.filesService.getAllFiles().subscribe((files: FileInfo[])=>{
       this.allFiles = files;
-      console.log(files);
     })
   }
 
   download(uploadName: string){
     this.filesService.download(uploadName).subscribe((data)=>{
       saveAs(data, uploadName);
+    })
+  }
+
+  delete(uploadName: string){
+    this.filesService.deleteFilesInfo(uploadName).subscribe((res)=>{
+      if(res["message"]==1){
+        this.getAllFiles();
+      } 
     })
   }
 

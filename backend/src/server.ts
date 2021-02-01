@@ -9,8 +9,8 @@ import coursesinfo from './model/coursesinfo';
 import attending from './model/attending';
 import multer from 'multer';
 import path from 'path';
-import file from './model/file';
 import files from './model/files';
+import filesinfo from './model/filesinfo';
 
 const app = express();
 
@@ -39,7 +39,6 @@ const storage = multer.diskStorage({
 var uploadSingle = multer({ storage: storage }).single('myFile');
 
 router.route('/upload').post((req, res)=>{
-    var path = '';
     uploadSingle(req, res, function (err) {
     //     if (err) {
     //       // An error occurred when uploading
@@ -53,9 +52,16 @@ router.route('/upload').post((req, res)=>{
             console.log(err);
         }
         else{
-            let f = new files({
+            let f = new filesinfo({
                 originalName: req.file.originalname,
-                uploadName: req.file.filename
+                uploadName: req.file.filename,
+                coursename: req.body.coursename,
+                type: req.body.type,
+                size: req.body.size,
+                kind: req.body.kind,
+                date: req.body.date,
+                username: req.body.username,
+                order: 0
             });
 
             f.save().then(succ => {
@@ -67,8 +73,29 @@ router.route('/upload').post((req, res)=>{
   });     
 });
 
-router.route('/getAllFiles').get((req, res)=>{
-    files.find({}, (err, f)=>{
+/*router.route('/insertFileInfo').post((req, res)=>{
+    let fi = new filesinfo(req.body);
+    filesinfo.findOne({'originalName': req.body.originalName}, (err, user)=>{
+        if(err) console.log(err);
+        else {
+            if(user){
+                filesinfo.updateOne({'originalName': req.body.originalName}, {
+                    $set: {
+                        "coursename" : req.body.coursename, 
+                        "type" : req.body.type,
+                        "size" : req.body.size,
+                        "kind" : req.body.kind,
+                        "date" : req.header.
+                }
+                });
+            }
+        }
+    })
+     
+});*/
+
+router.route('/getAllFilesInfo').get((req, res)=>{
+    filesinfo.find({}, (err, f)=>{
         if(err) console.log(err);
         else res.json(f);
     })
@@ -77,6 +104,15 @@ router.route('/getAllFiles').get((req, res)=>{
 router.route('/download').post((req, res)=>{
     let filePath = path.join(__dirname, '../uploads') + '/' + req.body.fileName;
     res.sendFile(filePath);
+});
+
+router.route('/deleteFilesInfo').post((req, res)=>{
+    let uploadName = req.body.uploadName;
+
+    filesinfo.deleteOne({'uploadName': uploadName}, (err) => {
+        if(err) console.log(err);
+        else res.json({message: 1});
+    })
 });
 
 router.route('/login').post((req, res)=>{

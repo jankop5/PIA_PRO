@@ -88,7 +88,6 @@
 
         <mat-tab label="Vežbe">
             <div class="tab-content">
-                
                 <input hidden #fileInputVezbe id="fileInputVezbe" 
                 type="file" ng2FileSelect [uploader]="uploaders[2]" (change)="fileChangeEvent($event, 2)">
                 
@@ -97,10 +96,20 @@
                 </mat-form-field>
                 <button mat-raised-button color="primary" (click)="fileInputVezbe.click()">Odaberi fajl</button>
                 <button mat-raised-button (click)="sendFilesToServer(2)">Pošalji</button>
-
-                <div *ngFor="let file of allFiles">
-                    {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
-                </div>
+                <mat-divider></mat-divider>
+                <mat-list>
+                    <mat-list-item *ngFor="let file of allFiles">
+                      <mat-icon mat-list-icon>folder</mat-icon>
+                      <div mat-line> {{file.originalName}} </div>
+                      <div mat-line> {{file.type}} </div>
+                      <div mat-line> {{file.size}} </div>
+                      <div mat-line> {{file.date}} </div>
+                      <div mat-line> {{file.username}} </div>
+                      <button mat-raised-button color="warn" (click)="delete(file.uploadName)">Obrisi</button>
+                      <button mat-raised-button (click)="download(file.uploadName)">Preuzmi</button>
+                      <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
             </div>
         </mat-tab>
         

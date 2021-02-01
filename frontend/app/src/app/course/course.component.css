@@ -89,7 +89,6 @@ table {
 
 .tab-content{
     min-height: 600px;
-    height: 600px;
     background-color: var(--dark-color);
 }
 
