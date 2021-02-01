@@ -59,7 +59,7 @@
 }
 
 /* strelice */
-::ng-deep .course-info-tabs .mat-ripple {
+::ng-deep .course-info-tabs .mat-tab-header-pagination  {
     background-color: var(--red-color) !important;
 }
 
@@ -117,4 +117,28 @@ table {
     display: inline-block;
     line-height: 140%;
     width: 98%;
+}
+
+.title{
+    font-size: 18px;
+    color: white;
+}
+
+.notice{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.titleColored{
+    color: var(--purple-color)!important;
+    font-weight: 600;
+    font-size: 20px;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.dateColored{
+    color: var(--purple-color)!important;
+    font-weight: 600;
+    font-size: 15px;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 }

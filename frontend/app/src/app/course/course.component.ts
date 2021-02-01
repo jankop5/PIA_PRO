@@ -12,6 +12,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { FilesService } from '../services/files.service';
 import { saveAs } from 'file-saver';
 import { FileInfo } from '../model/fileinfo.model';
+import { Notice } from '../model/notice.model';
 
 export interface PeriodicElement {
   name: string;
@@ -68,6 +69,7 @@ export class CourseComponent implements OnInit {
   displayedColumns: string[] = ['name', 'value'];
   dataSources: PeriodicElement[][] = [];
   teachers: Employee[][] = [];
+  courseInfoNotices: Notice[][] = [];
 
   private loadCourse(coursename: string){
     this.coursesService.getCourse(coursename).subscribe((course: Course)=>{
@@ -81,6 +83,7 @@ export class CourseComponent implements OnInit {
             {name: "Termini nastave", value: ""}, {name: "Grupe", value: ""}, {name: "Propozicije", value: ""}
           ]);
           this.teachers.push([]);
+          this.courseInfoNotices.push([]);
         }
 
         for (let i = 0; i < courseInfos.length; i++) {
@@ -109,6 +112,15 @@ export class CourseComponent implements OnInit {
           });
           
           this.dataSources[i][10].value = ci.propositions;
+
+          this.filesService.getNoticesForCode(ci.code).subscribe((notices: Notice[])=>{
+            notices = notices.filter(n => {
+              return (new Date()).getTime() > (new Date(n.date)).getTime(); 
+            })
+            this.courseInfoNotices[i] = notices.sort((a, b)=>{
+              return (new Date(b.date)).getTime() - (new Date(a.date)).getTime();
+            })
+          })
         };
         
       });
@@ -235,5 +247,11 @@ export class CourseComponent implements OnInit {
       this.course.labInfo, this.course.projectInfo).subscribe((res)=>{
       if(res["message"] == 1){}
     });
+  }
+
+  isFreshNotice(dateString: string){
+    let date7 = new Date();
+    date7.setDate(date7.getDate() - 7);
+    return (new Date(dateString) >= date7);
   }
 }

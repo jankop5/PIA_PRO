@@ -41,7 +41,7 @@ var uploadFilesInfo = multer({ storage: storage }).single('fileInfo');
 var uploadNotices = multer({ storage: storage }).single('notice');
 
 router.route('/upload').post((req, res)=>{
-    console.log(0);
+
     uploadFilesInfo(req, res, function (err) {
         if(err){
             console.log(err);
@@ -68,29 +68,6 @@ router.route('/upload').post((req, res)=>{
   });     
 });
 
-
-
-/*router.route('/insertFileInfo').post((req, res)=>{
-    let fi = new filesinfo(req.body);
-    filesinfo.findOne({'originalName': req.body.originalName}, (err, user)=>{
-        if(err) console.log(err);
-        else {
-            if(user){
-                filesinfo.updateOne({'originalName': req.body.originalName}, {
-                    $set: {
-                        "coursename" : req.body.coursename, 
-                        "type" : req.body.type,
-                        "size" : req.body.size,
-                        "kind" : req.body.kind,
-                        "date" : req.header.
-                }
-                });
-            }
-        }
-    })
-     
-});*/
-
 router.route('/getAllFilesInfo').get((req, res)=>{
     filesinfo.find({}, (err, f)=>{
         if(err) console.log(err);
@@ -111,15 +88,6 @@ router.route('/deleteFilesInfo').post((req, res)=>{
         else res.json({message: 1});
     })
 });
-
-// router.route('/updateFilesInfoOrder').post((req, res)=>{
-//     let uploadName = req.body.uploadName;
-//     let order = req.body.order;
-//     console.log(uploadName);
-//     console.log(order);
-//     filesinfo.collection.updateOne({'uploadName': uploadName}, { $set: {"order": order} });
-//     res.json({message: 1});
-// });
 
 router.route('/updateFilesInfoOrder').post((req, res)=>{
     let uploadNames: string[] = req.body.uploadNames;
@@ -184,13 +152,10 @@ router.route('/uploadNotice').post((req, res)=>{
                         })
                     }
                     else{
-                        console.log(4);
-                        console.log(req.file.originalname);
                         notices.collection.updateOne({'idN' : Number(req.body.idN)}, {$push: {
                             "uploadNames": req.file.filename,
                             "originalNames": req.file.originalname
                         }}, (err, succ)=>{
-                            console.log(5);
                             if(err) console.log(err);
                         });
                         res.json({message: 1});

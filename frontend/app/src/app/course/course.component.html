@@ -8,22 +8,43 @@
 
     <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
         <mat-tab label="Obaveštenja">
-            <div class="tab-content">
-                
-                <!-- <input hidden #fileInputObavestenja id="fileInputObavestenja" 
-                type="file" ng2FileSelect [uploader]="uploaders[0]" (change)="fileChangeEvent($event, 0)">
-                
-                <mat-form-field class="h-custom">
-                    <input matInput [(ngModel)]="fileInfoNames[0]" readonly name="memberContactNo" />
-                </mat-form-field>
-                <button mat-raised-button color="primary" (click)="fileInputObavestenja.click()">Odaberi fajl</button>
-                <button mat-raised-button (click)="sendFilesToServer(0)">Pošalji sve odabrane</button>
-                <button mat-raised-button (click)="clearLoader(0)" color="warn">Resetuj odabir</button>
+              <mat-tab-group class="course-info-tabs" headerPosition="below" color="primary" mat-align-tabs="center" mat-stretch-tabs>
+                <div *ngFor="let courseInfo of courseInfos; index as i">
+                    <mat-tab label="{{courseInfo.module}}">
+                      <div class="tab-content">
+                        <mat-divider *ngIf="courseInfoNotices[i].length > 0"></mat-divider>
+                        <div *ngFor="let notice of courseInfoNotices[i]" class="notice">
+                          <mat-divider></mat-divider>
+                          <br>
+                          <div class="title" [class.titleColored]="isFreshNotice(notice.date)">
+                            {{notice.title}}
+                          </div>
+                          <span style="color: white;" [class.dateColored]="isFreshNotice(notice.date)">{{notice.date}}</span>
+                          <br>
+                          <br>
+                          <p class="ta-custom wrap-custom">
+                            {{notice.text}} aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+                          </p>
+                          <br>
+                          <mat-list>
+                            <mat-divider *ngIf="notice.originalNames.length > 0"></mat-divider>
+                            <mat-list-item *ngFor="let name of notice.originalNames; index as i">
+                              <mat-divider></mat-divider>
+                              <mat-icon mat-list-icon>article</mat-icon>
+                              <div mat-line> {{name}} </div>
 
-                <div *ngFor="let file of allFiles">
-                    {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
-                </div> -->
-            </div>
+                              <button mat-raised-button (click)="download(notice.uploadNames[i])">Preuzmi</button>
+                              
+                            </mat-list-item>
+                            
+                        </mat-list>
+                        <mat-divider></mat-divider>
+                        </div>
+                      </div>
+                        
+                    </mat-tab>
+                </div>
+            </mat-tab-group>
         </mat-tab>
 
         <mat-tab label="O predmetu">

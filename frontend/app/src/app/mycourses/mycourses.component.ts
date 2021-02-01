@@ -68,7 +68,7 @@ export class MycoursesComponent implements OnInit {
             this.filesService.getNoticesForCode(ci.code).subscribe((notices: Notice[])=>{
               this.myCoursesNotices = this.myCoursesNotices.concat(notices);
               this.myCoursesNotices = this.myCoursesNotices.sort((a, b)=>{
-                return (new Date(a.date)).getTime() - (new Date(b.date)).getTime();
+                return (new Date(b.date)).getTime() - (new Date(a.date)).getTime();
               })
             })
           })
