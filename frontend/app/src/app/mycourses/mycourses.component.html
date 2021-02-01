@@ -4,24 +4,117 @@
 </div>
 <div class="page-content">
     <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
-        <mat-tab label="Obaveštenja">
+        <mat-tab label="Dodaj obaveštenje">
             <div class="tab-content">
-                
-                <!-- <input hidden #fileInputObavestenja id="fileInputObavestenja" 
-                type="file" ng2FileSelect [uploader]="uploaders[0]" (change)="fileChangeEvent($event, 0)">
-                
-                <mat-form-field class="h-custom">
-                    <input matInput [(ngModel)]="fileInfoNames[0]" readonly name="memberContactNo" />
+                <span class="color-custom">Naslov vesti: </span>
+                <mat-form-field class="w-custom">
+                  <input type="text" matInput [(ngModel)]="title" style="color: white"/>
                 </mat-form-field>
-                <button mat-raised-button color="primary" (click)="fileInputObavestenja.click()">Odaberi fajl</button>
-                <button mat-raised-button (click)="sendFilesToServer(0)">Pošalji sve odabrane</button>
-                <button mat-raised-button (click)="clearLoader(0)" color="warn">Resetuj odabir</button>
+                <br>
+                <mat-form-field class="ta-custom">
+                  <mat-label>Tekst vesti</mat-label>
+                  <textarea matInput [(ngModel)]="text"></textarea>
+                </mat-form-field>
+                <br>
+                <span class="color-custom">Predmeti na koje se odnosi vest:</span> 
+                <br>
+                <div *ngFor="let ci of courseInfos; index as i" class="color-custom">
+                  
+                  <mat-checkbox class="example-margin" color="primary" [(ngModel)]="selectedCourseInfos[i]">
+                    
+                    {{ci.coursename}} - {{ci.code}}
 
-                <div *ngFor="let file of allFiles">
-                    {{file.originalName}} <input type="button" value="Preuzmi" (click)="download(file.uploadName)">
-                </div> -->
+                  </mat-checkbox>
+                </div>
+                <br>
+                <p>
+                  <mat-form-field appearance="outline" color="primary" class="color-custom">
+                    <mat-label>Datum objavljivanja</mat-label>
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" (dateChange)="setDate($event)" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </p>
+                
+                <input hidden #fileInputObavestenja id="fileInputObavestenja" 
+                type="file" ng2FileSelect [uploader]="uploaders[0]" (change)="fileChangeEvent($event, 0)">
+                <mat-form-field class="h-custom">
+                    <input matInput [(ngModel)]="fileInfoNames[0]" readonly name="fdssd" />
+                    
+                </mat-form-field>
+                &nbsp;
+                <button mat-raised-button color="primary" (click)="fileInputObavestenja.click()">Odaberi fajl</button>
+                
+                &nbsp;
+                <button mat-raised-button (click)="sendNoticeToServer()">Dodaj obaveštenje</button>
+                &nbsp;
+                <button mat-raised-button (click)="clearLoader(0)" color="warn">Resetuj odabir</button>
+                <br>
+                <mat-hint>{{message}}</mat-hint>
+                <br>  
             </div>
         </mat-tab>
+
+        <mat-tab label="Obaveštenja sa mojih predmeta">
+          <div class="tab-content">
+              <div *ngIf="noticeForUpdate">
+                <span class="color-custom">Naslov vesti: </span>
+                <mat-form-field class="w-custom">
+                  <input type="text" matInput [(ngModel)]="noticeForUpdate.title" style="color: white"/>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="ta-custom">
+                  <mat-label>Tekst vesti</mat-label>
+                  <textarea matInput [(ngModel)]="noticeForUpdate.text"></textarea>
+                </mat-form-field>
+                <br>
+                <span class="color-custom">Šifre predmeta na koje se odnosi vest:</span> 
+                <br>
+                <div *ngFor="let code of noticeForUpdate.codes" class="color-custom">
+                  {{code}}
+                  <br>
+                </div>
+                <br>
+                <p>
+                  <mat-form-field appearance="outline" color="primary" class="color-custom">
+                    <mat-label>Datum objavljivanja</mat-label>
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerU" (dateChange)="setDateForUpdate($event)" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="pickerU"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerU disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </p>
+                <input hidden #fileInputObavestenja id="fileInputObavestenja" 
+                type="file" ng2FileSelect [uploader]="uploaders[1]" (change)="fileChangeEvent($event, 1)">
+                <mat-form-field class="h-custom">
+                    <input matInput [(ngModel)]="fileInfoNames[1]" readonly name="fdssd" />
+                    
+                </mat-form-field>
+                &nbsp;
+                <button mat-raised-button color="primary" (click)="fileInputObavestenja.click()">Odaberi fajl</button>
+                
+                &nbsp;
+                <button mat-raised-button (click)="updateNotice()">Ažuriraj obaveštenje</button>
+                &nbsp;
+                <button mat-raised-button (click)="clearLoader(1)" color="warn">Resetuj odabir</button>
+                <br>
+                <mat-hint>{{message}}</mat-hint>
+                <br><br>
+                <mat-divider></mat-divider>
+              </div>
+    
+                <mat-list>
+                  <mat-list-item *ngFor="let notice of myCoursesNotices; index as i">
+                    <div mat-line> {{notice.title}} </div>
+                    <button mat-raised-button color="primary" (click)="selectForUpdate(i)">Izmeni</button>
+                    <span *ngIf="notice.teacher == username">
+                      &nbsp;
+                      <button mat-raised-button color="warn" (click)="delete(notice.idN)">Obriši</button>
+                    </span>
+                    <mat-divider></mat-divider>
+                  </mat-list-item>
+              </mat-list>
+          </div>
+      </mat-tab>
 
         <mat-tab label="O predmetu">
             <div class="tab-content">
@@ -38,7 +131,7 @@
 
                 &nbsp;
                 <button mat-raised-button color="primary" (click)="updateCourseInfo()">Sačuvaj izmene</button>
-                <br>
+                <br><br>
                 <mat-divider></mat-divider>
                 <span *ngIf="courseInfo">
                 <mat-table [dataSource]="dataSources" class="mat-elevation-z8">

@@ -26,7 +26,9 @@ export class PasswordchangeComponent implements OnInit {
     this.loginService.changePassword(this.oldPassword, this.newPassword).subscribe((res: String)=>{
       if(res == "success"){
         localStorage.setItem("passwordChanged", JSON.stringify(true));
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then(succ => {
+          location.reload();
+        });
       }
       else{
         this.changeFailed = "Promena lozinke nije uspela! Unesite ispravnu staru lozinku!";

@@ -11,6 +11,7 @@ import multer from 'multer';
 import path from 'path';
 import files from './model/files';
 import filesinfo from './model/filesinfo';
+import notices from './model/notices';
 
 const app = express();
 
@@ -37,8 +38,10 @@ const storage = multer.diskStorage({
 });
   
 var uploadFilesInfo = multer({ storage: storage }).single('fileInfo');
+var uploadNotices = multer({ storage: storage }).single('notice');
 
 router.route('/upload').post((req, res)=>{
+    console.log(0);
     uploadFilesInfo(req, res, function (err) {
         if(err){
             console.log(err);
@@ -64,6 +67,8 @@ router.route('/upload').post((req, res)=>{
         }
   });     
 });
+
+
 
 /*router.route('/insertFileInfo').post((req, res)=>{
     let fi = new filesinfo(req.body);
@@ -143,6 +148,97 @@ router.route('/updateCourseShow').post((req, res)=>{
     
     
     res.json({message: 1});
+});
+
+router.route('/getNumOfNotices').get((req, res)=>{
+    notices.countDocuments({}, (err, cnt)=>{
+        res.json({num: cnt});
+    })
+});
+
+router.route('/uploadNotice').post((req, res)=>{
+    uploadNotices(req, res, function (err) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            notices.findOne({'idN' : Number(req.body.idN)}, (err, notice)=>{
+                if(err) console.log(err);
+                else {
+                    if(!notice){
+                        console.log(req.body);
+                        let n = new notices({
+                            idN: Number(req.body.idN),
+                            title: req.body.title,
+                            text: req.body.text,
+                            originalNames: [req.file.originalname],
+                            uploadNames: [req.file.filename],
+                            codes: req.body.codes,
+                            date: req.body.date,
+                            teacher: req.body.teacher
+                        });
+                        n.save().then(succ => {
+                            res.json({message: 1});
+                        }).catch(err => {
+                            res.json({message: -1});
+                        })
+                    }
+                    else{
+                        console.log(4);
+                        console.log(req.file.originalname);
+                        notices.collection.updateOne({'idN' : Number(req.body.idN)}, {$push: {
+                            "uploadNames": req.file.filename,
+                            "originalNames": req.file.originalname
+                        }}, (err, succ)=>{
+                            console.log(5);
+                            if(err) console.log(err);
+                        });
+                        res.json({message: 1});
+                    }
+                    
+                }
+            })
+
+            
+        }
+  });     
+});
+
+router.route('/insertNotice').post((req, res)=>{
+
+    let n = new notices({
+        idN: Number(req.body.idN),
+        title: req.body.title,
+        text: req.body.text,
+        originalNames: [],
+        uploadNames: [],
+        codes: req.body.codes,
+        date: req.body.date,
+        teacher: req.body.teacher
+    });
+    n.save().then(succ => {
+        res.json({message: 1});
+    }).catch(err => {
+        res.json({message: -1});
+    });
+});
+
+router.route('/getNoticesForCode').post((req, res)=>{
+    let code = req.body.code;
+
+    notices.find({'codes': code}, (err, n)=>{
+        if(err) console.log(err);
+        else res.json(n);
+    })
+});
+
+router.route('/deleteNotice').post((req, res)=>{
+    let idN = req.body.idN;
+
+    notices.deleteOne({'idN': idN}, (err) => {
+        if(err) console.log(err);
+        else res.json({message: 1});
+    })
 });
 
 router.route('/login').post((req, res)=>{

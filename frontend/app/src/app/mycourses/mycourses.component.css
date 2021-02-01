@@ -69,7 +69,7 @@ table {
 }
 
 .w-custom{
-    max-width: 200px;
+    max-width: 400px;
 }
 
 .wrap-custom{
@@ -93,12 +93,16 @@ table {
     height: 600px;
     overflow-y: auto;
     background-color: var(--dark-color);
+    padding-left: 15px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .h-custom {
     color: white;
     display: inline-block;
-    padding: 5px 10px;
+    padding: 5px 0px;
     line-height: 140%;
     max-width: 100px;
 }
@@ -108,8 +112,8 @@ table {
 }
 
 .color-custom{
-    font-size: 16px;
-    color: white;
+    font-size: 14px;
+    color: lightgray;
 }
 
 .ta-custom {
@@ -117,4 +121,8 @@ table {
     display: inline-block;
     line-height: 140%;
     width: 98%;
+}
+
+.mat-datepicker-input{
+    color: white !important;
 }
