@@ -10,7 +10,10 @@ export class SidenavListComponent implements OnInit {
 
   constructor() { }
 
+  type: number;
+
   ngOnInit() {
+    this.type = JSON.parse(localStorage.getItem("type"));
   }
 
   public onSidenavClose = () => {

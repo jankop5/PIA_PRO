@@ -2,6 +2,9 @@
     <a mat-list-item routerLink="/" (click)="onSidenavClose()">Početna</a>
     <a mat-list-item routerLink="/employees" (click)="onSidenavClose()">Zaposleni</a>
     <a mat-list-item routerLink="/news" (click)="onSidenavClose()">Obaveštenja</a>
+    <span *ngIf="type == 1">
+        <a mat-list-item routerLink="/mycourses" (click)="onSidenavClose()">Moji predmeti</a>
+    </span>
     <a mat-list-item class="cursor-pointer" [matMenuTriggerFor]="bStudies">
         <a matline>Osnovne studije</a>
     </a>

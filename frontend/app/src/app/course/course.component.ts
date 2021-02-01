@@ -76,7 +76,7 @@ export class CourseComponent implements OnInit {
         this.courseInfos = courseInfos;
         for(let i = 0; i < courseInfos.length; i++){
           this.dataSources.push([
-            {name: "Tip", value: ""}, {name: "Godina studija", value: ""}, {name: "Semseta", value: ""}, {name: "Šifra predmeta", value: ""},
+            {name: "Tip", value: ""}, {name: "Godina studija", value: ""}, {name: "Semsetar", value: ""}, {name: "Šifra predmeta", value: ""},
             {name: "Fond časova", value: ""}, {name: "ESPB", value: ""}, {name: "Cilj", value: ""}, {name: "Ishod", value: ""},
             {name: "Termini nastave", value: ""}, {name: "Grupe", value: ""}, {name: "Propozicije", value: ""}
           ]);

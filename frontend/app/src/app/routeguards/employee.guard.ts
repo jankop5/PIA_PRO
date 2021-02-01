@@ -4,12 +4,12 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 @Injectable({
     providedIn: 'root'
 })
-export class LoggedInGuard implements CanActivate {
+export class EmployeeGuard implements CanActivate {
     constructor(private router: Router) {}
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let username: string = localStorage.getItem("username");
-        if(!username){
+        let type: number = JSON.parse(localStorage.getItem("type"));
+        if(type != 1){
             this.router.navigate(['/']);
             return false;
         }

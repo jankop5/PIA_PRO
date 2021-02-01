@@ -131,13 +131,13 @@ router.route('/updateCourseShow').post((req, res)=>{
     let coursename = req.body.coursename;
     let showExams = req.body.showExams;
     let showLabs = req.body.showLabs;
-    let showProjects = req.body.showProjects;
+    let showProject = req.body.showProject;
     let labInfo = req.body.labInfo;
     let projectInfo = req.body.projectInfo;
     
     
     courses.collection.updateOne({'coursename': coursename}, { $set: {
-        "showExams": showExams, "showLabs": showLabs, "showProjects": showProjects,
+        "showExams": showExams, "showLabs": showLabs, "showProject": showProject,
         "labInfo": labInfo, "projectInfo": projectInfo
     }});
     
@@ -230,6 +230,21 @@ router.route('/courseInfosByCoursename').post((req, res)=>{
         if(err) console.log(err);
         else res.json(ci);
     })
+});
+
+router.route('/getCourseInfoByCode').post((req, res)=>{
+    let code = req.body.code;
+    
+    coursesinfo.findOne({'code': code}, (err, ci)=>{
+        if(err) console.log(err);
+        else res.json(ci);
+    })
+});
+
+router.route('/updateCourseInfo').post((req, res)=>{
+
+    coursesinfo.collection.updateOne({'code': req.body.code }, { $set: req.body });
+    res.json({message: 1});
 });
 
 router.route('/changePassword').post((req, res)=>{

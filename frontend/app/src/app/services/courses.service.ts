@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CourseInfo } from '../model/courseinfo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,14 @@ export class CoursesService {
     return this.http.post(`${this.uri}/courseInfosByCoursename`, data);
   }
 
+  getCourseInfoByCode(code: String){
+    let data = {
+      code: code
+    }
+
+    return this.http.post(`${this.uri}/getCourseInfoByCode`, data);
+  }
+
   getTeachers(coursename: String){
     let data = {
       coursename: coursename
@@ -61,6 +70,11 @@ export class CoursesService {
     }
 
     return this.http.post(`${this.uri}/updateCourseShow`, data);
+  }
+
+  updateCourseInfo(courseInfo: CourseInfo){
+    delete courseInfo["_id"];
+    return this.http.post(`${this.uri}/updateCourseInfo`, courseInfo);
   }
 
 }

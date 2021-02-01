@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
         if(!user.passwordChanged){
           this.router.navigate(['/passwordchange']);
         }
+        else{
+          location.reload();
+        }
       }
       else{
         this.loginSuccess = false;
@@ -46,7 +49,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem("type");
     localStorage.removeItem("passwordChanged");
     this.loggedIn = false;
-    this.router.navigate(['/']);
+    this.router.navigate(['/']).then(succ => location.reload());
   }
 
 }

@@ -35,6 +35,9 @@ import { MatTableModule } from '@angular/material/table';
 import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MycoursesComponent } from './mycourses/mycourses.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +55,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     EmployeecoursesComponent,
     CoursesComponent,
     CourseComponent,
-    PasswordchangeComponent
+    PasswordchangeComponent,
+    MycoursesComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatExpansionModule,
     MatTableModule,
     FileUploadModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,7 +11,10 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
+  type: number;
+
   ngOnInit() {
+    this.type = JSON.parse(localStorage.getItem("type"));
   }
 
   public onToggleSidenav = () => {

@@ -18,6 +18,9 @@
         <div class="align-right">
             <a routerLink="/employees" class="navigation-items">Zaposleni</a>
             <a routerLink="/news" class="navigation-items">Obaveštenja</a>
+            <span *ngIf="type == 1">
+                <a routerLink="/mycourses" class="navigation-items">Moji predmeti</a>
+            </span>
             <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="bachelorStudies">
                 <span matline>Osnovne studije</span>
             </a>
