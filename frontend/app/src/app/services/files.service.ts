@@ -32,4 +32,13 @@ export class FilesService {
 
     return this.http.post(`${this.uri}/deleteFilesInfo`, data);
   }
+
+  updateFilesInfoOrder(uploadName: string, order: number){
+    let data = {
+      uploadName: uploadName,
+      order: order
+    }
+
+    return this.http.post(`${this.uri}/updateFilesInfoOrder`, data);
+  }
 }

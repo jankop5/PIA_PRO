@@ -6,6 +6,6 @@ export class FileInfo{
     size: number;
     kind: string;
     date: string;
-    username: string;
+    teacher: string;
     order: number;
 }

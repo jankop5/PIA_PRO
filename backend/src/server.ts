@@ -60,7 +60,7 @@ router.route('/upload').post((req, res)=>{
                 size: req.body.size,
                 kind: req.body.kind,
                 date: req.body.date,
-                username: req.body.username,
+                teacher: req.body.teacher,
                 order: 0
             });
 
@@ -113,6 +113,15 @@ router.route('/deleteFilesInfo').post((req, res)=>{
         if(err) console.log(err);
         else res.json({message: 1});
     })
+});
+
+router.route('/updateFilesInfoOrder').post((req, res)=>{
+    let uploadName = req.body.uploadName;
+    let order = req.body.order;
+    console.log(uploadName);
+    console.log(order);
+    filesinfo.collection.updateOne({'uploadName': uploadName}, { $set: {"order": order} });
+    res.json({message: 1});
 });
 
 router.route('/login').post((req, res)=>{

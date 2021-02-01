@@ -37,28 +37,32 @@ export class CourseComponent implements OnInit {
     this.route.params.subscribe(params => {
       let coursename = params['coursename'];
       this.username  = localStorage.getItem("username");
-      let type:number = JSON.parse(localStorage.getItem("type"));
-      if(type == 1){
+      this.type = JSON.parse(localStorage.getItem("type"));
+      if(this.type == 1){
         this.employeesService.isTeachingCourse(this.username, coursename).subscribe((t: Teaching)=>{
           if(!t){
             this.router.navigate(['/']);
           }
         });
       }
-      else if(type == 2){
+      else if(this.type == 2){
         this.studentsService.isAttendingCourse(this.username, coursename).subscribe((a: Attending)=>{
           if(!a){
             this.router.navigate(['/']);
           }
         });
       }
-
+      this.employeesService.getEmployee(this.username).subscribe((e: Employee)=>{
+        this.employee = e;
+      });
       this.loadCourse(coursename);
       this.getAllFiles();
    });
   }
   
   username: string;
+  type: number;
+  employee: Employee;
   course: Course;
   courseInfos: CourseInfo[];
   displayedColumns: string[] = ['name', 'value'];
@@ -146,7 +150,7 @@ export class CourseComponent implements OnInit {
       form.append("size", Math.round((this.uploaders[i].queue[0].file.size / 1024)));
       form.append("kind", this.fileKinds[i]);
       form.append("date", (new Date()).toLocaleDateString());
-      form.append("username", this.username);
+      form.append("teacher", this.employee.firstName + " " + this.employee.lastName);
     };
     this.uploaders[i].onCompleteAll = ()=>{
       this.getAllFiles();
@@ -165,7 +169,9 @@ export class CourseComponent implements OnInit {
 
   private getAllFiles(){
     this.filesService.getAllFiles().subscribe((files: FileInfo[])=>{
-      this.allFiles = files;
+      this.allFiles = files.sort(function (a, b) {
+        return a.order - b.order;
+      });
     })
   }
 
@@ -181,6 +187,20 @@ export class CourseComponent implements OnInit {
         this.getAllFiles();
       } 
     })
+  }
+
+  updateOrder(){
+    this.allFiles.forEach(f => {
+      if(f.order == null){
+        return;
+      }
+    })
+    this.allFiles.forEach(f => {
+      this.filesService.updateFilesInfoOrder(f.uploadName, f.order).subscribe((res)=>{
+        
+      });
+    });
+    setTimeout(() => { this.getAllFiles(); }, 1000);
   }
 
   uploaders: FileUploader[];
