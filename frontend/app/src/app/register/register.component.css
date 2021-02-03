@@ -1,0 +1,50 @@
+.w-custom{
+    min-width: 200px;
+    width: 35vw;
+}
+
+.f-custom{
+    font-size: 18px;
+}
+
+.display-custom{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.err-custom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--red-color);
+}
+
+.color-purple{
+    color: var(--purple-color);
+}
+
+.color-gray{
+    color: gray;
+}
+
+::ng-deep .mat-select-value{
+    color: var(--purple-color) !important;
+    font-size: 18px;
+}
+
+::ng-deep .mat-select-panel{
+    background-color: whitesmoke;
+}
+
+::ng-deep .mat-selected{
+    color: var(--purple-color) !important;
+}
+
+::ng-deep .mat-option-text{
+    color: gray;
+}

@@ -47,6 +47,9 @@ let Users = new Schema({
     },
     type:{// 0 - admin, 1 - zaposleni, 2 - student
         type: Number
+    },
+    imageName:{
+        type: String
     }
 });
 

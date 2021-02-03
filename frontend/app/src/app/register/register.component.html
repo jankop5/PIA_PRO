@@ -1,0 +1,132 @@
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+	<a routerLink="#" class="active">Registracija</a>
+</div>
+<div class="page-content">
+    <div class="text-center heading">Registracija</div>
+    <br>
+    <div class="display-custom">
+        <mat-slide-toggle color="primary" [(ngModel)]="isEmployee">
+            <span class="f-custom">
+                <span [class.color-purple]="!isEmployee" [class.color-gray]="isEmployee">Student</span>
+                <span class="color-purple"> | </span>
+                <span [class.color-purple]="isEmployee" [class.color-gray]="!isEmployee">Zaposleni</span> 
+            </span>
+        </mat-slide-toggle>
+    </div>
+    <div class="display-custom">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Korisničko ime</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="username" required>
+        </mat-form-field>
+    </div>
+    <div class="display-custom">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Lozinka</mat-label>
+            <input class="f-custom" matInput type="password" [(ngModel)]="password"
+            matInput [type]="hide ? 'password' : 'text'" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="!isEmployee">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Indeks</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="index" required>
+        </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="!isEmployee">
+        <mat-form-field  class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Tip studija</mat-label>
+            <mat-select [(ngModel)]="typeOfStudy" name="typeOfStudy" required>
+              <mat-option value="d" class="f-custom">d</mat-option>
+              <mat-option value="m" class="f-custom">m</mat-option>
+              <mat-option value="p" class="f-custom">p</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="display-custom">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Ime</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="firstName" required>
+        </mat-form-field>
+    </div>
+    <div class="display-custom">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Prezime</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="lastName" required>
+        </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="isEmployee">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Adresa</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="address" required>
+        </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="isEmployee">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Kontakt broj</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="phone">
+        </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="isEmployee">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Adresa ličnog veb sajta</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="website">
+        </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="isEmployee">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Lični podaci</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="personalData">
+        </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="isEmployee">
+        <mat-form-field  class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Zvanje</mat-label>
+            <mat-select [(ngModel)]="title" name="title" required>
+              <mat-option value="redovan profesor" class="f-custom">redovan profesor</mat-option>
+              <mat-option value="vanredni profesor" class="f-custom">vanredni profesor</mat-option>
+              <mat-option value="docent" class="f-custom">docent</mat-option>
+              <mat-option value="asistent" class="f-custom">asistent</mat-option>
+              <mat-option value="saradnik u nastavi" class="f-custom">saradnik u nastavi</mat-option>
+              <mat-option value="ostali - sistem administrator" class="f-custom">ostali - sistem administrator</mat-option>
+              <mat-option value="ostali - istraživač" class="f-custom">ostali - istraživač</mat-option>
+              <mat-option value="ostali - laboratorijski inženjer" class="f-custom">ostali - laboratorijski inženjer</mat-option>
+              <mat-option value="ostali - laboratorijski tehničar" class="f-custom">ostali - laboratorijski tehničar</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="display-custom" *ngIf="isEmployee">
+        <mat-form-field class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Kabinet</mat-label>
+            <input class="f-custom" matInput type="text" [(ngModel)]="cabinet" required>
+        </mat-form-field>
+    </div>
+    <div class="display-custom">
+        <mat-form-field  class="w-custom" appearance="outline">
+            <mat-label class="f-custom">Status</mat-label>
+            <mat-select [(ngModel)]="status" name="status" required>
+              <mat-option value="aktivan" class="f-custom">aktivan</mat-option>
+              <mat-option value="neaktivan" class="f-custom">neaktivan</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    
+
+    <div class="display-custom" *ngIf="isEmployee">
+        <input hidden #fileInputImage id="fileInputImage" 
+        type="file" ng2FileSelect [uploader]="uploader" (change)="fileChangeEvent($event)">
+        <mat-form-field appearance="outline">
+            <input class="f-custom" matInput [(ngModel)]="fileInfoName" readonly name="memberContactNo" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="fileInputImage.click()">Odaberi sliku</button>
+    </div>
+    <div class="err-custom">
+        {{message}}
+    </div>
+    <div class="display-custom">
+        <button mat-raised-button (click)="registerUser()">Registruj korisnika</button>
+    </div>
+</div>

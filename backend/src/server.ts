@@ -39,6 +39,7 @@ const storage = multer.diskStorage({
   
 var uploadFilesInfo = multer({ storage: storage }).single('fileInfo');
 var uploadNotices = multer({ storage: storage }).single('notice');
+var uploadImages = multer({ storage: storage }).single('image');
 
 router.route('/upload').post((req, res)=>{
 
@@ -216,6 +217,47 @@ router.route('/login').post((req, res)=>{
     })
 });
 
+router.route('/register').post((req, res)=>{
+
+    let u = new users(req.body);
+    u.save().then(succ => {
+        res.json({message: 1});
+    }).catch(err => {
+        res.json({message: -1});
+    });
+});
+
+router.route('/registerWithImage').post((req, res)=>{
+
+    uploadImages(req, res, function (err) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            let u = new users({
+                username: req.body.username,
+                password: req.body.password,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                address: req.body.address,
+                phone: req.body.phone,
+                website: req.body.website,
+                personalData: req.body.personalData,
+                title: req.body.title,
+                cabinet: req.body.cabinet,
+                status: req.body.status,
+                imageName: req.file.filename,
+                type: 1
+            });
+
+            u.save().then(succ => {
+                res.json({message: 1});
+            }).catch(err => {
+                res.json({message: -1});
+            })
+        }
+  });     
+});
 
 router.route('/allEmployees').post((req, res)=>{
     users.find({'type': 1}, (err, user)=>{
