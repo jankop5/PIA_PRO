@@ -281,6 +281,14 @@ router.route('/registerWithImage').post((req, res)=>{
   });     
 });
 
+router.route('/updateUser').post((req, res)=>{
+
+    users.collection.updateOne({'username': req.body.username}, { $set: req.body});
+    
+    res.json({message: 1});
+
+});
+
 router.route('/allEmployees').post((req, res)=>{
     users.find({'type': 1}, (err, user)=>{
         if(err) console.log(err);

@@ -30,6 +30,11 @@
             Registruj korisnika
         </a>
     </span>
+    <span *ngIf="type == 1">
+        <a [routerLink]="['/employees', username]" class="login-link">
+            Moj profil
+        </a>
+    </span>
     &nbsp;
     <a routerLink="/passwordchange" class="login-link">
         Promeni lozinku

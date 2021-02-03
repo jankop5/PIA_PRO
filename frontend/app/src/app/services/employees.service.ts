@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Employee } from '../model/employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,10 @@ export class EmployeesService {
     }
 
     return this.http.post(`${this.uri}/isTeaching`, data);
+  }
+
+  updateEmployee(employee){
+    delete employee["_id"];
+    return this.http.post(`${this.uri}/updateUser`, employee);
   }
 }

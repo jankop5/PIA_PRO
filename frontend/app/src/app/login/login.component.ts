@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     if(localStorage.getItem("username") != null){
       this.loggedIn = true;
       this.type = JSON.parse(localStorage.getItem("type"));
+      this.username = localStorage.getItem("username");
     }
   }
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   loginSuccess: boolean = true;
   loggedIn: boolean = false;
   type: number;
+  currentUsername: string;
 
   login(){
     this.loginService.login(this.username, this.password).subscribe((user: User)=>{

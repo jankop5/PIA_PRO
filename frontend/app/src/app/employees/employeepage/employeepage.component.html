@@ -21,16 +21,51 @@
       
       
       <mat-card-content>
-        <span style="color: lightgray;">Status zaposlenog:</span> {{employee.status}}
+        <span class="color-custom">Status zaposlenog:</span> {{employee.status}}
         <br><br>
-        <span *ngIf="employee.website">
-          <span style="color: lightgray;">Lični veb sajt:</span> {{employee.website}}
-          <br><br>
+        <span *ngIf="currentUsername == employee.username">
+          <p>
+            <span class="color-custom">Lični veb sajt: &nbsp;</span>
+            <mat-form-field class="w-custom">
+              <input type="text" matInput [(ngModel)]="employee.website" style="color: white"/>
+            </mat-form-field>
+            <br>
+          </p>
+          <p>
+            <mat-form-field class="ta-custom">
+              <mat-label>Lični podaci:</mat-label>
+              <textarea matInput [(ngModel)]="employee.personalData"></textarea>
+            </mat-form-field>
+          </p>
+          <p>
+            <span class="color-custom"><span class="material-icons">
+              phone
+              </span> &nbsp;</span>
+            <mat-form-field class="w-custom">
+              <input type="text" matInput [(ngModel)]="employee.phone" style="color: white"/>
+            </mat-form-field>
+            <br>
+          </p>
+          <button mat-raised-button color="primary" (click)="updateEmployee()">Ažuriraj profil</button>
+          <br>
+          <br>
         </span>
-        <div *ngIf="!employee.personalData" class="employee-data">
-        <span style="color: lightgray;">Lični podaci:</span> {{employee.personalData}}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-          <br><br>
-        </div>
+
+        <span *ngIf="currentUsername != employee.username">
+          <span *ngIf="employee.website">
+            <span style="color: lightgray;">Lični veb sajt:</span> {{employee.website}}
+            <br><br>
+          </span>
+          <div *ngIf="employee.personalData" class="employee-data">
+          <span style="color: lightgray;">Lični podaci:</span> {{employee.personalData}}
+            <br><br>
+          </div>
+        </span>
+
+
+       
+
+
         <hr>
         <br>
         <p style="margin-bottom: 5px;">
@@ -39,7 +74,7 @@
             {{employee.username}}@etf.bg.ac.rs
           </a>
         </p>
-        <span *ngIf="employee.phone">
+        <span *ngIf="employee.phone && currentUsername != employee.username">
           <p style="margin-bottom: 5px;">
             <span class="material-icons">
               phone
@@ -53,6 +88,7 @@
             location_on
             </span> Kabinet {{employee.cabinet}}, {{employee.address}}
         </p>
+        
       </mat-card-content>
       </mat-card>
     </p>

@@ -16,8 +16,10 @@ export class EmployeepageComponent implements OnInit {
     private filesService: FilesService) { }
 
   employee: Employee;
+  currentUsername: string;
 
   ngOnInit(): void {
+    this.currentUsername = localStorage.getItem("username");
     this.route.params.subscribe(params => {
       let username = params['username'];
       this.employeesService.getEmployee(username).subscribe((employee: Employee)=>{
@@ -32,6 +34,14 @@ export class EmployeepageComponent implements OnInit {
         }
       })
    });
+  }
+
+  updateEmployee(){
+    this.employeesService.updateEmployee(this.employee).subscribe((res)=>{
+      if(res["message"]==1){
+        location.reload();
+      }
+    })
   }
 
 }
