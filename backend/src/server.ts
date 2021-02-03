@@ -284,9 +284,16 @@ router.route('/registerWithImage').post((req, res)=>{
 router.route('/updateUser').post((req, res)=>{
 
     users.collection.updateOne({'username': req.body.username}, { $set: req.body});
-    
     res.json({message: 1});
+});
 
+router.route('/deleteUser').post((req, res)=>{
+    let username = req.body.username;
+
+    users.deleteOne({'username': username}, (err) => {
+        if(err) console.log(err);
+        else res.json({message: 1});
+    })
 });
 
 router.route('/allEmployees').post((req, res)=>{

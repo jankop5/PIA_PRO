@@ -5,9 +5,15 @@
                 <mat-expansion-panel-header>
                 <mat-panel-title>
                     {{prefix}}{{employee.firstName}} {{employee.lastName}}{{sufix}}
-                    <span *ngIf="employee.title.includes('ostali')">&nbsp;{{employee.title.substr(7)}}</span> 
+                    <span *ngIf="employee.title.includes('ostali')">&nbsp;{{employee.title.substr(7)}}</span>
                 </mat-panel-title>
                 </mat-expansion-panel-header>
+                <span *ngIf="type == 0">
+                    <button mat-raised-button color="primary" (click)="deleteEmployee(employee.username)">Obriši zaposlenog</button> 
+                    <br>
+                    <br>
+                </span>
+                
                 <a class="profile-icon" [routerLink]="['/employees', employee.username]"><span style="font-size: 50px; margin-left: -7px;" class="material-icons">account_box</span></a>
                 <br>
                 <span *ngIf="!employee.title.includes('ostali')">

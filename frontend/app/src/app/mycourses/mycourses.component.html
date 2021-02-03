@@ -105,11 +105,11 @@
                 <mat-list>
                   <mat-list-item *ngFor="let notice of myCoursesNotices; index as i">
                     <div mat-line> {{notice.title}} </div>
-                    <button mat-raised-button color="primary" (click)="selectForUpdate(i)">Izmeni</button>
                     <span *ngIf="notice.teacher == username">
-                      &nbsp;
                       <button mat-raised-button color="warn" (click)="delete(notice.idN)">Obriši</button>
+                      &nbsp;
                     </span>
+                    <button mat-raised-button color="primary" (click)="selectForUpdate(i)">Izmeni</button>
                     <mat-divider></mat-divider>
                   </mat-list-item>
               </mat-list>

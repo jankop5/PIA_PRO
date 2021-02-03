@@ -17,9 +17,11 @@ export class EmployeepageComponent implements OnInit {
 
   employee: Employee;
   currentUsername: string;
+  currentType: number;
 
   ngOnInit(): void {
     this.currentUsername = localStorage.getItem("username");
+    this.currentType = JSON.parse(localStorage.getItem("type"));
     this.route.params.subscribe(params => {
       let username = params['username'];
       this.employeesService.getEmployee(username).subscribe((employee: Employee)=>{
@@ -42,6 +44,39 @@ export class EmployeepageComponent implements OnInit {
         location.reload();
       }
     })
+  }
+
+  message: string = "";
+  update(){
+    if(!this.employee.username){
+      this.message = "Polje korisničko ime je obavezno!";
+      return;
+    }
+    if(!this.employee.firstName){
+      this.message = "Polje ime je obavezno!";
+      return;
+    }
+    if(!this.employee.lastName){
+      this.message = "Polje prezime je obavezno!";
+      return;
+    }
+    if(!this.employee.address){
+      this.message = "Polje adresa je obavezno!";
+      return;
+    }
+    if(!this.employee.title){
+      this.message = "Polje zvanje je obavezno!";
+      return;
+    }
+    if(!this.employee.cabinet){
+      this.message = "Polje kabinet je obavezno!";
+      return;
+    }
+    if(!this.employee.status){
+      this.message = "Polje status je obavezno!";
+      return;
+    }
+    this.updateEmployee();
   }
 
 }

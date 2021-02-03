@@ -8,7 +8,7 @@
 
     <p>
     <mat-card class="employee-card">
-      <mat-card-header style="text-align: left;">
+      <mat-card-header *ngIf="currentType != 0" style="text-align: left;">
         <div mat-card-avatar class="example-header-image material-icons" style="font-size: 40px;">account_box</div>
         <mat-card-title>{{employee.firstName}} {{employee.lastName}}</mat-card-title>
         <mat-card-subtitle>{{employee.title}}</mat-card-subtitle>
@@ -21,12 +21,106 @@
       
       
       <mat-card-content>
-        <span class="color-custom">Status zaposlenog:</span> {{employee.status}}
-        <br><br>
-        <span *ngIf="currentUsername == employee.username">
+        <span *ngIf="currentType != 0">
+          <span class="color-custom">Status zaposlenog:</span> {{employee.status}}
+          <br><br>
+          <span *ngIf="currentUsername == employee.username">
+            <p>
+              <span class="color-custom">Lični veb sajt: &nbsp;</span>
+              <mat-form-field class="w-custom">
+                <input type="text" matInput [(ngModel)]="employee.website" style="color: white"/>
+              </mat-form-field>
+              <br>
+            </p>
+            <p>
+              <mat-form-field class="ta-custom">
+                <mat-label>Lični podaci:</mat-label>
+                <textarea matInput [(ngModel)]="employee.personalData"></textarea>
+              </mat-form-field>
+            </p>
+            <p>
+              <span class="color-custom"><span class="material-icons">
+                phone
+                </span> &nbsp;</span>
+              <mat-form-field class="w-custom">
+                <input type="text" matInput [(ngModel)]="employee.phone" style="color: white"/>
+              </mat-form-field>
+              <br>
+            </p>
+            <button mat-raised-button color="primary" (click)="updateEmployee()">Ažuriraj profil</button>
+            <br>
+            <br>
+          </span>
+  
+          <span *ngIf="currentUsername != employee.username">
+            <span *ngIf="employee.website">
+              <span style="color: lightgray;">Lični veb sajt:</span> {{employee.website}}
+              <br><br>
+            </span>
+            <div *ngIf="employee.personalData" class="employee-data">
+            <span style="color: lightgray;">Lični podaci:</span> {{employee.personalData}}
+              <br><br>
+            </div>
+          </span>
+  
+
+          <hr>
+          <br>
+          <p style="margin-bottom: 5px;">
+            <span class="material-icons">email</span>&nbsp; 
+            <a href="mailto:{{employee.username}}@etf.bg.ac.rs" >
+              {{employee.username}}@etf.bg.ac.rs
+            </a>
+          </p>
+          <span *ngIf="employee.phone && currentUsername != employee.username">
+            <p style="margin-bottom: 5px;">
+              <span class="material-icons">
+                phone
+                </span> &nbsp;
+                <a href="tel:{{employee.phone}}">{{employee.phone}}</a>
+            </p>
+          </span>
           <p>
-            <span class="color-custom">Lični veb sajt: &nbsp;</span>
-            <mat-form-field class="w-custom">
+            
+            <span class="material-icons">
+              location_on
+              </span> Kabinet {{employee.cabinet}}, {{employee.address}}
+          </p>
+        </span>
+        
+        <span *ngIf="currentType == 0">
+          <br>
+          <p>
+            <mat-form-field class="w-custom2">
+              <mat-label>Ime</mat-label>
+              <input type="text" matInput [(ngModel)]="employee.firstName" style="color: white" required/>
+            </mat-form-field>
+            <br>
+          </p>
+          <p>
+            <mat-form-field class="w-custom2">
+              <mat-label>Prezime</mat-label>
+              <input type="text" matInput [(ngModel)]="employee.lastName" style="color: white" required/>
+            </mat-form-field>
+            <br>
+          </p>
+          <p>    
+            <mat-form-field class="w-custom2">
+              <mat-label>Adresa:</mat-label>
+              <input type="text" matInput [(ngModel)]="employee.address" style="color: white" required/>
+            </mat-form-field>
+            <br>
+          </p>
+          <p>    
+            <mat-form-field class="w-custom2">
+              <mat-label>Kontakt broj:</mat-label>
+              <input type="text" matInput [(ngModel)]="employee.phone" style="color: white"/>
+            </mat-form-field>
+            <br>
+          </p>
+          <p>    
+            <mat-form-field class="w-custom2">
+              <mat-label>Lični veb sajt:</mat-label>
               <input type="text" matInput [(ngModel)]="employee.website" style="color: white"/>
             </mat-form-field>
             <br>
@@ -38,56 +132,41 @@
             </mat-form-field>
           </p>
           <p>
-            <span class="color-custom"><span class="material-icons">
-              phone
-              </span> &nbsp;</span>
-            <mat-form-field class="w-custom">
-              <input type="text" matInput [(ngModel)]="employee.phone" style="color: white"/>
+            <mat-form-field class="w-custom2">
+              <mat-label>Zvanje</mat-label>
+              <mat-select [(ngModel)]="employee.title" name="title" required>
+                <mat-option value="redovan profesor">redovan profesor</mat-option>
+                <mat-option value="vanredni profesor">vanredni profesor</mat-option>
+                <mat-option value="docent">docent</mat-option>
+                <mat-option value="asistent">asistent</mat-option>
+                <mat-option value="saradnik u nastavi">saradnik u nastavi</mat-option>
+                <mat-option value="ostali - sistem administrator">ostali - sistem administrator</mat-option>
+                <mat-option value="ostali - istraživač">ostali - istraživač</mat-option>
+                <mat-option value="ostali - laboratorijski inženjer">ostali - laboratorijski inženjer</mat-option>
+                <mat-option value="ostali - laboratorijski tehničar">ostali - laboratorijski tehničar</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>    
+            <mat-form-field class="w-custom2">
+              <mat-label>Kabinet:</mat-label>
+              <input type="text" matInput [(ngModel)]="employee.cabinet" style="color: white" required/>
             </mat-form-field>
             <br>
           </p>
-          <button mat-raised-button color="primary" (click)="updateEmployee()">Ažuriraj profil</button>
-          <br>
-          <br>
-        </span>
-
-        <span *ngIf="currentUsername != employee.username">
-          <span *ngIf="employee.website">
-            <span style="color: lightgray;">Lični veb sajt:</span> {{employee.website}}
-            <br><br>
-          </span>
-          <div *ngIf="employee.personalData" class="employee-data">
-          <span style="color: lightgray;">Lični podaci:</span> {{employee.personalData}}
-            <br><br>
-          </div>
-        </span>
-
-
-       
-
-
-        <hr>
-        <br>
-        <p style="margin-bottom: 5px;">
-          <span class="material-icons">email</span>&nbsp; 
-          <a href="mailto:{{employee.username}}@etf.bg.ac.rs" >
-            {{employee.username}}@etf.bg.ac.rs
-          </a>
-        </p>
-        <span *ngIf="employee.phone && currentUsername != employee.username">
-          <p style="margin-bottom: 5px;">
-            <span class="material-icons">
-              phone
-              </span> &nbsp;
-              <a href="tel:{{employee.phone}}">{{employee.phone}}</a>
+          <p>
+            <mat-form-field class="w-custom2">
+              <mat-label>Status</mat-label>
+              <mat-select [(ngModel)]="employee.status" name="status" required>
+                <mat-option value="aktivan">aktivan</mat-option>
+                <mat-option value="neaktivan">neaktivan</mat-option>
+              </mat-select>
+            </mat-form-field>
           </p>
+          <mat-hint>{{message}}</mat-hint>
+          <br><br>
+          <button mat-raised-button color="primary" (click)="update()">Ažuriraj profil</button>
         </span>
-        <p>
-          
-          <span class="material-icons">
-            location_on
-            </span> Kabinet {{employee.cabinet}}, {{employee.address}}
-        </p>
         
       </mat-card-content>
       </mat-card>

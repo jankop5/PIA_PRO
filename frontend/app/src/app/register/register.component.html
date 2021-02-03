@@ -79,7 +79,7 @@
     <div class="display-custom" *ngIf="isEmployee">
         <mat-form-field class="w-custom" appearance="outline">
             <mat-label class="f-custom">Lični podaci</mat-label>
-            <input class="f-custom" matInput type="text" [(ngModel)]="personalData">
+            <textarea class="f-custom" matInput [(ngModel)]="personalData"></textarea>
         </mat-form-field>
     </div>
     <div class="display-custom" *ngIf="isEmployee">
