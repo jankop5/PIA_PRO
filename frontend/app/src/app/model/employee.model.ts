@@ -9,4 +9,5 @@ export class Employee{
     title: string;
     cabinet: string;
     status: string;
+    imageName: string;
 }

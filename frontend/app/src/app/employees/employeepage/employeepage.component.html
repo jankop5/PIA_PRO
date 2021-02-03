@@ -15,7 +15,10 @@
         
       </mat-card-header>
       
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <span *ngIf="employee.imageName">
+        <img mat-card-image alt="" id="profilePhoto">
+      </span>
+      
       
       <mat-card-content>
         <span style="color: lightgray;">Status zaposlenog:</span> {{employee.status}}

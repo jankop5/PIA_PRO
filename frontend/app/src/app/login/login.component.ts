@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem("username") != null){
       this.loggedIn = true;
+      this.type = JSON.parse(localStorage.getItem("type"));
     }
   }
 
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   password: string;
   loginSuccess: boolean = true;
   loggedIn: boolean = false;
+  type: number;
 
   login(){
     this.loginService.login(this.username, this.password).subscribe((user: User)=>{

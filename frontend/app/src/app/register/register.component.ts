@@ -14,12 +14,22 @@ export class RegisterComponent implements OnInit {
   constructor(private registerService: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
+    let typeString: string = localStorage.getItem("type");
+    if(typeString){
+      this.isCurrentUserAdmin = (JSON.parse(typeString)) == 0;
+    }
+    else{
+      this.isCurrentUserAdmin = false;
+    }
+    
     this.initUploaders();
   }
 
+  isCurrentUserAdmin: boolean = true;
+
   hide: boolean = true;
   message: string = "";
-  isEmployee: boolean = true;
+  isEmployee: boolean = false;
 
   username: string;
   password: string;
@@ -50,7 +60,13 @@ export class RegisterComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; this.imageTypeOk = true; this.message = ""};
     this.uploader.onWhenAddingFileFailed = (item) => { this.imageTypeOk = false; this.message = "Slika mora biti u odgovarajucem formatu!"}
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-      console.log("Upload:uploaded:", item, status, response);
+      let res:Object = JSON.parse(response);
+      if(res["message"] == 1){
+        location.reload();
+      }
+      else if(res["message"] == 2){
+        this.message = "Korisničko ime postoji!";
+      }
     };
   }
 
@@ -78,9 +94,6 @@ export class RegisterComponent implements OnInit {
       form.append("cabinet", this.cabinet);
       form.append("status", this.status);
     };
-    this.uploader.onCompleteAll = ()=>{
-      location.reload();
-    }
     this.uploader.uploadAll();
     this.fileInfoName = this.defaultFileName;
   }
@@ -150,6 +163,9 @@ export class RegisterComponent implements OnInit {
           if(res["message"] == 1){
             location.reload();
           }
+          else if(res["message"]==2){
+            this.message = "Korisničko ime postoji!";
+          }
         }))
       }
     }
@@ -210,6 +226,9 @@ export class RegisterComponent implements OnInit {
       this.registerService.register(s).subscribe((res=>{
         if(res["message"] == 1){
           location.reload();
+        }
+        else if(res["message"]==2){
+          this.message = "Korisničko ime postoji!";
         }
       }))
     }

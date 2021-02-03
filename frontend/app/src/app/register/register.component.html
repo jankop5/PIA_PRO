@@ -5,7 +5,7 @@
 <div class="page-content">
     <div class="text-center heading">Registracija</div>
     <br>
-    <div class="display-custom">
+    <div class="display-custom" *ngIf="isCurrentUserAdmin">
         <mat-slide-toggle color="primary" [(ngModel)]="isEmployee">
             <span class="f-custom">
                 <span [class.color-purple]="!isEmployee" [class.color-gray]="isEmployee">Student</span>
@@ -127,6 +127,10 @@
         {{message}}
     </div>
     <div class="display-custom">
-        <button mat-raised-button (click)="registerUser()">Registruj korisnika</button>
+        <button mat-raised-button (click)="registerUser()">
+            Registruj
+            <span *ngIf="isCurrentUserAdmin">korisnika</span>
+            <span *ngIf="!isCurrentUserAdmin">se</span>
+        </button>
     </div>
 </div>

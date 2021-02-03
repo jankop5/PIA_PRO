@@ -65,4 +65,5 @@ export class FilesService {
     }
     return this.http.post(`${this.uri}/deleteNotice`, data);
   }
+
 }

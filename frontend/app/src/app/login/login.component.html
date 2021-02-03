@@ -25,6 +25,12 @@
         Izloguj se
     </button>
     &nbsp;
+    <span *ngIf="type == 0">
+        <a routerLink="/register" class="login-link">
+            Registruj korisnika
+        </a>
+    </span>
+    &nbsp;
     <a routerLink="/passwordchange" class="login-link">
         Promeni lozinku
     </a>
