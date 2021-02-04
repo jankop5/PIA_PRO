@@ -91,4 +91,8 @@ export class CoursesService {
     return this.http.post(`${this.uri}/deleteCourseInfo`, data);
   }
 
+  insertCourseInfo(courseInfo: CourseInfo){
+    return this.http.post(`${this.uri}/insertCourseInfo`, courseInfo);
+  }
+
 }

@@ -398,6 +398,46 @@ router.route('/deleteCourseInfo').post((req, res)=>{
     })
 });
 
+router.route('/insertCourseInfo').post((req, res)=>{
+    let code = req.body.code;
+    let coursename = req.body.coursename;
+
+    courses.findOne({'coursename': coursename}, (err, course)=>{
+        if(err) console.log(err);
+        else {
+            if(!course){
+                let c = new courses({
+                    coursename: req.body.coursename,
+                    codes: [req.body.code],
+                    showExams: true,
+                    showLabs: true,
+                    showProject: true,
+                    labInfo: "",
+                    projectInfo: ""
+                });
+
+                c.save().then(succ => {
+                }).catch(err => {
+                    res.json({message: -1});
+                });
+            }
+            else{
+                courses.collection.updateOne({'coursename' : coursename}, {$push: {
+                    "codes": code
+                }});
+            }
+
+            let ci = new coursesinfo(req.body);
+            ci.save().then(succ => {
+                res.json({message: 1});
+            }).catch(err => {
+                res.json({message: -1});
+            });
+        }
+    })
+
+});
+
 router.route('/allCoursesByModule').post((req, res)=>{
     let module = req.body.module;
 

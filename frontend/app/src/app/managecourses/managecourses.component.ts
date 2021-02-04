@@ -16,12 +16,20 @@ export class ManagecoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.username  = localStorage.getItem("username");
-    this.dataSources = [
+    this.dataSources = [];
+    this.dataSources.push([
+      {name: "Naziv predmeta", value: ""}, {name: "Sifra predmeta", value: ""}, 
       {name: "Tip", value: ""}, {name: "Semsetar", value: ""},
       {name: "Fond časova", value: ""}, {name: "ESPB", value: ""}, 
       {name: "Cilj", value: ""}, {name: "Ishod", value: ""},
-      {name: "Termini nastave", value: ""}, {name: "Propozicije", value: ""}
-    ];
+      {name: "Termini nastave", value: ""}, {name: "Propozicije", value: ""}]
+    );
+    this.dataSources.push([
+      {name: "Tip", value: ""}, {name: "Semsetar", value: ""},
+      {name: "Fond časova", value: ""}, {name: "ESPB", value: ""}, 
+      {name: "Cilj", value: ""}, {name: "Ishod", value: ""},
+      {name: "Termini nastave", value: ""}, {name: "Propozicije", value: ""}]
+    );
     this.getAllCourses();
   }
   
@@ -30,7 +38,7 @@ export class ManagecoursesComponent implements OnInit {
   courseInfo: CourseInfo;
   courseInfos: CourseInfo[];
   displayedColumns: string[] = ['name', 'value'];
-  dataSources: PeriodicElement[] = [];
+  dataSources: PeriodicElement[][];
   message: string = "";
 
   private getAllCourses(){
@@ -68,10 +76,37 @@ export class ManagecoursesComponent implements OnInit {
   deleteCourseInfo(){
     this.coursesService.deleteCourseInfo(this.courseInfo.code, this.courseInfo.coursename).subscribe((res)=>{
       if(res["message"]==0){
-
+        location.reload();
       }
       else if(res["message"]==1){
-        
+        location.reload();
+      }
+    })
+  }
+
+  newCourseInfo: CourseInfo = new CourseInfo();
+  newMessage: string = "";
+
+  insertCourseInfo(){
+    if(!this.newCourseInfo.coursename){
+      this.newMessage = "Polje naziv predmeta je obavezno!";
+      return;
+    }
+    if(!this.newCourseInfo.code){
+      this.newMessage = "Polje šifra predmeta je obavezno!";
+      return;
+    }
+    if(!this.newCourseInfo.semester){
+      this.newMessage = "Polje semestar je obavezno!";
+      return;
+    }
+    if(!this.newCourseInfo.espb){
+      this.newMessage = "Polje espb je obavezno!";
+      return;
+    }
+    this.coursesService.insertCourseInfo(this.newCourseInfo).subscribe((res)=>{
+      if(res["message"] == 1){
+        location.reload();
       }
     })
   }

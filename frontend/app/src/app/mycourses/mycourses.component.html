@@ -145,6 +145,14 @@
                     <ng-container matColumnDef="value">
                       <mat-header-cell *matHeaderCellDef style="font-size: 18px;"> Opis </mat-header-cell>
                       <mat-cell *matCellDef="let element; index as i">
+                          <div *ngIf="i == 0">
+                            <mat-form-field>
+                              <mat-select [(ngModel)]="courseInfo.type" name="t">
+                                <mat-option value="obavezan">obavezan</mat-option>
+                                <mat-option value="izborni">izborni</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
                           <div *ngIf="i == 1">
                             <mat-form-field class="w-40">
                                 <input type="number" matInput [(ngModel)]="courseInfo.semester"/>

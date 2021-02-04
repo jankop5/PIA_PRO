@@ -5,6 +5,90 @@
 <div class="page-content">
     <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
 
+      <mat-tab label="Dodaj predmet">
+        <div class="tab-content">
+            <br>
+            <div class="text-center">
+                <mat-hint>{{newMessage}}</mat-hint>
+            </div>
+            <button mat-raised-button color="primary" (click)="insertCourseInfo()">Dodaj predmet</button>
+            <br><br>
+            <mat-divider></mat-divider>
+            <mat-table [dataSource]="dataSources[0]" class="mat-elevation-z8">
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef [ngClass]="'w-custom'" style="font-size: 18px;"> Informacija </mat-header-cell>
+                  <mat-cell *matCellDef="let element" [ngClass]="'w-custom'"> {{element.name}} </mat-cell>
+                </ng-container>
+              
+                <!-- Value Column -->
+                <ng-container matColumnDef="value">
+                  <mat-header-cell *matHeaderCellDef style="font-size: 18px;"> Opis </mat-header-cell>
+                  <mat-cell *matCellDef="let element; index as i">
+                      <div *ngIf="i == 0">
+                        <mat-form-field>
+                            <input type="text" matInput [(ngModel)]="newCourseInfo.coursename" required/>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 1">
+                        <mat-form-field>
+                            <input type="text" matInput [(ngModel)]="newCourseInfo.code" required/>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 2">
+                        <mat-form-field>
+                          <mat-select [(ngModel)]="newCourseInfo.type" name="t">
+                            <mat-option value="obavezan">obavezan</mat-option>
+                            <mat-option value="izborni">izborni</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 3">
+                        <mat-form-field class="w-40">
+                            <input type="number" matInput [(ngModel)]="newCourseInfo.semester" required/>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 4" class="ta-custom">
+                        <mat-form-field class="ta-custom">
+                            <textarea matInput [(ngModel)]="newCourseInfo.lessions"></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 5">
+                        <mat-form-field class="w-40">
+                            <input type="number" matInput [(ngModel)]="newCourseInfo.espb" required/>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 6" class="ta-custom">
+                        <mat-form-field class="ta-custom">
+                            <textarea matInput [(ngModel)]="newCourseInfo.goal"></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 7" class="ta-custom">
+                        <mat-form-field class="ta-custom">
+                            <textarea matInput [(ngModel)]="newCourseInfo.outcome"></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 8" class="ta-custom">
+                        <mat-form-field class="ta-custom">
+                            <textarea matInput [(ngModel)]="newCourseInfo.terms"></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 9" class="ta-custom">
+                        <mat-form-field class="ta-custom">
+                            <textarea matInput [(ngModel)]="newCourseInfo.propositions"></textarea>
+                        </mat-form-field>
+                      </div>
+                  </mat-cell>
+                  <mat-footer-cell *matFooterCellDef [ngClass]="'w-custom'"> 
+                    
+                  </mat-footer-cell>
+                </ng-container>
+              
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+        </div>
+    </mat-tab>
         <mat-tab label="Upravljaj predmetmom">
             <div class="tab-content">
                 <br>
@@ -28,7 +112,7 @@
                 <br><br>
                 <mat-divider></mat-divider>
                 <span *ngIf="courseInfo">
-                <mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+                <mat-table [dataSource]="dataSources[1]" class="mat-elevation-z8">
                     <!-- Name Column -->
                     <ng-container matColumnDef="name">
                       <mat-header-cell *matHeaderCellDef [ngClass]="'w-custom'" style="font-size: 18px;"> Informacija </mat-header-cell>
@@ -39,6 +123,14 @@
                     <ng-container matColumnDef="value">
                       <mat-header-cell *matHeaderCellDef style="font-size: 18px;"> Opis </mat-header-cell>
                       <mat-cell *matCellDef="let element; index as i">
+                          <div *ngIf="i == 0">
+                            <mat-form-field>
+                              <mat-select [(ngModel)]="courseInfo.type" name="t">
+                                <mat-option value="obavezan">obavezan</mat-option>
+                                <mat-option value="izborni">izborni</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
                           <div *ngIf="i == 1">
                             <mat-form-field class="w-40">
                                 <input type="number" matInput [(ngModel)]="courseInfo.semester"/>
