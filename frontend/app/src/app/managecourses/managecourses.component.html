@@ -1,0 +1,98 @@
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+    <a routerLink="#" class="active">Predmeti</a>
+</div>
+<div class="page-content">
+    <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
+
+        <mat-tab label="Upravljaj predmetmom">
+            <div class="tab-content">
+                <br>
+                <div class="text-center">
+                    <mat-hint>{{message}}</mat-hint>
+                </div>
+                <mat-form-field style="width: 40%;">
+                    <mat-label>Predmet</mat-label>
+                    <mat-select [(ngModel)]="courseInfo" name="food" >
+                        <mat-option  *ngFor="let ci of courseInfos" [value]="ci" >
+                          {{ci.coursename}} - {{ci.code}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+    
+
+                &nbsp;
+                <button mat-raised-button color="primary" (click)="updateCourseInfo()">Sačuvaj izmene</button>
+                &nbsp;
+                <button mat-raised-button color="warn" (click)="deleteCourseInfo()">Obriši predmet</button>
+                <br><br>
+                <mat-divider></mat-divider>
+                <span *ngIf="courseInfo">
+                <mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'w-custom'" style="font-size: 18px;"> Informacija </mat-header-cell>
+                      <mat-cell *matCellDef="let element" [ngClass]="'w-custom'"> {{element.name}} </mat-cell>
+                    </ng-container>
+                  
+                    <!-- Value Column -->
+                    <ng-container matColumnDef="value">
+                      <mat-header-cell *matHeaderCellDef style="font-size: 18px;"> Opis </mat-header-cell>
+                      <mat-cell *matCellDef="let element; index as i">
+                          <div *ngIf="i == 1">
+                            <mat-form-field class="w-40">
+                                <input type="number" matInput [(ngModel)]="courseInfo.semester"/>
+                            </mat-form-field>
+                          </div>
+                          <div *ngIf="i == 2" class="ta-custom">
+                            <mat-form-field class="ta-custom">
+                                <textarea matInput [(ngModel)]="courseInfo.lessions"></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div *ngIf="i == 3">
+                            <mat-form-field class="w-40">
+                                <input type="number" matInput [(ngModel)]="courseInfo.espb"/>
+                            </mat-form-field>
+                          </div>
+                          <div *ngIf="i == 4" class="ta-custom">
+                            <mat-form-field class="ta-custom">
+                                <textarea matInput [(ngModel)]="courseInfo.goal"></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div *ngIf="i == 5" class="ta-custom">
+                            <mat-form-field class="ta-custom">
+                                <textarea matInput [(ngModel)]="courseInfo.outcome"></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div *ngIf="i == 6" class="ta-custom">
+                            <mat-form-field class="ta-custom">
+                                <textarea matInput [(ngModel)]="courseInfo.terms"></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div *ngIf="i == 7" class="ta-custom">
+                            <mat-form-field class="ta-custom">
+                                <textarea matInput [(ngModel)]="courseInfo.propositions"></textarea>
+                            </mat-form-field>
+                          </div>
+                      </mat-cell>
+                      <mat-footer-cell *matFooterCellDef [ngClass]="'w-custom'"> 
+                        
+                      </mat-footer-cell>
+                    </ng-container>
+                  
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                </span>
+            </div>
+        </mat-tab>
+
+        
+    </mat-tab-group>
+</div>
+<div class="page-content" *ngIf="courseInfos && courseInfos.length == 0">
+  <div class="text-center subheading" style="margin-top: 150px;">
+    Niste raspoređeni ni na jedan predmet!
+  </div>
+
+</div>

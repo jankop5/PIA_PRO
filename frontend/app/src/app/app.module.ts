@@ -45,6 +45,7 @@ import { RegisterComponent } from './register/register.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentpageComponent } from './students/studentpage/studentpage.component';
 import { StudentcoursesComponent } from './students/studentcourses/studentcourses.component';
+import { ManagecoursesComponent } from './managecourses/managecourses.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,8 @@ import { StudentcoursesComponent } from './students/studentcourses/studentcourse
     RegisterComponent,
     StudentsComponent,
     StudentpageComponent,
-    StudentcoursesComponent
+    StudentcoursesComponent,
+    ManagecoursesComponent
   ],
   imports: [
     BrowserModule,

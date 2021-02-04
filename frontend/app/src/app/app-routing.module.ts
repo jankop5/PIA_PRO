@@ -6,6 +6,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { EmployeepageComponent } from './employees/employeepage/employeepage.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { HomeComponent } from './home/home.component';
+import { ManagecoursesComponent } from './managecourses/managecourses.component';
 import { MycoursesComponent } from './mycourses/mycourses.component';
 import { OffersComponent } from './offers/offers.component';
 import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
@@ -33,7 +34,8 @@ const routes: Routes = [
   {path: 'mycourses', component: MycoursesComponent, canActivate: [LoggedInGuard, EmployeeGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [AdminGuard]},
   {path: 'students', component: StudentsComponent, canActivate: [LoggedInGuard, AdminGuard]},
-  {path: 'students/:username', component: StudentpageComponent, canActivate: [LoggedInGuard, AdminGuard]}
+  {path: 'students/:username', component: StudentpageComponent, canActivate: [LoggedInGuard, AdminGuard]},
+  {path: 'managecourses', component: ManagecoursesComponent, canActivate: [LoggedInGuard, AdminGuard]},
 ];
 
 @NgModule({

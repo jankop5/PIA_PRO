@@ -1,0 +1,128 @@
+.course-tabs{
+    min-height: 700px;
+}
+
+::ng-deep .course-tabs .mat-tab-label .mat-tab-label-content {
+    font-size: 16px;
+}
+
+::ng-deep .course-tabs .mat-tab-list .mat-tab-labels .mat-tab-label{
+    color:whitesmoke;
+    background-color: var(--purple-color);
+}
+
+/* active tab */
+::ng-deep .course-tabs  .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color:whitesmoke;
+    background-color: var(--purple-color);
+}
+    
+/* ink bar */
+::ng-deep .course-tabs  .mat-ink-bar {
+    background-color: var(--purple-color) !important;
+}
+
+/* strelice */
+::ng-deep .course-tabs  .mat-tab-header-pagination {
+    background-color: var(--purple-color) !important;
+}
+
+
+.course-info-tabs{
+    min-height: 600px;
+    height: 600px;
+    overflow-y: auto;
+}
+
+::ng-deep .course-info-tabs .mat-tab-body-wrapper{
+    flex-direction: column!important;
+}
+
+::ng-deep .course-info-tabs .mat-tab-label .mat-tab-label-content {
+    font-size: 14px;
+}
+
+::ng-deep .course-info-tabs .mat-tab-list .mat-tab-labels .mat-tab-label{
+    color:whitesmoke;
+    background-color: var(--red-color);
+}
+
+/* active tab */
+::ng-deep .course-info-tabs .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color:whitesmoke;
+    background-color: var(--red-color);
+}
+    
+/* ink bar */
+::ng-deep .course-info-tabs .mat-ink-bar {
+    background-color: var(--red-color) !important;
+}
+
+/* strelice */
+::ng-deep .course-info-tabs .mat-ripple {
+    background-color: var(--red-color) !important;
+}
+
+table {
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; 
+}
+
+.w-custom{
+    max-width: 400px;
+}
+
+.wrap-custom{
+    min-width: 150px; word-wrap: break-word;
+}
+
+.a-custom{
+    margin-left: -25px;
+}
+
+.a-custom a{
+    color: whitesmoke;
+}
+
+.a-custom a:hover{
+    color: lightgray;
+}
+
+.tab-content{
+    min-height: 600px;
+    height: 600px;
+    overflow-y: auto;
+    background-color: var(--dark-color);
+    padding-left: 15px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.h-custom {
+    color: white;
+    display: inline-block;
+    padding: 5px 0px;
+    line-height: 140%;
+    max-width: 100px;
+}
+
+.w-40 {
+    max-width: 40px;
+}
+
+.color-custom{
+    font-size: 14px;
+    color: lightgray;
+}
+
+.ta-custom {
+    color: white;
+    display: inline-block;
+    line-height: 140%;
+    width: 98%;
+}
+
+.mat-datepicker-input{
+    color: white !important;
+}

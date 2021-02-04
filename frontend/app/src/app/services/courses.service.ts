@@ -19,6 +19,11 @@ export class CoursesService {
     return this.http.post(`${this.uri}/findByCoursename`, data);
   }
 
+  getAllCourses(){
+    
+    return this.http.get(`${this.uri}/getAllCourses`);
+  }
+
   getCoursesByModule(module: string){
     let data = {
       module: module
@@ -75,6 +80,15 @@ export class CoursesService {
   updateCourseInfo(courseInfo: CourseInfo){
     delete courseInfo["_id"];
     return this.http.post(`${this.uri}/updateCourseInfo`, courseInfo);
+  }
+
+  deleteCourseInfo(code: String, coursename: String){
+    let data = {
+      code: code,
+      coursename: coursename
+    }
+
+    return this.http.post(`${this.uri}/deleteCourseInfo`, data);
   }
 
 }

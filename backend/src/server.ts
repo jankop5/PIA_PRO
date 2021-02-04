@@ -362,6 +362,42 @@ router.route('/findByCoursename').post((req, res)=>{
     })
 });
 
+router.route('/getAllCourses').get((req, res)=>{
+    courses.find({}, (err, c)=>{
+        if(err) console.log(err);
+        else res.json(c);
+    })
+});
+
+router.route('/deleteCourseInfo').post((req, res)=>{
+    let code = req.body.code;
+    let coursename = req.body.coursename;
+
+    coursesinfo.deleteOne({'code': code}, (err) => {
+        if(err) console.log(err);
+        else {
+            courses.findOne({'coursename': coursename}, (err, course)=>{
+                if(err) console.log(err);
+                else {
+                    if(course.codes.length > 1){
+                        courses.collection.updateOne({'coursename' : coursename}, {$pull: {
+                            "codes": code
+                        }});
+                        res.json({message: 0});
+                    }
+                    else{
+                        courses.deleteOne({'coursename': coursename}, (err) => {
+                            if(err) console.log(err);
+                            else res.json({message: 1});
+                        })
+                    }
+                }
+            })
+
+        }
+    })
+});
+
 router.route('/allCoursesByModule').post((req, res)=>{
     let module = req.body.module;
 

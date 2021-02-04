@@ -24,6 +24,9 @@
             <span *ngIf="type == 1">
                 <a routerLink="/mycourses" class="navigation-items">Moji predmeti</a>
             </span>
+            <span *ngIf="type == 0">
+                <a routerLink="/managecourses" class="navigation-items">Predmeti</a>
+            </span>
             <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="bachelorStudies">
                 <span matline>Osnovne studije</span>
             </a>
