@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { User } from "../model/user.model";
 
+/**
+ * @module
+ * guard kojim se omogucava pristup pojedinim stranicama samo adminu
+ */
 @Injectable({
     providedIn: 'root'
 })

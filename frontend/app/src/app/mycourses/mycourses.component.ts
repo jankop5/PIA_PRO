@@ -10,7 +10,10 @@ import { CoursesService } from '../services/courses.service';
 import { EmployeesService } from '../services/employees.service';
 import { FilesService } from '../services/files.service';
 
-
+/**
+ * @module
+ * komponenta za upravljanje predmetima od strane nastavnika
+ */
 @Component({
   selector: 'app-mycourses',
   templateUrl: './mycourses.component.html',
@@ -48,6 +51,9 @@ export class MycoursesComponent implements OnInit {
   dataSources: PeriodicElement[] = [];
   myCoursesNotices: Notice[];
 
+  /**
+   * dohvatanje svih predmeta na kojima je nastavnik
+   */
   private getMyCourses(){
     this.courseInfos = [];
     this.selectedCourseInfos = [];
@@ -77,6 +83,9 @@ export class MycoursesComponent implements OnInit {
     });
   }
 
+  /**
+   * azuriranje informacija o predmetu
+   */
   updateCourseInfo(){
     if(!this.courseInfo.espb || !this.courseInfo.semester){
       return;
@@ -99,12 +108,20 @@ export class MycoursesComponent implements OnInit {
   message: string = "Dodavanje više fajlova se postiže odabirom jednog po jednog!";
   uploaders: FileUploader[];
 
+  /**
+   * ispis imena odabranog fajla radi sto boljeg simuliranja input type file
+   * @param fileInput html input
+   * @param ix indeks elementa za prikaz
+   */
   fileChangeEvent(fileInput: any, ix: number) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       this.fileInfoNames[ix] = fileInput.target.files[0].name;
     } 
   }
 
+  /**
+   * slanje obavestenja na server
+   */
   sendNoticeToServer() {
     console.log(this.myCoursesNotices);
     // radi se aploud svih fajlova
@@ -130,6 +147,7 @@ export class MycoursesComponent implements OnInit {
         this.message = "Potrebno je odabrati datum objavljivanja!";
         return;
       }
+      // ako obavestenje sadrzi i fajlove salju se svi
       if(this.uploaders[0].queue.length > 0){
         this.uploaders[0].onBuildItemForm = (item, form) => {
           form.append("idN", idN);
@@ -145,6 +163,7 @@ export class MycoursesComponent implements OnInit {
         }
         this.uploaders[0].uploadAll();
       }
+      // obicno obavestenje bez fajlova
       else{
         let n: Notice = {
           idN: idN,
@@ -162,16 +181,21 @@ export class MycoursesComponent implements OnInit {
           }
         })
       }
-    })
-    
-    //this.fileInfoNames[i] = this.defaultFileName;
+    }) 
   }
 
+  /**
+   * brisanje odabranih fajlova iz reda u uploaderu
+   * @param ix indeks koji iznacava na kojem odeljku stranice se vrsi azuriranje
+   */
   clearLoader(ix: number){
     this.uploaders[ix].clearQueue();
     this.fileInfoNames[ix] = this.defaultFileName;
   }
 
+  /**
+   * inicijalizacija fajl loadera koji se koriste pri uploadu fajlova
+   */
   private initUploaders(){
     let URLSingle = 'http://localhost:4000/uploadNotice';
     this.uploaders = [];
@@ -184,11 +208,17 @@ export class MycoursesComponent implements OnInit {
     }
   }
 
+  /**
+  * @param event odabran datum iz komponente kalendar
+  */
   setDate(event: MatDatepickerInputEvent<Date>) {
     this.date = event.value;
-    console.log(this.date.toLocaleDateString());
   }
 
+  /**
+   * brisanje obavestenja na sajtu predmeta
+   * @param idN id obavestenja
+   */
   delete(idN: number){
     this.filesService.deleteNotice(idN).subscribe((res)=>{
       if(res["message"]==1){
@@ -200,14 +230,24 @@ export class MycoursesComponent implements OnInit {
   dateUpdate: Date;
   noticeForUpdate: Notice;
 
+  /**
+   * odabir obavestenja za azuriranje
+   * @param ix indeks obavestenja
+   */
   selectForUpdate(ix: number){
     this.noticeForUpdate = this.myCoursesNotices[ix];
   }
 
+  /**
+  * @param event odabran datum iz komponente kalendar
+  */
   setDateForUpdate(event: MatDatepickerInputEvent<Date>) {
     this.dateUpdate = event.value;
   }
 
+  /**
+   * azuriranje obavestenja
+   */
   updateNotice(){
     this.filesService.deleteNotice(this.noticeForUpdate.idN).subscribe((res)=>{
       if(res["message"]==1){

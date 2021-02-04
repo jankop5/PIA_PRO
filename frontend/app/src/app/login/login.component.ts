@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { User } from '../model/user.model';
 import { LoginService } from '../services/login.service';
 
+/**
+ * komponenta za prijavljivanje korisnika
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,6 +30,9 @@ export class LoginComponent implements OnInit {
   type: number;
   currentUsername: string;
 
+  /**
+   * prijava na sistem
+   */
   login(){
     this.loginService.login(this.username, this.password).subscribe((user: User)=>{
       if(user){
@@ -35,6 +41,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("passwordChanged", JSON.stringify(user.passwordChanged));
         this.loginSuccess = true;
         this.loggedIn = true;
+        // forsiranje promene lozinke prilikom prvog logina
         if(!user.passwordChanged){
           this.router.navigate(['/passwordchange']);
         }
@@ -48,6 +55,9 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  /**
+   * odjava sa sistema
+   */
   logout(){
     localStorage.removeItem("username");
     localStorage.removeItem("type");

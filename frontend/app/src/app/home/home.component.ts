@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * @module
+ * komponenta za prikaz pocetne stranice katedre
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,6 +24,9 @@ export class HomeComponent implements OnInit {
   }, 10000);
   }
 
+  /**
+   * slajdovanje slika
+   */
   selectNextTab(){
     this.selectedIndex++;
     if(this.selectedIndex == this.maxIndex){

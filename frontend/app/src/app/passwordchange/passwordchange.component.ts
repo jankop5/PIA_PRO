@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
+/**
+ * @module
+ * komponenta za promenu lozinke
+ */
 @Component({
   selector: 'app-passwordchange',
   templateUrl: './passwordchange.component.html',
@@ -22,6 +26,9 @@ export class PasswordchangeComponent implements OnInit {
   newPassword: string;
   changeFailed: string;
 
+  /**
+   * promena lozinke
+   */
   changePassword(){
     this.loginService.changePassword(this.oldPassword, this.newPassword).subscribe((res: String)=>{
       if(res == "success"){

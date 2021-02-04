@@ -4,6 +4,10 @@ import { Course } from 'src/app/model/course.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { StudentsService } from 'src/app/services/students.service';
 
+/**
+ * @module
+ * komponenta za prikaz liste predmeta koje pohadja student
+ */
 @Component({
   selector: 'app-studentcourses',
   templateUrl: './studentcourses.component.html',

@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../model/user.model';
 
+/**
+ * @module
+ * servis za prijavu
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +14,11 @@ export class LoginService {
 
   uri = 'http://localhost:4000';
 
+  /**
+   * prijava na sistem
+   * @param username korisnicko ime
+   * @param password lozinka
+   */
   login(username: string, password: string){
     let data = {
       username: username,
@@ -20,6 +28,11 @@ export class LoginService {
     return this.http.post(`${this.uri}/login`, data);
   }
 
+  /**
+   * promena lozinke
+   * @param oldPassword stara lozinka
+   * @param newPassword nova lozinka
+   */
   changePassword(oldPassword: string, newPassword: string) {
     let username = localStorage.getItem("username");
     console.log(username);

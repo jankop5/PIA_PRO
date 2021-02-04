@@ -5,6 +5,10 @@ import { FilesService } from 'src/app/services/files.service';
 import { StudentsService } from 'src/app/services/students.service';
 import { UsersService } from 'src/app/services/users.service';
 
+/**
+ * @module
+ * komponenta za prikaz profila studenta
+ */
 @Component({
   selector: 'app-studentpage',
   templateUrl: './studentpage.component.html',
@@ -27,6 +31,9 @@ export class StudentpageComponent implements OnInit {
   }
 
   message: string = "";
+  /**
+   * azuriranje podataka o studentu
+   */
   update(){
     if(!this.student.firstName){
       this.message = "Polje ime je obavezno!";

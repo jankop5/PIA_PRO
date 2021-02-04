@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * @module
+ * komponenta za prikaz kontakt informacija katedre
+ */
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',

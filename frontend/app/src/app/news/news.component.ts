@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { News } from '../model/news.model';
 import { FilesService } from '../services/files.service';
 
+/**
+ * @module
+ * komponenta za prikaz glavnih obavestenja kojima upravlja admin
+ */
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
@@ -19,6 +23,7 @@ export class NewsComponent implements OnInit {
     else{
       this.type = JSON.parse(localStorage.getItem("type"));
     }
+    //filtriranje obavestenja mladjih od 3 meseca i sortiranje po datumu
     this.filesService.getAllNews().subscribe((news: News[])=>{
       this.allNews = news.filter((n)=>{
         let date3 = new Date(n.date);
@@ -48,6 +53,9 @@ export class NewsComponent implements OnInit {
   newsInsert: News = new News();
   messageInsert: string = "";
 
+  /**
+   * dodavanje obavestenja
+   */
   insertNews() {
       if(!this.newsInsert.title){
         this.messageInsert = "Potrebno je uneti naslov vesti!"
@@ -78,6 +86,9 @@ export class NewsComponent implements OnInit {
   categoryInsert: string;
   messageCategoryInsert: string;
 
+  /**
+   * dodavanje kategorije obavestenja
+   */
   insertCategory(){
     if(!this.categoryInsert){
       this.messageCategoryInsert = "Polje naziv kategorije ne sme biti prazno!";
@@ -97,6 +108,9 @@ export class NewsComponent implements OnInit {
   categoryUpdate: string;
   messageCategoryUpdate: string;
 
+  /**
+   * azuriranje kategorije obavestenja
+   */
   updateCategory(){
     if(!this.categorySelected){
       this.messageCategoryUpdate = "Potrebno je odabrati kategoriju za izmenu!";

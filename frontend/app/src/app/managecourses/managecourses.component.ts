@@ -10,6 +10,10 @@ import { CoursesService } from '../services/courses.service';
 import { EmployeesService } from '../services/employees.service';
 import { StudentsService } from '../services/students.service';
 
+/**
+ * @module
+ * komponenta za upravljanje predmetima od strane admina
+ */
 @Component({
   selector: 'app-managecourses',
   templateUrl: './managecourses.component.html',
@@ -50,6 +54,9 @@ export class ManagecoursesComponent implements OnInit {
   dataSources: PeriodicElement[][];
   message: string = "";
 
+  /**
+   * dohvatanje svih predmeta
+   */
   private getAllCourses(){
     this.courseInfos = [];
     this.coursesService.getAllCourses().subscribe((courses: Course[])=>{
@@ -64,6 +71,9 @@ export class ManagecoursesComponent implements OnInit {
     });
   }
 
+  /**
+   * dohvatanje svih nastavnika
+   */
   private getAllTeachers(){
     this.employeesService.getAllEmployees().subscribe((employees: Employee[])=>{
       this.allTeachers = employees.filter(e =>{
@@ -72,12 +82,18 @@ export class ManagecoursesComponent implements OnInit {
     })
   }
 
+  /**
+   * dohvatanje svih studenata
+   */
   private getAllStudents(){
     this.studentsService.getAllStudents().subscribe((students: Student[])=>{
       this.allStudents = students;
     })
   }
 
+  /**
+   * azuriranje informacija o predmetu
+   */
   updateCourseInfo(){
     if(!this.courseInfo.espb || !this.courseInfo.semester){
       this.message = "Polja espb i semestar moraju sadržati brojeve!";
@@ -90,6 +106,9 @@ export class ManagecoursesComponent implements OnInit {
     })
   }
 
+  /**
+   * brisanje predmeta
+   */
   deleteCourseInfo(){
     this.coursesService.deleteCourseInfo(this.courseInfo.code, this.courseInfo.coursename).subscribe((res)=>{
       if(res["message"]==0){
@@ -104,6 +123,9 @@ export class ManagecoursesComponent implements OnInit {
   newCourseInfo: CourseInfo = new CourseInfo();
   newMessage: string = "";
 
+  /**
+   * dodavanje novog predmeta
+   */
   insertCourseInfo(){
     if(!this.newCourseInfo.coursename){
       this.newMessage = "Polje naziv predmeta je obavezno!";
@@ -133,6 +155,9 @@ export class ManagecoursesComponent implements OnInit {
   teaching: Teaching = new Teaching();
   messageTeaching: string;
 
+  /**
+   * plan angazovanja - dodavanje nastavnika na predmet
+   */
   insertTeaching(){
     if(!this.teaching.coursename){
       this.messageTeaching = "Polje predmet je obavezno!";
@@ -160,6 +185,9 @@ export class ManagecoursesComponent implements OnInit {
   attending: Attending = new Attending();
   messageAttending: string;
 
+  /**
+   * slusanje predmeta - dodavanje studenta na predmet
+   */
   insertAttending(){
     if(!this.attending.coursename){
       this.messageAttending = "Polje predmet je obavezno!";

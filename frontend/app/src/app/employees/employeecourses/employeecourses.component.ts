@@ -4,6 +4,10 @@ import { Teaching } from 'src/app/model/teaching.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { EmployeesService } from 'src/app/services/employees.service';
 
+/**
+ * @module
+ * komponenta za prikaz linkova ka svim predmetima na kojima je nastavnik
+ */
 @Component({
   selector: 'app-employeecourses',
   templateUrl: './employeecourses.component.html',

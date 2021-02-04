@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
-import { Employee } from '../model/employee.model';
 import { RegisterService } from '../services/register.service';
 
+/**
+ * @module
+ * komponenta za registraciju
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -52,6 +55,9 @@ export class RegisterComponent implements OnInit {
   uploader: FileUploader;
   imageTypeOk: boolean = true;
 
+  /**
+   * inicijalizacija fajl loadera koji se koriste pri uploadu fajlova
+   */
   private initUploaders(){
     let URLSingle = 'http://localhost:4000/registerWithImage';
     this.fileInfoName = this.defaultFileName;
@@ -70,12 +76,19 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  /**
+  * ispis imena odabranog fajla radi sto boljeg simuliranja input type file
+  * @param fileInput html input
+  */
   fileChangeEvent(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       this.fileInfoName = fileInput.target.files[0].name;
     } 
   }
 
+  /**
+   * slanje profilne slike na server
+   */
   sendImageToServer() {
     while(this.uploader.queue.length > 1 ){
       this.uploader.queue.shift();
@@ -98,13 +111,19 @@ export class RegisterComponent implements OnInit {
     this.fileInfoName = this.defaultFileName;
   }
 
+  /**
+  * brisanje odabranih fajlova iz reda u uploaderu
+  */
   clearLoader(){
     this.uploader.clearQueue();
     this.fileInfoName = this.defaultFileName;
   }
 
+  /**
+   * registracija oba tipa korisnika
+   */
   registerUser(){
-    if(this.isEmployee){
+    if(this.isEmployee){ // registracija zaposlenog
       if(!this.username){
         this.message = "Polje korisničko ime je obavezno!";
         return;
@@ -169,7 +188,7 @@ export class RegisterComponent implements OnInit {
         }))
       }
     }
-    else{
+    else{ // registracija studenta
       if(!this.username){
         this.message = "Polje korisničko ime je obavezno!";
         return;

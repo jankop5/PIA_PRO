@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../model/employee.model';
 import { EmployeesService } from '../services/employees.service';
 
+/**
+ * @module
+ * komponenta za prikaz liste zaposlenih
+ */
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',

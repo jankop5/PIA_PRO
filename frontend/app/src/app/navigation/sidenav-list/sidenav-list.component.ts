@@ -1,5 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
+/**
+ * @module
+ * komponenta za prikaz bocnog menija
+ */
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
@@ -16,6 +20,9 @@ export class SidenavListComponent implements OnInit {
     this.type = JSON.parse(localStorage.getItem("type"));
   }
 
+  /**
+  * toglovanje prikaza bocnog menija
+  */
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }

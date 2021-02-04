@@ -21,6 +21,10 @@ export interface PeriodicElement {
   value: string;
 }
 
+/**
+ * @module
+ * komponenta za rad sa predmetom
+ */
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -36,6 +40,7 @@ export class CourseComponent implements OnInit {
       this.minDate = new Date();
       this.maxDate = new Date(currentYear, 11, 31);
     }
+
 
   ngOnInit(): void {
     this.dataSources = [];
@@ -76,6 +81,10 @@ export class CourseComponent implements OnInit {
   teachers: Employee[][] = [];
   courseInfoNotices: Notice[][] = [];
 
+  /**
+   * ucitavanje svih podataka o predmetu koji se koriste i prikazuju
+   * @param coursename ime predmeta
+   */
   private loadCourse(coursename: string){
     this.coursesService.getCourse(coursename).subscribe((course: Course)=>{
       this.course = course;
@@ -138,7 +147,11 @@ export class CourseComponent implements OnInit {
   defaultFileName: string = "";
   fileInfoNames: string[];
 
-  // ispis imena odabranog fajla radi sto boljeg simuliranja input type file
+  /**
+   * ispis imena odabranog fajla radi sto boljeg simuliranja input type file
+   * @param fileInput html input
+   * @param i indeks elementa za prikaz
+   */
   fileChangeEvent(fileInput: any, i: number) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       if(i < this.fileKinds.length){
@@ -156,8 +169,12 @@ export class CourseComponent implements OnInit {
       this.uploaders[i].queue.shift();
       
     }
-    
-    /*let fi = {
+    /**
+     * @code
+     * primer kako ne moze da se salje normalno objekat uz body kod uploadera
+     * mora se koristiti form.append
+     */
+    /*let fi = { 
       originalName: myFile.name,
       coursename: this.course.coursename,
       type: this.uploaders[i].queue[0].file.name.split('.').pop(),
@@ -183,6 +200,10 @@ export class CourseComponent implements OnInit {
     
   }
 
+  /**
+   * brisanje odabranih fajlova iz reda u uploaderu
+   * @param i indeks koji iznacava na kojem odeljku stranice se vrsi azuriranje
+   */
   clearLoader(i: number){
     this.uploaders[i].clearQueue();
     this.fileInfoNames[i] = this.defaultFileName;
@@ -191,6 +212,9 @@ export class CourseComponent implements OnInit {
   allFiles: FileInfo[][];
   fileKinds: string[] = ["predavanja", "vežbe", "rokovi", "lab", "projekat"];
 
+  /**
+   * dohvatanje svih fajlova na svim odeljcima sajta uz sortiranje po redosledu prikaza
+   */
   private getAllFiles(){
     this.allFiles = [];
     this.filesService.getAllFiles(this.course.coursename).subscribe((files: FileInfo[])=>{
@@ -205,12 +229,20 @@ export class CourseComponent implements OnInit {
     })
   }
 
+  /**
+   * download fajla
+   * @param uploadName ime fajla na serveru
+   */
   download(uploadName: string){
     this.filesService.download(uploadName).subscribe((data)=>{
       saveAs(data, uploadName);
     })
   }
 
+  /**
+   * brisanje fajla
+   * @param uploadName ime fajla na serveru
+   */
   delete(uploadName: string){
     this.filesService.deleteFilesInfo(uploadName).subscribe((res)=>{
       if(res["message"]==1){
@@ -219,6 +251,10 @@ export class CourseComponent implements OnInit {
     })
   }
 
+  /**
+   * azuriranje redosleda prikaza fajlova
+   * @param ix indeks koji iznacava na kojem odeljku stranice se vrsi azuriranje
+   */
   updateOrder(ix: number){
     let uploadNames: string[] = [];
     let orders: number[] = [];
@@ -240,7 +276,9 @@ export class CourseComponent implements OnInit {
 
   uploaders: FileUploader[];
 
-
+  /**
+   * inicijalizacija fajl loadera koji se koriste pri uploadu fajlova
+   */
   private initUploaders(){
     let URLSingle = 'http://localhost:4000/upload';
     let URLZip = 'http://localhost:4000/uploadZip';
@@ -262,6 +300,12 @@ export class CourseComponent implements OnInit {
     }
   }
 
+  /**
+   * azuriranje osnovnih prikaza o kursu
+   * @notice
+   * ne treba slati ovako sve parametre posebno nego kroz objekat
+   * kod zastareo
+   */
   updateCourseShow(){
     this.coursesService.updateCourseShow(this.course.coursename, this.course.showExams, this.course.showLabs, this.course.showProject,
       this.course.labInfo, this.course.projectInfo).subscribe((res)=>{
@@ -269,6 +313,10 @@ export class CourseComponent implements OnInit {
     });
   }
 
+  /**
+   * provera da li je prosledjeni datum u periodu 7 dana pre danasnjeg datuma
+   * @param dateString datum u string formatu
+   */
   isFreshNotice(dateString: string){
     let date7 = new Date();
     date7.setDate(date7.getDate() - 7);
@@ -281,6 +329,9 @@ export class CourseComponent implements OnInit {
   listInsert: StudentsList = new StudentsList();
   listInsertMessage: string = "";
 
+  /**
+   * dodavanje novog spiska
+   */
   insertList(){
     if(!this.listInsert.title){
       this.listInsertMessage = "Polje naziv je obavezno!";
@@ -305,12 +356,18 @@ export class CourseComponent implements OnInit {
     })
   }
 
+  /**
+   * @param event odabran datum iz komponente kalendar
+   */
   setDate(event: MatDatepickerInputEvent<Date>) {
     this.listInsert.date = event.value.toLocaleDateString();
   }
 
   allLists: StudentsList[];
 
+  /**
+   * dohvatanje svih spisaka za predmet
+   */
   private getAllLists(){
     this.filesService.getAllLists(this.course.coursename).subscribe((lists: StudentsList[])=>{
       console.log(lists);
@@ -318,6 +375,10 @@ export class CourseComponent implements OnInit {
     })
   }
 
+  /**
+   * zatvaranje spiska
+   * @param idL id spiska
+   */
   closeList(idL: number){
     this.filesService.closeList(idL).subscribe((res)=>{
       if(res["message"]==1){
@@ -326,6 +387,10 @@ export class CourseComponent implements OnInit {
     })
   }
 
+  /**
+   * provera da li je trenutni datum pre zadatog datuma
+   * @param date datum
+   */
   checkOpened(date: Date){
     return (new Date()).getTime() < (new Date(date)).getTime(); 
   }
@@ -334,6 +399,10 @@ export class CourseComponent implements OnInit {
   uploaderZip: FileUploader;
   uploadedTypeFailed: boolean = false;
 
+  /**
+   * aploudovanje zip fajla
+   * @param idL id spiska
+   */
   sendZipToServer(idL: number) {
     // radi se upload samo poslednjeg fajla
     while(this.uploaderZip.queue.length > 1 ){
@@ -354,7 +423,11 @@ export class CourseComponent implements OnInit {
     
   }
 
-  checkApplied(usernames: string[]){
+  /**
+   * provera da li je student na spisku
+   * @param usernames niz korisnickih imena koji se nalaze na spisku
+   */
+  checkApplied(usernames: string[]): boolean{
     for (let i = 0; i < usernames.length; i++) {
       if(usernames[i] == this.username){
         return true;
@@ -363,6 +436,10 @@ export class CourseComponent implements OnInit {
     return false;
   }
 
+  /**
+   * prijavljivanje studenta(trenutnog korisnika) na spisak
+   * @param idL id spiska
+   */
   applyOnList(idL: number){
     this.filesService.applyOnList(idL, this.username).subscribe((res)=>{
       if(res["message"] == 1){

@@ -5,6 +5,10 @@ import { EmployeesService } from 'src/app/services/employees.service';
 import { FilesService } from 'src/app/services/files.service';
 import { UsersService } from 'src/app/services/users.service';
 
+/**
+ * @module
+ * komponenta za prikaz profila zaposlenog
+ */
 @Component({
   selector: 'app-employeepage',
   templateUrl: './employeepage.component.html',
@@ -38,6 +42,9 @@ export class EmployeepageComponent implements OnInit {
    });
   }
 
+  /**
+   * slanje azuriranih podataka serveru
+   */
   updateEmployee(){
     this.usersService.updateUser(this.employee).subscribe((res)=>{
       if(res["message"]==1){
@@ -47,6 +54,9 @@ export class EmployeepageComponent implements OnInit {
   }
 
   message: string = "";
+  /**
+   * azuriranje podataka o zaposlenom
+   */
   update(){
     if(!this.employee.firstName){
       this.message = "Polje ime je obavezno!";

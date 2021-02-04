@@ -1,6 +1,10 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 
+/**
+ * @module
+ * guard kojim se omogucava pristup pojedinim stranicama samo registrovanim korisnicima
+ */
 @Injectable({
     providedIn: 'root'
 })

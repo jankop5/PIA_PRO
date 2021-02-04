@@ -1,5 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
+/**
+ * @module
+ * komponenta za prikaz glavnog menija
+ */
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,6 +21,9 @@ export class HeaderComponent implements OnInit {
     this.type = JSON.parse(localStorage.getItem("type"));
   }
 
+  /**
+   * toglovanje prikaza bocnog menija
+   */
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
   }

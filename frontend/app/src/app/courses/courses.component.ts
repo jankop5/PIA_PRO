@@ -3,6 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { CourseInfo } from '../model/courseinfo.model';
 import { CoursesService } from '../services/courses.service';
 
+/**
+ * @module 
+ * komponenta za prikaz liste svih predmeta 
+ */
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -50,6 +54,11 @@ export class CoursesComponent implements OnInit {
    });
   }
 
+  /**
+   * filtriranje i sortiranje predmeta po semestrima i nazivu
+   * @param coursesInfos niz sa informacijama o predmetima
+   * @param semester semestar
+   */
   private filterAndSortCourses(coursesInfos: CourseInfo[], semester: number): CourseInfo[]{
     let courses = coursesInfos.filter(function(course){
       return course.semester == semester;

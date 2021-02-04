@@ -486,7 +486,10 @@ router.route('/teachingCoursesByCoursename').post((req, res)=>{
     })
 });
 
-// ne koristim al neka ga
+/**
+ * @code
+ * ne koristim al neka ga
+ */
 router.route('/teachersByCoursename').post((req, res)=>{
     let coursename = req.body.coursename;
 

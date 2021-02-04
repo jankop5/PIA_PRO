@@ -1,7 +1,11 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { User } from "../model/user.model";
 
+
+/**
+ * @module
+ * guard kojim se onemogucava pristup stranicama dok se ne izvrsi promena lozinke prilikom prvog logovanja
+ */
 @Injectable({
     providedIn: 'root'
 })
