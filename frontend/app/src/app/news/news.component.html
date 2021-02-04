@@ -1,0 +1,102 @@
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+    <a routerLink="#" class="active">Obaveštenja</a>
+</div>
+<div class="page-content">
+    <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
+        <mat-tab label="Dodaj obaveštenje" *ngIf="type == 0">
+            <div class="tab-content">
+                <span class="color-custom">Naslov obaveštenja: </span>
+                <mat-form-field class="w-custom">
+                  <input type="text" matInput [(ngModel)]="newsInsert.title" style="color: white"/>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="ta-custom">
+                  <mat-label>Tekst obaveštenja</mat-label>
+                  <textarea matInput [(ngModel)]="newsInsert.text"></textarea>
+                </mat-form-field>
+                <br>
+                <mat-form-field style="width: 40%;">
+                    <mat-label>Kategorija</mat-label>
+                    <mat-select [(ngModel)]="newsInsert.category" name="cat" >
+                        <mat-option  *ngFor="let cat of allCategories" [value]="cat" >
+                          {{cat}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <br>
+                
+                <mat-hint>{{messageInsert}}</mat-hint>
+                <br>  
+                <button mat-raised-button (click)="insertNews()">Dodaj obaveštenje</button>
+
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Upravljaj kategorijama" *ngIf="type == 0">
+            <div class="tab-content">
+                <span class="color-custom">Naziv kategorije: </span>
+                <mat-form-field class="w-custom">
+                  <input type="text" matInput [(ngModel)]="categoryInsert" style="color: white"/>
+                </mat-form-field>
+                <br>
+                <mat-hint>{{messageCategoryInsert}}</mat-hint>
+                <br>  
+                <button mat-raised-button (click)="insertCategory()">Dodaj kategoriju</button>
+
+                <mat-form-field style="width: 40%;">
+                    <mat-label>Kategorija</mat-label>
+                    <mat-select [(ngModel)]="newsInsert.category" name="cat" >
+                        <mat-option  *ngFor="let cat of allCategories" [value]="cat" >
+                          {{cat}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-divider></mat-divider>
+                <br>
+                <mat-form-field style="width: 40%;">
+                    <mat-label>Kategorija</mat-label>
+                    <mat-select [(ngModel)]="categorySelected" name="cat" >
+                        <mat-option  *ngFor="let cat of allCategories" [value]="cat" >
+                          {{cat}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <br>
+                <span class="color-custom">Naziv kategorije: </span>
+                <mat-form-field class="w-custom">
+                  <input type="text" matInput [(ngModel)]="categoryUpdate" style="color: white"/>
+                </mat-form-field>
+                <br>
+                <mat-hint>{{messageCategoryUpdate}}</mat-hint>
+                <br>  
+                <button mat-raised-button (click)="updateCategory()">Izmeni kategoriju</button>
+
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Sva obaveštenja">
+            <div class="tab-content">
+                <div *ngFor="let news of allNews" class="news">
+                    <mat-divider></mat-divider>
+                    <br>
+                    <div class="title">
+                      {{news.title}}
+                    </div>
+                    <span style="color: white;">{{news.category}}</span>
+                    <br>
+                    <span style="color: white;">{{news.date}}</span>
+                    <br>
+                    <br>
+                    <p class="ta-custom wrap-custom">
+                      {{news.text}}
+                    </p>
+                    <br>
+                  <mat-divider></mat-divider>
+                  </div>
+
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

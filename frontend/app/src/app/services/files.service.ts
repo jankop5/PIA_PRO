@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { News } from '../model/news.model';
 import { Notice } from '../model/notice.model';
 
 @Injectable({
@@ -66,7 +67,38 @@ export class FilesService {
     let data = {
       idN: idN
     }
+
     return this.http.post(`${this.uri}/deleteNotice`, data);
   }
 
+  getAllCategories(){
+
+    return this.http.get(`${this.uri}/getAllCategories`);
+  }
+
+  getAllNews(){
+
+    return this.http.get(`${this.uri}/getAllNews`);
+  }
+
+  insertNews(news){
+    return this.http.post(`${this.uri}/insertNews`, news);
+  }
+
+  insertCategory(category: string){
+    let data = {
+      category: category
+    }
+
+    return this.http.post(`${this.uri}/insertCategory`, data);
+  }
+
+  udpateCategory(category: string, newCategory: string){
+    let data = {
+      category: category,
+      newCategory: newCategory
+    }
+
+    return this.http.post(`${this.uri}/udpateCategory`, data);
+  }
 }

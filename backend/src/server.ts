@@ -11,6 +11,8 @@ import multer from 'multer';
 import path from 'path';
 import filesinfo from './model/filesinfo';
 import notices from './model/notices';
+import news from './model/news';
+import categories from './model/categories';
 
 const app = express();
 
@@ -555,7 +557,7 @@ router.route('/attendingCoursesByUsername').post((req, res)=>{
     })
 });
 
-router.route('/insertAttending').post((req, res)=>{
+router.route('/d').post((req, res)=>{
     let username = req.body.username;
     let coursename = req.body.coursename;
 
@@ -579,6 +581,86 @@ router.route('/insertAttending').post((req, res)=>{
             }
         }
     })
+});
+
+router.route('/insertNews').post((req, res)=>{
+
+    news.countDocuments({}, (err, cnt)=>{
+        let n = new news({
+            idN: cnt + 1,
+            title: req.body.title,
+            text: req.body.text,
+            category: req.body.category,
+            date: req.body.date
+        });
+        n.save().then(succ => {
+            res.json({message: 1});
+        }).catch(err => {
+            res.json({message: -1});
+        });
+    })
+
+
+});
+
+
+router.route('/getAllNews').get((req, res)=>{
+
+    news.find({}, (err, n)=>{
+        if(err) console.log(err);
+        else res.json(n);
+    })
+});
+
+router.route('/getAllCategories').get((req, res)=>{
+
+    categories.find({}, (err, c)=>{
+        if(err) console.log(err);
+        else res.json(c);
+    })
+});
+
+router.route('/insertCategory').post((req, res)=>{
+
+    let category = req.body.category;
+
+    categories.findOne({'category': category}, (err, c)=>{
+        if(err) console.log(err);
+        else {
+            if(c){
+                res.json({message: 2});
+            }
+            else{
+                let cat = new categories({
+                    category: category
+                });
+    
+                cat.save().then(succ => {
+                    res.json({message: 1});
+                }).catch(err => {
+                    res.json({message: -1});
+                })
+            }
+        }
+    })
+});
+
+router.route('/udpateCategory').post((req, res)=>{
+
+    categories.findOne({'category': req.body.newCategory}, (err, c)=>{
+        if(err) console.log(err);
+        else {
+            if(c){
+                res.json({message: 2});
+            }
+            else{
+                categories.collection.updateOne({'category': req.body.category}, { $set: {'category': req.body.newCategory}});
+                res.json({message: 1});
+            }
+        }
+    })
+
+
 });
 
 app.use('/', router);

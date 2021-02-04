@@ -46,6 +46,7 @@ import { StudentsComponent } from './students/students.component';
 import { StudentpageComponent } from './students/studentpage/studentpage.component';
 import { StudentcoursesComponent } from './students/studentcourses/studentcourses.component';
 import { ManagecoursesComponent } from './managecourses/managecourses.component';
+import { NewsComponent } from './news/news.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +70,8 @@ import { ManagecoursesComponent } from './managecourses/managecourses.component'
     StudentsComponent,
     StudentpageComponent,
     StudentcoursesComponent,
-    ManagecoursesComponent
+    ManagecoursesComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
