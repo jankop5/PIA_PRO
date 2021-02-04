@@ -38,6 +38,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cursor-pointer{ cursor: pointer; }
 
 .page-content{
+	padding-top: 30px;
+	padding-left: 12%;
+	padding-right: 12%;
     min-height: 60vh;
 }
 
@@ -128,11 +131,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	background: #9EEB62;
 }
 
-.page-content{
-	padding-top: 30px;
-	padding-left: 12%;
-	padding-right: 12%;
-}
+
 
 .text-center{
 	text-align: center;

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Employee } from 'src/app/model/employee.model';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { FilesService } from 'src/app/services/files.service';
-import { URL } from 'url';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-employeepage',
@@ -13,7 +13,7 @@ import { URL } from 'url';
 export class EmployeepageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private employeesService: EmployeesService,
-    private filesService: FilesService) { }
+    private filesService: FilesService, private usersService: UsersService) { }
 
   employee: Employee;
   currentUsername: string;
@@ -39,7 +39,7 @@ export class EmployeepageComponent implements OnInit {
   }
 
   updateEmployee(){
-    this.employeesService.updateEmployee(this.employee).subscribe((res)=>{
+    this.usersService.updateUser(this.employee).subscribe((res)=>{
       if(res["message"]==1){
         location.reload();
       }
@@ -48,10 +48,6 @@ export class EmployeepageComponent implements OnInit {
 
   message: string = "";
   update(){
-    if(!this.employee.username){
-      this.message = "Polje korisničko ime je obavezno!";
-      return;
-    }
     if(!this.employee.firstName){
       this.message = "Polje ime je obavezno!";
       return;

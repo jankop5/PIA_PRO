@@ -1,5 +1,8 @@
 <mat-nav-list>
     <a mat-list-item routerLink="/" (click)="onSidenavClose()">Početna</a>
+    <span *ngIf="type == 0">
+        <a mat-list-item routerLink="/students" (click)="onSidenavClose()">Studenti</a>
+    </span>
     <a mat-list-item routerLink="/employees" (click)="onSidenavClose()">Zaposleni</a>
     <a mat-list-item routerLink="/news" (click)="onSidenavClose()">Obaveštenja</a>
     <span *ngIf="type == 1">

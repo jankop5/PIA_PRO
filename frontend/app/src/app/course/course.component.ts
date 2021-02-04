@@ -57,7 +57,7 @@ export class CourseComponent implements OnInit {
         this.employee = e;
       });
       this.loadCourse(coursename);
-      this.getAllFiles();
+      
    });
   }
   
@@ -124,6 +124,7 @@ export class CourseComponent implements OnInit {
         };
         
       });
+      this.getAllFiles();
     })
   }
 
@@ -180,7 +181,7 @@ export class CourseComponent implements OnInit {
 
   private getAllFiles(){
     this.allFiles = [];
-    this.filesService.getAllFiles().subscribe((files: FileInfo[])=>{
+    this.filesService.getAllFiles(this.course.coursename).subscribe((files: FileInfo[])=>{
       let f = files.sort((a, b) => {
         return a.order - b.order;
       });

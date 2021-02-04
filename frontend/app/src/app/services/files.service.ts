@@ -11,8 +11,11 @@ export class FilesService {
 
   uri = 'http://localhost:4000';
 
-  getAllFiles() {
-    return this.http.get(`${this.uri}/getAllFilesInfo`);
+  getAllFiles(coursename: string) {
+    let data = {
+      coursename: coursename
+    }
+    return this.http.post(`${this.uri}/getAllFilesInfoByCoursename`, data);
   }
 
   download(uploadName: string){

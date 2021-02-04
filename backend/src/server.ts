@@ -9,7 +9,6 @@ import coursesinfo from './model/coursesinfo';
 import attending from './model/attending';
 import multer from 'multer';
 import path from 'path';
-import files from './model/files';
 import filesinfo from './model/filesinfo';
 import notices from './model/notices';
 
@@ -69,8 +68,10 @@ router.route('/upload').post((req, res)=>{
   });     
 });
 
-router.route('/getAllFilesInfo').get((req, res)=>{
-    filesinfo.find({}, (err, f)=>{
+router.route('/getAllFilesInfoByCoursename').post((req, res)=>{
+    let coursename = req.body.coursename;
+
+    filesinfo.find({"coursename": coursename}, (err, f)=>{
         if(err) console.log(err);
         else res.json(f);
     })
@@ -303,6 +304,13 @@ router.route('/allEmployees').post((req, res)=>{
     })
 });
 
+router.route('/getAllStudents').get((req, res)=>{
+    users.find({'type': 2}, (err, user)=>{
+        if(err) console.log(err);
+        else res.json(user);
+    })
+});
+
 router.route('/findByUsername').post((req, res)=>{
     let username = req.body.username;
 
@@ -428,6 +436,15 @@ router.route('/isAttending').post((req, res)=>{
     attending.findOne({'username' : username, 'coursename': coursename}, (err, a)=>{
         if(err) console.log(err);
         else res.json(a);
+    })
+});
+
+router.route('/attendingCoursesByUsername').post((req, res)=>{
+    let username = req.body.username;
+
+    attending.find({'username': username}, (err, u)=>{
+        if(err) console.log(err);
+        else res.json(u);
     })
 });
 

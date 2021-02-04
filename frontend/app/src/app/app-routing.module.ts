@@ -16,6 +16,8 @@ import { FirstLoginGuard } from './routeguards/firstlogin.guard';
 import { LoggedInGuard } from './routeguards/loggedin.guard';
 import { ProjectsComponent } from './science/projects/projects.component';
 import { ResearchComponent } from './science/research/research.component';
+import { StudentpageComponent } from './students/studentpage/studentpage.component';
+import { StudentsComponent } from './students/students.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,7 +31,9 @@ const routes: Routes = [
   {path: 'course/:coursename', component: CourseComponent, canActivate: [LoggedInGuard, FirstLoginGuard]},
   {path: 'passwordchange', component: PasswordchangeComponent, canActivate: [LoggedInGuard]},
   {path: 'mycourses', component: MycoursesComponent, canActivate: [LoggedInGuard, EmployeeGuard]},
-  {path: 'register', component: RegisterComponent, canActivate: [AdminGuard]}
+  {path: 'register', component: RegisterComponent, canActivate: [AdminGuard]},
+  {path: 'students', component: StudentsComponent, canActivate: [LoggedInGuard, AdminGuard]},
+  {path: 'students/:username', component: StudentpageComponent, canActivate: [LoggedInGuard, AdminGuard]}
 ];
 
 @NgModule({

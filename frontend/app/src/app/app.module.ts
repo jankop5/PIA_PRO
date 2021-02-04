@@ -42,6 +42,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RegisterComponent } from './register/register.component';
+import { StudentsComponent } from './students/students.component';
+import { StudentpageComponent } from './students/studentpage/studentpage.component';
+import { StudentcoursesComponent } from './students/studentcourses/studentcourses.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +64,10 @@ import { RegisterComponent } from './register/register.component';
     CourseComponent,
     PasswordchangeComponent,
     MycoursesComponent,
-    RegisterComponent
+    RegisterComponent,
+    StudentsComponent,
+    StudentpageComponent,
+    StudentcoursesComponent
   ],
   imports: [
     BrowserModule,

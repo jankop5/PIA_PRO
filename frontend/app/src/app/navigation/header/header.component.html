@@ -16,6 +16,9 @@
     </mat-toolbar-row>
     <mat-toolbar-row class="hide-xs link-toolbar">
         <div class="align-right">
+            <span *ngIf="type == 0">
+                <a routerLink="/students" class="navigation-items">Studenti</a>
+            </span>
             <a routerLink="/employees" class="navigation-items">Zaposleni</a>
             <a routerLink="/news" class="navigation-items">Obaveštenja</a>
             <span *ngIf="type == 1">

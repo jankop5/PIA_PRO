@@ -1,0 +1,46 @@
+hr{
+    border: 1px solid var(--purple-color);
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.student-data{
+    word-break: break-all;
+}
+
+.mat-card-content a{
+    color: lightgray;
+}
+
+.student-card{
+    min-width: 400px;
+    width: 60%;
+    text-align: center;
+}
+
+.w-40 {
+    max-width: 40px;
+}
+
+.color-custom{
+    color: lightgray;
+}
+
+.ta-custom {
+    color: white;
+    display: inline-block;
+    line-height: 140%;
+    width: 98%;
+}
+
+.w-custom{
+    max-width: 400px;
+}
+
+.w-custom2{
+    width: 350px;
+}

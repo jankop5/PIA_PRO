@@ -39,17 +39,5 @@ export class EmployeesService {
 
     return this.http.post(`${this.uri}/isTeaching`, data);
   }
-
-  updateEmployee(employee){
-    delete employee["_id"];
-    return this.http.post(`${this.uri}/updateUser`, employee);
-  }
-
-  deleteEmployee(username: string){
-    let data = {
-      username: username
-    }
-
-    return this.http.post(`${this.uri}/deleteUser`, data);
-  }
+  
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Employee } from 'src/app/model/employee.model';
-import { EmployeesService } from 'src/app/services/employees.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-employeeinfo',
@@ -9,7 +9,7 @@ import { EmployeesService } from 'src/app/services/employees.service';
 })
 export class EmployeeinfoComponent implements OnInit {
 
-  constructor(private employeesService: EmployeesService) { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
     this.type = JSON.parse(localStorage.getItem("type"));
@@ -22,7 +22,7 @@ export class EmployeeinfoComponent implements OnInit {
   @Input() employees: Employee[];
 
   deleteEmployee(username: string){
-    this.employeesService.deleteEmployee(username).subscribe((res)=>{
+    this.usersService.deleteUser(username).subscribe((res)=>{
       if(res["message"]==1){
         location.reload();
       }

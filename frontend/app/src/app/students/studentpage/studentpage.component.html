@@ -1,0 +1,52 @@
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+    <a routerLink="/students">Studenti</a>
+    <a routerLink="#" class="active">Profil</a>
+</div>
+<div class="page-content">
+    <div class="text-center heading">Profil studenta</div>
+
+    <p>
+    <mat-card class="student-card">
+        <mat-card-header style="text-align: left;">
+            <div mat-card-avatar class="example-header-image material-icons" style="font-size: 40px;">account_box</div>
+            <mat-card-title>{{student.index}}</mat-card-title>
+            <mat-card-subtitle>
+                Student
+                <span *ngIf="student.typeOfStudy=='d'">osnovnih</span>
+                studija
+            </mat-card-subtitle>
+        </mat-card-header>
+      
+        <mat-card-content>
+            <br>
+            <p>
+            <mat-form-field class="w-custom2">
+                <mat-label>Ime</mat-label>
+                <input type="text" matInput [(ngModel)]="student.firstName" style="color: white" required/>
+            </mat-form-field>
+            <br>
+            </p>
+            <p>
+            <mat-form-field class="w-custom2">
+                <mat-label>Prezime</mat-label>
+                <input type="text" matInput [(ngModel)]="student.lastName" style="color: white" required/>
+            </mat-form-field>
+            <br>
+            </p>
+            <p>
+            <mat-form-field class="w-custom2">
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="student.status" name="status" required>
+                <mat-option value="aktivan">aktivan</mat-option>
+                <mat-option value="neaktivan">neaktivan</mat-option>
+                </mat-select>
+            </mat-form-field>
+            </p>
+            <mat-hint>{{message}}</mat-hint>
+            <br><br>
+            <button mat-raised-button color="primary" (click)="update()">Ažuriraj profil</button>
+        </mat-card-content>
+      </mat-card>
+    </p>
+</div>

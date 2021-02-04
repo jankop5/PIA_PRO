@@ -1,0 +1,18 @@
+.stinfo{
+    min-width: 400px;
+    width: 45vw;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.profile-icon{
+    color: whitesmoke; 
+}
+
+.profile-icon :hover{
+    color: lightgray;
+}

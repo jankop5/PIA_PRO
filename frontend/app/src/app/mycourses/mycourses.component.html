@@ -2,7 +2,7 @@
     <a routerLink="/">Početna</a>
     <a routerLink="#" class="active">Moji predmeti</a>
 </div>
-<div class="page-content">
+<div class="page-content" *ngIf="courseInfos && courseInfos.length > 0">
     <mat-tab-group animationDuration="200ms"  class="course-tabs" mat-align-tabs="center">
         <mat-tab label="Dodaj obaveštenje">
             <div class="tab-content">
@@ -195,4 +195,10 @@
 
         
     </mat-tab-group>
+</div>
+<div class="page-content" *ngIf="courseInfos && courseInfos.length == 0">
+  <div class="text-center subheading" style="margin-top: 150px;">
+    Niste raspoređeni ni na jedan predmet!
+  </div>
+
 </div>

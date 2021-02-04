@@ -1,0 +1,33 @@
+<div class="breadcrumb">
+    <a routerLink="/">Početna</a>
+	<a routerLink="/students" class="active">Studenti</a>
+</div>
+<div class="page-content">
+    <div class="text-center heading">Studenti</div>
+
+    <p>
+        <mat-accordion multi>
+            <div *ngFor="let student of allStudents">
+                <mat-expansion-panel class="stinfo">
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{student.firstName}} {{student.lastName}}
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <button mat-raised-button color="primary" (click)="deleteStudent(student.username)">Obriši studenta</button> 
+                    <br>
+                    <br>
+                 
+                    
+                    <a class="profile-icon" [routerLink]="['/students', student.username]"><span style="font-size: 50px; margin-left: -7px;" class="material-icons">account_box</span></a>
+                    <br>
+                    <span>
+                        Predmeti:
+                        <app-studentcourses [studentUsername]="student.username"></app-studentcourses>
+                        <br>
+                    </span>
+                </mat-expansion-panel>
+            </div>      
+        </mat-accordion>
+    </p>
+</div>

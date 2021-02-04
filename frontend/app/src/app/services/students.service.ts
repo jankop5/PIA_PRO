@@ -18,4 +18,24 @@ export class StudentsService {
 
     return this.http.post(`${this.uri}/isAttending`, data);
   }
+
+  getAllStudents(){
+    return this.http.get(`${this.uri}/getAllStudents`);
+  }
+
+  getAttendingCourses(username: string){
+    let data = {
+      username: username
+    }
+
+    return this.http.post(`${this.uri}/attendingCoursesByUsername`, data);
+  }
+
+  getStudent(username: string){
+    let data = {
+      username: username
+    }
+
+    return this.http.post(`${this.uri}/findByUsername`, data);
+  }
 }
