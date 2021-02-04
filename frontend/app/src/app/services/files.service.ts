@@ -113,4 +113,21 @@ export class FilesService {
 
     return this.http.post(`${this.uri}/getAllLists`, data);
   }
+
+  closeList(idL: number){
+    let data = {
+      idL: idL
+    }
+
+    return this.http.post(`${this.uri}/closeList`, data);
+  }
+
+  applyOnList(idL: number, username: string){
+    let data = {
+      idL: idL,
+      username: username
+    }
+
+    return this.http.post(`${this.uri}/applyOnList`, data);
+  }
 }

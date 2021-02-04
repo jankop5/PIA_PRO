@@ -138,9 +138,15 @@ export class CourseComponent implements OnInit {
   defaultFileName: string = "";
   fileInfoNames: string[];
 
+  // ispis imena odabranog fajla radi sto boljeg simuliranja input type file
   fileChangeEvent(fileInput: any, i: number) {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      this.fileInfoNames[i] = fileInput.target.files[0].name;
+      if(i < this.fileKinds.length){
+        this.fileInfoNames[i] = fileInput.target.files[0].name;
+      }
+      else{
+        this.fileInfoNameZip = fileInput.target.files[0].name;
+      }
     } 
   }
 
@@ -237,6 +243,7 @@ export class CourseComponent implements OnInit {
 
   private initUploaders(){
     let URLSingle = 'http://localhost:4000/upload';
+    let URLZip = 'http://localhost:4000/uploadZip';
     this.uploaders = [];
     this.fileInfoNames = [];
     for (let i = 0; i < this.fileKinds.length; i++) {
@@ -245,7 +252,13 @@ export class CourseComponent implements OnInit {
       this.uploaders[i].onAfterAddingFile = (file)=> { file.withCredentials = false; };
       this.uploaders[i].onCompleteItem = (item:any, response:any, status:any, headers:any) => {
         console.log("Upload:uploaded:", item, status, response);
-    };
+      };
+    }
+    this.uploaderZip = new FileUploader({url: URLZip, itemAlias: 'fileZip', allowedMimeType: ['application/x-zip-compressed']});
+    this.uploaderZip.onAfterAddingFile = (file)=> { file.withCredentials = false; this.uploadedTypeFailed = false; this.listInsertMessage = ""};
+    this.uploaderZip.onWhenAddingFileFailed = (item) => {this.uploadedTypeFailed = true; this.listInsertMessage = "Fajl mora biti u zip formatu!"}
+    this.uploaderZip.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+      console.log("Upload:uploaded:", item, status, response);
     }
   }
 
@@ -287,7 +300,7 @@ export class CourseComponent implements OnInit {
     this.listInsert.coursename = this.course.coursename;
     this.filesService.insertList(this.listInsert).subscribe((res)=>{
       if(res["message"] == 1){
-        location.reload();
+        this.getAllLists();
       }
     })
   }
@@ -305,4 +318,56 @@ export class CourseComponent implements OnInit {
     })
   }
 
+  closeList(idL: number){
+    this.filesService.closeList(idL).subscribe((res)=>{
+      if(res["message"]==1){
+        this.getAllLists();
+      }
+    })
+  }
+
+  checkOpened(date: Date){
+    return (new Date()).getTime() < (new Date(date)).getTime(); 
+  }
+
+  fileInfoNameZip: string = this.defaultFileName;
+  uploaderZip: FileUploader;
+  uploadedTypeFailed: boolean = false;
+
+  sendZipToServer(idL: number) {
+    // radi se upload samo poslednjeg fajla
+    while(this.uploaderZip.queue.length > 1 ){
+      this.uploaderZip.queue.shift();
+    }
+    if(this.uploadedTypeFailed) return;
+    this.uploaderZip.onBuildItemForm = (item, form) => {
+      form.append("username", this.username);
+      form.append("idL", idL);
+    };
+    this.uploaderZip.onCompleteAll = ()=>{
+      this.uploadedTypeFailed = false;
+      this.listInsertMessage = "Fajl je poslat!";
+      this.fileInfoNameZip = this.defaultFileName;
+    }
+    this.uploaderZip.uploadAll();
+    this.fileInfoNameZip = this.defaultFileName;
+    
+  }
+
+  checkApplied(usernames: string[]){
+    for (let i = 0; i < usernames.length; i++) {
+      if(usernames[i] == this.username){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  applyOnList(idL: number){
+    this.filesService.applyOnList(idL, this.username).subscribe((res)=>{
+      if(res["message"] == 1){
+        this.getAllLists();
+      }
+    })
+  }
 }

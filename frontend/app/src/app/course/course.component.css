@@ -89,6 +89,8 @@ table {
 }
 
 .tab-content{
+    padding-left: 15px;
+    padding-right: 15px;
     min-height: 600px;
     height: 600px;
     overflow-y: auto;
@@ -98,7 +100,7 @@ table {
 .h-custom {
     color: white;
     display: inline-block;
-    padding: 5px 10px;
+    padding-right: 10px;
     line-height: 140%;
     max-width: 100px;
 }
@@ -124,10 +126,6 @@ table {
     color: white;
 }
 
-.notice{
-    padding-left: 15px;
-    padding-right: 15px;
-}
 
 .titleColored{
     color: var(--purple-color)!important;
@@ -145,4 +143,17 @@ table {
 
 .mat-datepicker-input{
     color: white !important;
+}
+
+.emplinfo{
+    min-width: 400px;
+    width: 45vw;
+}
+
+.profile-icon{
+    color: whitesmoke; 
+}
+
+.profile-icon :hover{
+    color: lightgray;
 }

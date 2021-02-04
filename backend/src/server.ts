@@ -42,6 +42,7 @@ const storage = multer.diskStorage({
 var uploadFilesInfo = multer({ storage: storage }).single('fileInfo');
 var uploadNotices = multer({ storage: storage }).single('notice');
 var uploadImages = multer({ storage: storage }).single('image');
+var uploadZip = multer({ storage: storage }).single('fileZip');
 
 router.route('/upload').post((req, res)=>{
 
@@ -558,7 +559,7 @@ router.route('/attendingCoursesByUsername').post((req, res)=>{
     })
 });
 
-router.route('/d').post((req, res)=>{
+router.route('/insertAttending').post((req, res)=>{
     let username = req.body.username;
     let coursename = req.body.coursename;
 
@@ -693,13 +694,16 @@ router.route('/insertList').post((req, res)=>{
 
     lists.countDocuments({}, (err, cnt)=>{
         let l = new lists({
-            idN: cnt + 1,
+            idL: cnt + 1,
             coursename: req.body.coursename,
             usernames: [],
+            originalFileNames: [],
+            uploadFileNames: [],
             title: req.body.title,
             date: req.body.date,
             place: req.body.place,
-            limit: req.body.limit
+            limit: req.body.limit,
+            closed: false
         });
         l.save().then(succ => {
             res.json({message: 1});
@@ -718,6 +722,38 @@ router.route('/getAllLists').post((req, res)=>{
         if(err) console.log(err);
         else res.json(l);
     })
+});
+
+router.route('/closeList').post((req, res)=>{
+    let idL = req.body.idL;
+
+    lists.collection.updateOne({'idL': idL}, { $set: {'closed': true}});
+    res.json({message: 1});
+});
+
+router.route('/uploadZip').post((req, res)=>{
+
+    uploadZip(req, res, function (err) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            let idL = Number(req.body.idL);
+            lists.collection.updateOne({'idL': idL}, { $push: {
+                'originalFileNames': req.body.username + req.file.originalname,
+                'uploadFileNames': req.file.filename,
+            }});
+            res.json({message: 1});
+        }
+  });     
+});
+
+router.route('/applyOnList').post((req, res)=>{
+    let idL = req.body.idL;
+    let username = req.body.username;
+
+    lists.collection.updateOne({'idL': idL}, { $push: {'usernames': username}});
+    res.json({message: 1});
 });
 
 app.use('/', router);

@@ -102,7 +102,6 @@
                     &nbsp;
                     <button mat-raised-button (click)="sendFilesToServer(0)">Pošalji</button>
                     <br>
-                    &nbsp;
                     <button mat-raised-button color="primary" (click)="updateOrder(0)">Ažuriraj redosled</button>
                     <br><br>
                     <mat-divider></mat-divider>
@@ -148,7 +147,6 @@
                     &nbsp;
                     <button mat-raised-button (click)="sendFilesToServer(1)">Pošalji</button>
                     <br>
-                    &nbsp;
                     <button mat-raised-button color="primary" (click)="updateOrder(1)">Ažuriraj redosled</button>
                     <br><br>
                     <mat-divider></mat-divider>
@@ -194,14 +192,12 @@
                     &nbsp;
                     <button mat-raised-button (click)="sendFilesToServer(2)">Pošalji</button>
                     <br>
-                    &nbsp;
                     <mat-slide-toggle color="primary" [(ngModel)]="course.showExams">
                         <span class="color-custom">Prikaz ispitnih pitanja</span>
                     </mat-slide-toggle>
                     &nbsp;
                     <button mat-raised-button color="primary" (click)="updateCourseShow()">Sačuvaj izmene</button>
                     <br><br>
-                    &nbsp;
                     <button mat-raised-button color="primary" (click)="updateOrder(2)">Ažuriraj redosled</button>
                     <br><br>
                     <mat-divider></mat-divider>
@@ -247,20 +243,17 @@
                     &nbsp;
                     <button mat-raised-button (click)="sendFilesToServer(3)">Pošalji</button>
                     <br>
-                    &nbsp;
                       <mat-form-field class="ta-custom">
                           <mat-label>Informacije o laboratorijskim vežbama</mat-label>
                           <textarea matInput [(ngModel)]="course.labInfo"></textarea>
                       </mat-form-field>
                     <br><br>
-                    &nbsp;
                     <mat-slide-toggle color="primary" [(ngModel)]="course.showLabs">
                         <span class="color-custom">Prikaz laboratorijskih vežbi</span>
                     </mat-slide-toggle>
                     &nbsp;
                     <button mat-raised-button color="primary" (click)="updateCourseShow()">Sačuvaj izmene</button>
                     <br><br>
-                    &nbsp;
                     <button mat-raised-button color="primary" (click)="updateOrder(3)">Ažuriraj redosled</button>
                     <br><br>
                     <mat-divider></mat-divider>
@@ -271,9 +264,9 @@
                     <br><br>
                     {{course.labInfo}}
                     <br><br>
-                    <mat-divider></mat-divider>
+                    
                 </div>        
-
+                <mat-divider></mat-divider>
                 <mat-list>
                     <mat-list-item *ngFor="let file of allFiles[3]">
                       <mat-icon mat-list-icon>article</mat-icon>
@@ -314,33 +307,31 @@
                     &nbsp;
                     <button mat-raised-button (click)="sendFilesToServer(4)">Pošalji</button>
                     <br>
-                    &nbsp;
                     <mat-form-field class="ta-custom">
                         <mat-label>Informacije o projektu</mat-label>
                         <textarea matInput [(ngModel)]="course.projectInfo"></textarea>
                     </mat-form-field>
                     <br><br>
-                    &nbsp;
                     <mat-slide-toggle color="primary" [(ngModel)]="course.showProject">
                         <span class="color-custom">Prikaz projekta</span>
                     </mat-slide-toggle>
                     &nbsp;
                     <button mat-raised-button color="primary" (click)="updateCourseShow()">Sačuvaj izmene</button>
                     <br><br>
-                    &nbsp;
                     <button mat-raised-button color="primary" (click)="updateOrder(3)">Ažuriraj redosled</button>
                     <br><br>
-                    <mat-divider></mat-divider>
+                    
                 </div>
+                <mat-divider></mat-divider>
                 <div *ngIf="type == 2" class="color-custom wrap-custom" style="margin-left: 10px; margin-right: 10px;">
                     <br>
                     <span style="font-size: 16px;">Informacije o projektu:</span>
                     <br><br>
                     {{course.projectInfo}}
                     <br><br>
-                    <mat-divider></mat-divider>
+                    
                 </div>   
-
+                <mat-divider></mat-divider>
                 <mat-list>
                     <mat-list-item *ngFor="let file of allFiles[4]">
                       <mat-icon mat-list-icon>article</mat-icon>
@@ -398,10 +389,23 @@
                 <mat-hint>{{listInsertMessage}}</mat-hint>
                 <br>
                   <button mat-raised-button color="primary" (click)="insertList()">Dodaj spisak</button>
-                  <br><br>
-                  <mat-divider></mat-divider>
-              </div>      
 
+              </div>
+              
+              <div *ngIf="type == 2">
+                <br>
+                <mat-hint>{{listInsertMessage}}</mat-hint>
+                <br>
+                <input hidden #fileInputProjekat id="fileInputProjekat" 
+                    type="file" ng2FileSelect [uploader]="uploaderZip" (change)="fileChangeEvent($event, 5)">
+                    <mat-form-field class="h-custom">
+                        <input matInput [(ngModel)]="fileInfoNameZip" readonly name="memberContactNo" />
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="fileInputProjekat.click()">Odaberi fajl</button>
+                    &nbsp;
+              </div>
+              <br><br>
+              <mat-divider *ngIf="allLists.length > 0"></mat-divider>
               <mat-list>
                   <mat-list-item *ngFor="let list of allLists">
                     <mat-icon mat-list-icon>article</mat-icon>
@@ -410,14 +414,46 @@
                     <div mat-line> {{list.place}} </div>
                     
                     Broj prijavljenih: &nbsp; {{list.usernames.length}} &nbsp;
-                    &nbsp;
-                    <div *ngIf="type == 1">
-                      <button mat-raised-button color="warn">Zatvori prijavu</button>
+                    <span *ngIf="!list.closed && checkOpened(list.date)">
+                      &nbsp;
+                      <span *ngIf="type == 1">
+                        <button mat-raised-button color="warn" (click) = "closeList(list.idL)">Zatvori prijavu</button>
+                      </span>
+                      <span *ngIf="type == 2 && (list.limit == 0 || list.usernames.length < list.limit) && !checkApplied(list.usernames)">
+                        <button mat-raised-button (click)="applyOnList(list.idL)">Prijavi se</button>
+                      </span>
+                      <span *ngIf="type == 2 && checkApplied(list.usernames)">
+                        <button mat-raised-button (click)="sendZipToServer(list.idL)">Pošalji fajl</button>
+                      </span>
+                    </span>
+                    <br><br>
+                    <div mat-line *ngIf="type == 1">
+                        <mat-expansion-panel class="emplinfo">
+                            <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Spisak prijavljenih studenata
+                            </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div *ngFor="let username of list.usernames"> 
+                              {{username}}
+                            </div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel class="emplinfo">
+                          <mat-expansion-panel-header>
+                          <mat-panel-title>
+                              Poslati fajlovi
+                          </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <mat-list-item *ngFor="let originalFileName of list.originalFileNames; index as i">
+                            <div mat-line> {{originalFileName.substr(0, 9)}} - {{originalFileName.substr(9)}} </div>               
+                            <div *ngIf="type == 1">
+                              <button mat-raised-button (click)="download(list.uploadFileNames[i])">Preuzmi</button>
+                            </div>
+      
+                            <mat-divider></mat-divider>
+                          </mat-list-item>
+                      </mat-expansion-panel>
                     </div>
-                    <div *ngIf="type == 2 && list.usernames.length < list.limit">
-                      <button mat-raised-button>Prijavi se</button>
-                    </div>
-
                     <mat-divider></mat-divider>
                   </mat-list-item>
               </mat-list>

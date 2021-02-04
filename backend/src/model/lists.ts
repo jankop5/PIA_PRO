@@ -12,6 +12,12 @@ let Lists = new Schema({
     usernames: [{
         type: String
     }],
+    originalFileNames: [{
+        type: String
+    }],
+    uploadFileNames: [{
+        type: String
+    }],
     title: {
         type: String
     },
@@ -23,6 +29,9 @@ let Lists = new Schema({
     },
     limit: {
         type: Number
+    },
+    closed: {
+        type: Boolean
     }
 });
 
