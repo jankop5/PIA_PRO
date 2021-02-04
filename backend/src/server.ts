@@ -297,7 +297,7 @@ router.route('/deleteUser').post((req, res)=>{
     })
 });
 
-router.route('/allEmployees').post((req, res)=>{
+router.route('/getAllEmployees').get((req, res)=>{
     users.find({'type': 1}, (err, user)=>{
         if(err) console.log(err);
         else res.json(user);
@@ -320,38 +320,7 @@ router.route('/findByUsername').post((req, res)=>{
     })
 });
 
-router.route('/teachingCoursesByUsername').post((req, res)=>{
-    let username = req.body.username;
 
-    teaching.find({'username': username}, (err, t)=>{
-        if(err) console.log(err);
-        else res.json(t);
-    })
-});
-
-router.route('/teachingCoursesByCoursename').post((req, res)=>{
-    let coursename = req.body.coursename;
-
-    teaching.find({'coursename': coursename}, (err, t)=>{
-        if(err) console.log(err);
-        else res.json(t);
-    })
-});
-
-// ne koristim al neka ga
-router.route('/teachersByCoursename').post((req, res)=>{
-    let coursename = req.body.coursename;
-
-    teaching.find({'coursename': coursename}, (err, t: any[])=>{
-        if(err) console.log(err);
-        else {
-            users.find({ username: { $in: t.map(x => x.username) } }, (err, emp) => {
-                if(err) console.log(err);
-                else res.json(emp);
-            });
-        }
-    })
-});
 
 router.route('/findByCoursename').post((req, res)=>{
     let coursename = req.body.coursename;
@@ -495,6 +464,39 @@ router.route('/changePassword').post((req, res)=>{
     })
 });
 
+router.route('/teachingCoursesByUsername').post((req, res)=>{
+    let username = req.body.username;
+
+    teaching.find({'username': username}, (err, t)=>{
+        if(err) console.log(err);
+        else res.json(t);
+    })
+});
+
+router.route('/teachingCoursesByCoursename').post((req, res)=>{
+    let coursename = req.body.coursename;
+
+    teaching.find({'coursename': coursename}, (err, t)=>{
+        if(err) console.log(err);
+        else res.json(t);
+    })
+});
+
+// ne koristim al neka ga
+router.route('/teachersByCoursename').post((req, res)=>{
+    let coursename = req.body.coursename;
+
+    teaching.find({'coursename': coursename}, (err, t: any[])=>{
+        if(err) console.log(err);
+        else {
+            users.find({ username: { $in: t.map(x => x.username) } }, (err, emp) => {
+                if(err) console.log(err);
+                else res.json(emp);
+            });
+        }
+    })
+});
+
 router.route('/isTeaching').post((req, res)=>{
     let username = req.body.username;
     let coursename = req.body.coursename;
@@ -502,6 +504,35 @@ router.route('/isTeaching').post((req, res)=>{
     teaching.findOne({'username' : username, 'coursename': coursename}, (err, t)=>{
         if(err) console.log(err);
         else res.json(t);
+    })
+});
+
+
+router.route('/insertTeaching').post((req, res)=>{
+    let username = req.body.username;
+    let coursename = req.body.coursename;
+    let group = req.body.group;
+
+    teaching.findOne({'coursename': coursename, "group": group}, (err, t)=>{
+        if(err) console.log(err);
+        else {
+            if(t){
+                res.json({message: 2});
+            }
+            else{
+                let t = new teaching({
+                    username: username,
+                    coursename: coursename,
+                    group: group
+                });
+    
+                t.save().then(succ => {
+                    res.json({message: 1});
+                }).catch(err => {
+                    res.json({message: -1});
+                })
+            }
+        }
     })
 });
 
@@ -521,6 +552,32 @@ router.route('/attendingCoursesByUsername').post((req, res)=>{
     attending.find({'username': username}, (err, u)=>{
         if(err) console.log(err);
         else res.json(u);
+    })
+});
+
+router.route('/insertAttending').post((req, res)=>{
+    let username = req.body.username;
+    let coursename = req.body.coursename;
+
+    attending.findOne({'coursename': coursename, "username": username}, (err, a)=>{
+        if(err) console.log(err);
+        else {
+            if(a){
+                res.json({message: 2});
+            }
+            else{
+                let a = new attending({
+                    username: username,
+                    coursename: coursename
+                });
+    
+                a.save().then(succ => {
+                    res.json({message: 1});
+                }).catch(err => {
+                    res.json({message: -1});
+                })
+            }
+        }
     })
 });
 

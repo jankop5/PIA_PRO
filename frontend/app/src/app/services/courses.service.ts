@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CourseInfo } from '../model/courseinfo.model';
+import { Teaching } from '../model/teaching.model';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +94,10 @@ export class CoursesService {
 
   insertCourseInfo(courseInfo: CourseInfo){
     return this.http.post(`${this.uri}/insertCourseInfo`, courseInfo);
+  }
+
+  insertTeaching(teaching: Teaching){
+    return this.http.post(`${this.uri}/insertTeaching`, teaching);
   }
 
 }

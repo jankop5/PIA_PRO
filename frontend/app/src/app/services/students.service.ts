@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Attending } from '../model/attending.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class StudentsService {
     }
 
     return this.http.post(`${this.uri}/findByUsername`, data);
+  }
+
+  insertAttending(attending: Attending){
+    return this.http.post(`${this.uri}/insertAttending`, attending);
   }
 }

@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { PeriodicElement } from '../course/course.component';
+import { Attending } from '../model/attending.model';
 import { Course } from '../model/course.model';
 import { CourseInfo } from '../model/courseinfo.model';
+import { Employee } from '../model/employee.model';
+import { Student } from '../model/student.model';
+import { Teaching } from '../model/teaching.model';
 import { CoursesService } from '../services/courses.service';
+import { EmployeesService } from '../services/employees.service';
+import { StudentsService } from '../services/students.service';
 
 @Component({
   selector: 'app-managecourses',
@@ -11,7 +17,8 @@ import { CoursesService } from '../services/courses.service';
 })
 export class ManagecoursesComponent implements OnInit {
 
-  constructor(private coursesService: CoursesService) {
+  constructor(private coursesService: CoursesService, private employeesService: EmployeesService,
+    private studentsService: StudentsService) {
     }
 
   ngOnInit(): void {
@@ -31,6 +38,8 @@ export class ManagecoursesComponent implements OnInit {
       {name: "Termini nastave", value: ""}, {name: "Propozicije", value: ""}]
     );
     this.getAllCourses();
+    this.getAllTeachers();
+    this.getAllStudents();
   }
   
   username: string;
@@ -44,21 +53,29 @@ export class ManagecoursesComponent implements OnInit {
   private getAllCourses(){
     this.courseInfos = [];
     this.coursesService.getAllCourses().subscribe((courses: Course[])=>{
-      let flags = [], coursenames = [], n = courses.length;
-      for(let i = 0 ; i < n; i++) {
-        if( flags[courses[i].coursename]) continue;
-        flags[courses[i].coursename] = true;
-        coursenames.push(courses[i].coursename);
-      }
-      
-      coursenames.forEach(coursename => {
-        this.coursesService.getCourseInfosByCoursename(coursename).subscribe((cis: CourseInfo[])=>{
+      this.allCourses = courses;
+      courses.forEach(course => {
+        this.coursesService.getCourseInfosByCoursename(course.coursename).subscribe((cis: CourseInfo[])=>{
           cis.forEach(ci => {
             this.courseInfos.push(ci);
           })
         })
       });
     });
+  }
+
+  private getAllTeachers(){
+    this.employeesService.getAllEmployees().subscribe((employees: Employee[])=>{
+      this.allTeachers = employees.filter(e =>{
+        return e.title.substr(0, 6) != "ostali";
+      })
+    })
+  }
+
+  private getAllStudents(){
+    this.studentsService.getAllStudents().subscribe((students: Student[])=>{
+      this.allStudents = students;
+    })
   }
 
   updateCourseInfo(){
@@ -110,4 +127,56 @@ export class ManagecoursesComponent implements OnInit {
       }
     })
   }
+
+  allTeachers: Employee[];
+  allCourses: Course[];
+  teaching: Teaching = new Teaching();
+  messageTeaching: string;
+
+  insertTeaching(){
+    if(!this.teaching.coursename){
+      this.messageTeaching = "Polje predmet je obavezno!";
+      return;
+    }
+    if(!this.teaching.username){
+      this.messageTeaching = "Polje nastavnik je obavezno!";
+      return;
+    }
+    if(!this.teaching.group){
+      this.messageTeaching = "Polje grupa je obavezno!";
+      return;
+    }
+    this.coursesService.insertTeaching(this.teaching).subscribe((res)=>{
+      if(res["message"]==2){
+        this.messageTeaching = "Postoji dodeljen nastavnik za ovu grupu!";
+      }
+      else if(res["message"]==1){
+        location.reload();
+      }
+    })
+  }
+
+  allStudents: Student[];
+  attending: Attending = new Attending();
+  messageAttending: string;
+
+  insertAttending(){
+    if(!this.attending.coursename){
+      this.messageAttending = "Polje predmet je obavezno!";
+      return;
+    }
+    if(!this.attending.username){
+      this.messageAttending = "Polje student je obavezno!";
+      return;
+    }
+    this.studentsService.insertAttending(this.attending).subscribe((res)=>{
+      if(res["message"]==2){
+        this.messageAttending = "Student je već dodat na odabrani predmet!";
+      }
+      else if(res["message"]==1){
+        location.reload();
+      }
+    })
+  }
+
 }

@@ -179,6 +179,71 @@
             </div>
         </mat-tab>
 
+      <mat-tab label="Plan angažovanja">
+          <div class="tab-content">
+              <br>
+              <mat-form-field style="width: 40%;">
+                  <mat-label>Predmet</mat-label>
+                  <mat-select [(ngModel)]="teaching.coursename" name="cft" required>
+                      <mat-option  *ngFor="let course of allCourses" [value]="course.coursename" >
+                        {{course.coursename}}
+                      </mat-option>
+                    </mat-select>
+              </mat-form-field>
+              <br>
+              <mat-form-field style="width: 40%;">
+                <mat-label>Nastavnik</mat-label>
+                <mat-select [(ngModel)]="teaching.username" name="cft" required>
+                    <mat-option  *ngFor="let teacher of allTeachers" [value]="teacher.username" >
+                      {{teacher.firstName}} {{teacher.lastName}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <br>
+              <span class="color-custom">Grupa: &nbsp;</span>
+              <mat-form-field class="h-custom">
+                <input type="text" matInput [(ngModel)]="teaching.group" required/>
+              </mat-form-field>
+              <br>
+              <mat-hint>{{messageTeaching}}</mat-hint>
+              <br>
+              <button mat-raised-button color="primary" (click)="insertTeaching()">Dodaj nastavnika na predmet</button>
+              <br><br>
+              <mat-divider></mat-divider>
+
+          </div>
+      </mat-tab>
+
+      <mat-tab label="Praćenje predmeta">
+        <div class="tab-content">
+            <br>
+            <mat-form-field style="width: 40%;">
+                <mat-label>Predmet</mat-label>
+                <mat-select [(ngModel)]="attending.coursename" name="cft" required>
+                    <mat-option  *ngFor="let course of allCourses" [value]="course.coursename" >
+                      {{course.coursename}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field style="width: 40%;">
+              <mat-label>Student</mat-label>
+              <mat-select [(ngModel)]="attending.username" name="cft" required>
+                  <mat-option  *ngFor="let student of allStudents" [value]="student.username" >
+                    {{student.firstName}} {{student.lastName}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-hint>{{messageAttending}}</mat-hint>
+            <br>
+            <button mat-raised-button color="primary" (click)="insertAttending()">Dodaj studenta na predmet</button>
+            <br><br>
+            <mat-divider></mat-divider>
+
+        </div>
+    </mat-tab>
+
         
     </mat-tab-group>
 </div>

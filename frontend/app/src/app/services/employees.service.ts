@@ -12,7 +12,7 @@ export class EmployeesService {
   uri = 'http://localhost:4000';
 
   getAllEmployees(){
-    return this.http.post(`${this.uri}/allEmployees`, {});
+    return this.http.get(`${this.uri}/getAllEmployees`);
   }
 
   getEmployee(username: string){

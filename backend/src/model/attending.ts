@@ -8,9 +8,6 @@ let Attending = new Schema({
     },
     coursename: {
         type: String
-    },
-    group: {
-        type: String
     }
 });
 
