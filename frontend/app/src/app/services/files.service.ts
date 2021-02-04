@@ -101,4 +101,16 @@ export class FilesService {
 
     return this.http.post(`${this.uri}/udpateCategory`, data);
   }
+
+  insertList(list){
+    return this.http.post(`${this.uri}/insertList`, list);
+  }
+
+  getAllLists(coursename: string){
+    let data = {
+      coursename: coursename
+    }
+
+    return this.http.post(`${this.uri}/getAllLists`, data);
+  }
 }

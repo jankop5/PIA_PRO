@@ -142,3 +142,7 @@ table {
     font-size: 15px;
     text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 }
+
+.mat-datepicker-input{
+    color: white !important;
+}

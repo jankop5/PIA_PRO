@@ -13,6 +13,8 @@ import { FilesService } from '../services/files.service';
 import { saveAs } from 'file-saver';
 import { FileInfo } from '../model/fileinfo.model';
 import { Notice } from '../model/notice.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { StudentsList } from '../model/list.model';
 
 export interface PeriodicElement {
   name: string;
@@ -30,6 +32,9 @@ export class CourseComponent implements OnInit {
     private employeesService: EmployeesService, private studentsService: StudentsService,
     private router: Router, private filesService: FilesService) { 
       this.initUploaders();
+      const currentYear = new Date().getFullYear();
+      this.minDate = new Date();
+      this.maxDate = new Date(currentYear, 11, 31);
     }
 
   ngOnInit(): void {
@@ -125,6 +130,7 @@ export class CourseComponent implements OnInit {
         
       });
       this.getAllFiles();
+      this.getAllLists();
     })
   }
 
@@ -255,4 +261,48 @@ export class CourseComponent implements OnInit {
     date7.setDate(date7.getDate() - 7);
     return (new Date(dateString) >= date7);
   }
+
+
+  minDate: Date;
+  maxDate: Date;
+  listInsert: StudentsList = new StudentsList();
+  listInsertMessage: string = "";
+
+  insertList(){
+    if(!this.listInsert.title){
+      this.listInsertMessage = "Polje naziv je obavezno!";
+      return;
+    }
+    if(!this.listInsert.date){
+      this.listInsertMessage = "Polje datum održavanja je obavezno!";
+      return;
+    }
+    if(!this.listInsert.place){
+      this.listInsertMessage = "Polje mesto je obavezno!";
+      return;
+    }
+    if(!this.listInsert.limit){
+      this.listInsert.limit = 0;
+    }
+    this.listInsert.coursename = this.course.coursename;
+    this.filesService.insertList(this.listInsert).subscribe((res)=>{
+      if(res["message"] == 1){
+        location.reload();
+      }
+    })
+  }
+
+  setDate(event: MatDatepickerInputEvent<Date>) {
+    this.listInsert.date = event.value.toLocaleDateString();
+  }
+
+  allLists: StudentsList[];
+
+  private getAllLists(){
+    this.filesService.getAllLists(this.course.coursename).subscribe((lists: StudentsList[])=>{
+      console.log(lists);
+      this.allLists = lists;
+    })
+  }
+
 }

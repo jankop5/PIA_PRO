@@ -368,5 +368,60 @@
                 </mat-list>
             </div>
         </mat-tab>
+
+        <mat-tab label="Spiskovi">
+          <div class="tab-content">
+              <div *ngIf="type == 1">
+                <span class="color-custom">Naziv: &nbsp;</span>
+                <mat-form-field class="h-custom">
+                  <input type="text" matInput [(ngModel)]="listInsert.title" required/>
+                </mat-form-field>
+                <br>
+                <p>
+                  <mat-form-field appearance="outline" color="primary" class="color-custom">
+                    <mat-label>Datum održavanja</mat-label>
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" (dateChange)="setDate($event)" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </p>
+                <span class="color-custom">Mesto: &nbsp;</span>
+                <mat-form-field class="h-custom">
+                  <input type="text" matInput [(ngModel)]="listInsert.place" required/>
+                </mat-form-field>
+                <br>
+                <span class="color-custom">Limit: &nbsp;</span>
+                <mat-form-field class="w-40" style="color: white">
+                  <input type="number" matInput [(ngModel)]="listInsert.limit"/>
+                </mat-form-field>
+                <br><br>
+                <mat-hint>{{listInsertMessage}}</mat-hint>
+                <br>
+                  <button mat-raised-button color="primary" (click)="insertList()">Dodaj spisak</button>
+                  <br><br>
+                  <mat-divider></mat-divider>
+              </div>      
+
+              <mat-list>
+                  <mat-list-item *ngFor="let list of allLists">
+                    <mat-icon mat-list-icon>article</mat-icon>
+                    <div mat-line> {{list.title}} </div>
+                    <div mat-line> {{list.date}} </div>
+                    <div mat-line> {{list.place}} </div>
+                    
+                    Broj prijavljenih: &nbsp; {{list.usernames.length}} &nbsp;
+                    &nbsp;
+                    <div *ngIf="type == 1">
+                      <button mat-raised-button color="warn">Zatvori prijavu</button>
+                    </div>
+                    <div *ngIf="type == 2 && list.usernames.length < list.limit">
+                      <button mat-raised-button>Prijavi se</button>
+                    </div>
+
+                    <mat-divider></mat-divider>
+                  </mat-list-item>
+              </mat-list>
+          </div>
+      </mat-tab>
     </mat-tab-group>
 </div>

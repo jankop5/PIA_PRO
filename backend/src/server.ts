@@ -13,6 +13,7 @@ import filesinfo from './model/filesinfo';
 import notices from './model/notices';
 import news from './model/news';
 import categories from './model/categories';
+import lists from './model/lists';
 
 const app = express();
 
@@ -661,6 +662,62 @@ router.route('/udpateCategory').post((req, res)=>{
     })
 
 
+});
+
+router.route('/insertCategory').post((req, res)=>{
+
+    let category = req.body.category;
+
+    categories.findOne({'category': category}, (err, c)=>{
+        if(err) console.log(err);
+        else {
+            if(c){
+                res.json({message: 2});
+            }
+            else{
+                let cat = new categories({
+                    category: category
+                });
+    
+                cat.save().then(succ => {
+                    res.json({message: 1});
+                }).catch(err => {
+                    res.json({message: -1});
+                })
+            }
+        }
+    })
+});
+
+router.route('/insertList').post((req, res)=>{
+
+    lists.countDocuments({}, (err, cnt)=>{
+        let l = new lists({
+            idN: cnt + 1,
+            coursename: req.body.coursename,
+            usernames: [],
+            title: req.body.title,
+            date: req.body.date,
+            place: req.body.place,
+            limit: req.body.limit
+        });
+        l.save().then(succ => {
+            res.json({message: 1});
+        }).catch(err => {
+            res.json({message: -1});
+        });
+    })
+
+
+});
+
+router.route('/getAllLists').post((req, res)=>{
+    let coursename = req.body.coursename;
+
+    lists.find({"coursename": coursename}, (err, l)=>{
+        if(err) console.log(err);
+        else res.json(l);
+    })
 });
 
 app.use('/', router);
