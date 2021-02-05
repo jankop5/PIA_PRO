@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
+import { Student } from '../model/student.model';
 import { RegisterService } from '../services/register.service';
 
 /**
@@ -260,4 +261,117 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+
+
+  fileInfoNameCSV: string = "";
+  messageCSV: string = "";
+  public records: any[] = [];
+  
+  /**
+   * provera i parsiranje csv fajla
+   * @param $event input tipa fajl
+   */
+  uploadCSVListener($event: any): void {  
+    let files = $event.srcElement.files;  
+  
+    if (this.isValidCSVFile(files[0])) {  
+      this.fileInfoNameCSV = files[0].name;
+      let input = $event.target;  
+      let reader = new FileReader();  
+      reader.readAsText(input.files[0]);  
+  
+      reader.onload = () => {  
+        let csvData = reader.result;  
+        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
+  
+        let headersRow = this.getHeaderArray(csvRecordsArray);  
+  
+        this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length); 
+        console.log(this.records); 
+      };
+  
+    } else {  
+      this.messageCSV = "Fajl mora biti u csv formatu";
+    }  
+  }  
+  
+  /**
+   * dohvatanje podataka iz csv fajla
+   * @param csvRecordsArray niz podataka o studentima
+   * @param headerLength broj kolona
+   */
+  getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {  
+    let csvArr = [];  
+  
+    for (let i = 1; i < csvRecordsArray.length; i++) {  
+      let curruntRecord = (<string>csvRecordsArray[i]).split(',');  
+      if (curruntRecord.length == headerLength) {  
+        let csvRecord: string[] = [];  
+        csvRecord[0] = curruntRecord[0].trim();
+        csvRecord[1] = curruntRecord[1].trim(); 
+        csvRecord[2] = curruntRecord[2].trim();  
+        csvRecord[3] = curruntRecord[3].trim();  
+
+        csvArr.push(csvRecord);  
+      }  
+    }  
+    return csvArr;  
+  }  
+  
+  /**
+   * provera da li je fajl u dobrom formatu
+   * @param file fajl
+   */
+  isValidCSVFile(file: any) {  
+    return file.name.endsWith(".csv");  
+  }  
+  
+  /**
+   * dohvatanje prvog reda iz csv fajla tj. imena kolona
+   * @param csvRecordsArr niz podataka
+   */
+  getHeaderArray(csvRecordsArr: any) {  
+    let headers = (<string>csvRecordsArr[0]).split(',');  
+    let headerArray = [];  
+    for (let j = 0; j < headers.length; j++) {  
+      headerArray.push(headers[j]);  
+    }  
+    return headerArray;  
+  }  
+
+  /**
+   * registracija studenta ucitanih iz csv fajla
+   */
+  registerFromCsv(){
+    for (let i = 0; i < this.records.length; i++) {
+
+      let username = this.records[i][0];
+      let firstName = this.records[i][2];
+      let lastName = this.records[i][3];
+      if(username.length != 9 || username[0] != lastName[0].toLowerCase()
+      || username[1] != firstName[0].toLowerCase()){
+      this.messageCSV = "Korisničko ime mora biti u formatu piGGGGBBx!";
+      return;
+    }
+      let s = {
+        username: username,
+        password: this.records[i][1],
+        firstName: firstName,
+        lastName: lastName,
+        index: "20" + username.substr(2, 2) + "/" + username.substr(4, 4),
+        typeOfStudy: username[8],
+        status: "aktivan",
+        type: 2
+      };
+      this.registerService.register(s).subscribe((res=>{
+        if(res["message"]==2){
+          this.messageCSV = "Korisničko ime postoji!";
+          return;
+        }
+      }))
+    }
+    if(this.records.length > 0){
+      location.reload();
+    }
+  }
 }

@@ -123,6 +123,7 @@
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="fileInputImage.click()">Odaberi sliku</button>
     </div>
+
     <div class="err-custom">
         {{message}}
     </div>
@@ -133,4 +134,25 @@
             <span *ngIf="!isCurrentUserAdmin">se</span>
         </button>
     </div>
+
+    <div class="err-custom" *ngIf="isCurrentUserAdmin && !isEmployee">
+        {{messageCSV}}
+    </div>
+    <div class="display-custom" *ngIf="isCurrentUserAdmin && !isEmployee">
+        <input hidden #fileInputCSV id="fileInputCSV" 
+        type="file" (change)="uploadCSVListener($event)">
+        <mat-form-field appearance="outline">
+            <input class="f-custom" matInput [(ngModel)]="fileInfoNameCSV" readonly name="me" accept=".csv"/>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="fileInputCSV.click()">Odaberi CSV fajl</button>
+    </div>
+    <div class="display-custom" *ngIf="isCurrentUserAdmin && !isEmployee">
+        <button mat-raised-button (click)="registerFromCsv()">
+            Registruj studente iz CSV fajla
+        </button>
+    </div>
+
+       
+        
+
 </div>
