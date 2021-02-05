@@ -29,7 +29,7 @@ export class ManagecoursesComponent implements OnInit {
     this.username  = localStorage.getItem("username");
     this.dataSources = [];
     this.dataSources.push([
-      {name: "Naziv predmeta", value: ""}, {name: "Sifra predmeta", value: ""}, 
+      {name: "Naziv predmeta", value: ""}, {name: "Sifra predmeta", value: ""}, {name: "Modul", value: ""},
       {name: "Tip", value: ""}, {name: "Semsetar", value: ""},
       {name: "Fond časova", value: ""}, {name: "ESPB", value: ""}, 
       {name: "Cilj", value: ""}, {name: "Ishod", value: ""},
@@ -133,6 +133,10 @@ export class ManagecoursesComponent implements OnInit {
     }
     if(!this.newCourseInfo.code){
       this.newMessage = "Polje šifra predmeta je obavezno!";
+      return;
+    }
+    if(!this.newCourseInfo.module){
+      this.newMessage = "Polje modul je obavezno!";
       return;
     }
     if(!this.newCourseInfo.semester){

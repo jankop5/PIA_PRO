@@ -101,7 +101,15 @@ export class RegisterComponent implements OnInit {
     while(this.uploader.queue.length > 1 ){
       this.uploader.queue.shift();
     }
-    
+    if(!this.phone){
+      this.phone = "";
+    }
+    if(!this.website){
+      this.website = "";
+    }
+    if(!this.personalData){
+      this.personalData = "";
+    }
     this.uploader.onBuildItemForm = (item, form) => {
       form.append("username", this.username);
       form.append("password", this.password);

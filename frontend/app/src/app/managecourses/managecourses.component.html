@@ -37,43 +37,53 @@
                       </div>
                       <div *ngIf="i == 2">
                         <mat-form-field>
+                          <mat-select [(ngModel)]="newCourseInfo.module" name="m">
+                            <mat-option value="SI">SI</mat-option>
+                            <mat-option value="RTI">RTI</mat-option>
+                            <mat-option value="ostali">Ostali</mat-option>
+                            <mat-option value="master">Master</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="i == 3">
+                        <mat-form-field>
                           <mat-select [(ngModel)]="newCourseInfo.type" name="t">
                             <mat-option value="obavezan">obavezan</mat-option>
                             <mat-option value="izborni">izborni</mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
-                      <div *ngIf="i == 3">
+                      <div *ngIf="i == 4">
                         <mat-form-field class="w-40">
                             <input type="number" matInput [(ngModel)]="newCourseInfo.semester" required/>
                         </mat-form-field>
                       </div>
-                      <div *ngIf="i == 4" class="ta-custom">
+                      <div *ngIf="i == 5" class="ta-custom">
                         <mat-form-field class="ta-custom">
                             <textarea matInput [(ngModel)]="newCourseInfo.lessions"></textarea>
                         </mat-form-field>
                       </div>
-                      <div *ngIf="i == 5">
+                      <div *ngIf="i == 6">
                         <mat-form-field class="w-40">
                             <input type="number" matInput [(ngModel)]="newCourseInfo.espb" required/>
                         </mat-form-field>
                       </div>
-                      <div *ngIf="i == 6" class="ta-custom">
+                      <div *ngIf="i == 7" class="ta-custom">
                         <mat-form-field class="ta-custom">
                             <textarea matInput [(ngModel)]="newCourseInfo.goal"></textarea>
                         </mat-form-field>
                       </div>
-                      <div *ngIf="i == 7" class="ta-custom">
+                      <div *ngIf="i == 8" class="ta-custom">
                         <mat-form-field class="ta-custom">
                             <textarea matInput [(ngModel)]="newCourseInfo.outcome"></textarea>
                         </mat-form-field>
                       </div>
-                      <div *ngIf="i == 8" class="ta-custom">
+                      <div *ngIf="i == 9" class="ta-custom">
                         <mat-form-field class="ta-custom">
                             <textarea matInput [(ngModel)]="newCourseInfo.terms"></textarea>
                         </mat-form-field>
                       </div>
-                      <div *ngIf="i == 9" class="ta-custom">
+                      <div *ngIf="i == 10" class="ta-custom">
                         <mat-form-field class="ta-custom">
                             <textarea matInput [(ngModel)]="newCourseInfo.propositions"></textarea>
                         </mat-form-field>

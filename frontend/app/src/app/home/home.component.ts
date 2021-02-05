@@ -32,6 +32,10 @@ export class HomeComponent implements OnInit {
     }
     this.text = [];
     
+    /**
+     * @todo
+     * Dodati jos jezika i na sve stranice implentirati visejezicnost
+     */
     this.text.push([
       "Početna",
       "Osnovna priča o katedri",
@@ -55,7 +59,6 @@ export class HomeComponent implements OnInit {
       "In the school year 2020/21, the Chief of the department is professor PhD Jelica Protić, Deputy of the Department is professor PhD Igor Tartalja, and the Secretary of the department is asst. professor PhD Marko Mišić.",
       "At the bachelor studies, the chief of the Department for Computer Engineering and Information Theory is professor PhD Miroslav Bojović, and the chief of the Department for Software Engineering is professor PhD Boško Nikolić. In charge for master studies are professor PhD Dragan Bojić (Module SE) i professor PhD Zaharije Radivojević (Module CEIT). In charge for doctoral studies are professor PhD Jelica Protić (Module SE) i professor PhD Igor Tartalja (Module CEIT)."
     ]);
-
   }
 
   /**
