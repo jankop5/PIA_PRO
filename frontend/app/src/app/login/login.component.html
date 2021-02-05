@@ -1,42 +1,58 @@
 <div *ngIf="!loggedIn">
     <mat-form-field style="width: 150px;">
-        <mat-label style="font-size: 16px;">Korisničko ime</mat-label>
+        <mat-label style="font-size: 16px;">{{text[language][0]}}</mat-label>
         <input matInput type="text" [(ngModel)]="username" style="font-size: 16px;">
     </mat-form-field>
     &nbsp;
     <mat-form-field style="width: 150px;">
-        <mat-label style="font-size: 16px;">Lozinka</mat-label>
+        <mat-label style="font-size: 16px;">{{text[language][1]}}</mat-label>
         <input matInput type="password" [(ngModel)]="password" style="font-size: 16px;">
     </mat-form-field>
     &nbsp;
     <div class="group">
-    <label for="loginButton"><span *ngIf="!loginSuccess" style="font-size: 11px; color:rgb(48, 48, 48);">Nevalidni podaci!</span></label><br>
+    <label for="loginButton"><span *ngIf="!loginSuccess" style="font-size: 11px; color:rgb(48, 48, 48);">{{text[language][2]}}</span></label><br>
     <button name="loginButton" mat-raised-button color="primary" (click)="login()">
-        Uloguj se
+        {{text[language][3]}}
     </button>
     </div>
     &nbsp;
     <a routerLink="/register" class="login-link">
-        Registruj se
+        {{text[language][4]}}
     </a>
+    <mat-form-field style="width: 50px; height: 50px; font-size: 14px; padding-left: 5px">
+        <mat-label><mat-icon>language</mat-icon></mat-label>
+        <mat-select [(ngModel)]="language" name="cft" (selectionChange)="updateLanguage()">
+            <mat-option value="0">Srpski (latinica)</mat-option>
+            <mat-option value="1">Српски (ћирилица)</mat-option>
+            <mat-option value="2">English</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 <div *ngIf="loggedIn">
     <button mat-raised-button (click)="logout()">
-        Izloguj se
+        {{text[language][5]}}
     </button>
     &nbsp;
     <span *ngIf="type == 0">
         <a routerLink="/register" class="login-link">
-            Registruj korisnika
+            {{text[language][6]}}
         </a>
     </span>
     <span *ngIf="type == 1">
         <a [routerLink]="['/employees', username]" class="login-link">
-            Moj profil
+            {{text[language][7]}}
         </a>
     </span>
     &nbsp;
     <a routerLink="/passwordchange" class="login-link">
-        Promeni lozinku
+        {{text[language][9]}}
     </a>
+    <mat-form-field style="width: 50px; height: 50px; font-size: 14px; padding-left: 5px">
+        <mat-label><mat-icon>language</mat-icon></mat-label>
+        <mat-select [(ngModel)]="language" name="cft" (selectionChange)="updateLanguage()">
+            <mat-option value="0">Srpski (latinica)</mat-option>
+            <mat-option value="1">Српски (ћирилица)</mat-option>
+            <mat-option value="2">English</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>

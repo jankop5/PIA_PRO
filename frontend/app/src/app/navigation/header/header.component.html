@@ -17,34 +17,34 @@
     <mat-toolbar-row class="hide-xs link-toolbar">
         <div class="align-right">
             <span *ngIf="type == 0">
-                <a routerLink="/students" class="navigation-items">Studenti</a>
+                <a routerLink="/students" class="navigation-items">{{text[language][0]}}</a>
             </span>
-            <a routerLink="/employees" class="navigation-items">Zaposleni</a>
-            <a routerLink="/news" class="navigation-items">Obaveštenja</a>
+            <a routerLink="/employees" class="navigation-items">{{text[language][1]}}</a>
+            <a routerLink="/news" class="navigation-items">{{text[language][2]}}</a>
             <span *ngIf="type == 1">
-                <a routerLink="/mycourses" class="navigation-items">Moji predmeti</a>
+                <a routerLink="/mycourses" class="navigation-items">{{text[language][3]}}</a>
             </span>
             <span *ngIf="type == 0">
-                <a routerLink="/managecourses" class="navigation-items">Predmeti</a>
+                <a routerLink="/managecourses" class="navigation-items">{{text[language][4]}}</a>
             </span>
             <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="bachelorStudies">
-                <span matline>Osnovne studije</span>
+                <span matline>{{text[language][5]}}</span>
             </a>
             <mat-menu #bachelorStudies="matMenu">
-            <a mat-menu-item routerLink="/courses/RTI">Odsek RTI</a>
-            <a mat-menu-item routerLink="/courses/SI">Odsek SI</a>
-            <a mat-menu-item routerLink="/courses/ostali">Ostali odseci</a>
+            <a mat-menu-item routerLink="/courses/RTI">{{text[language][6]}}</a>
+            <a mat-menu-item routerLink="/courses/SI">{{text[language][7]}}</a>
+            <a mat-menu-item routerLink="/courses/ostali">{{text[language][8]}}</a>
             </mat-menu>
-            <a routerLink="/courses/master" class="navigation-items">Master studije</a>
-            <a routerLink="/projects" class="navigation-items">Projekti</a>
+            <a routerLink="/courses/master" class="navigation-items">{{text[language][9]}}</a>
+            <a routerLink="/projects" class="navigation-items">{{text[language][10]}}</a>
             <a class="navigation-items cursor-pointer" [matMenuTriggerFor]="Science">
-                <span matline>Nauka</span>
+                <span matline>{{text[language][11]}}</span>
             </a>
             <mat-menu #Science="matMenu">
-            <a mat-menu-item routerLink="/science/research">Istraživanja</a>
-            <a mat-menu-item routerLink="/science/projects">Projekti</a>
+            <a mat-menu-item routerLink="/science/research">{{text[language][12]}}</a>
+            <a mat-menu-item routerLink="/science/projects">{{text[language][13]}}</a>
             </mat-menu>
-            <a routerLink="/contact" class="navigation-items">Kontakt</a>
+            <a routerLink="/contact" class="navigation-items">{{text[language][14]}}</a>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

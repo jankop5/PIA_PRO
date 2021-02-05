@@ -1,18 +1,18 @@
 <div class="breadcrumb">
-    <a routerLink="/">Početna</a>
-	<a routerLink="/contact" class="active">Kontakt</a>
+    <a routerLink="/">{{text[language][0]}}</a>
+	<a routerLink="/contact" class="active">{{text[language][1]}}</a>
 </div>
 <div class="page-content">
-    <div class="text-center heading">Kontakt podaci katedre</div>
+    <div class="text-center heading">{{text[language][2]}}</div>
 
     <p>
         <mat-card class="contact-card">
             <mat-card-content>
-                <span style="font-size: 24px;">Katedra za računarsku tehniku i informatiku</span>
+                <span style="font-size: 24px;">{{text[language][3]}}</span>
                 <hr>
-                <small>Univerzitet u Beogradu - Elektrotehnički fakultet</small>
+                <small>{{text[language][4]}}</small>
                 <br>
-                <small>POB 35-54, 11120 Beograd, Srbija</small>
+                <small>{{text[language][5]}}</small>
                 <br>
                 <br>
                 <img src="../../assets/contact1.png" height="100px">
@@ -20,12 +20,12 @@
                 <img src="../../assets/contact2.png" height="100px">
                 <br>
                 <br>
-                <span style="font-size: 16px;">dr Nenad Korolija</span>
+                <span style="font-size: 16px;">{{text[language][6]}}</span>
                 <br>
 
                 <p style="margin-top: 5px; margin-bottom: 5px;">
                     <span class="material-icons">location_on</span> 
-                    Kabinet P-26, Paviljon Rašović, Beograd
+                    {{text[language][7]}}
                 </p>
                 
 

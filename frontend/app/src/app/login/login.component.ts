@@ -21,8 +21,54 @@ export class LoginComponent implements OnInit {
       this.type = JSON.parse(localStorage.getItem("type"));
       this.username = localStorage.getItem("username");
     }
+    let tmp = localStorage.getItem("language");
+    if(!tmp){
+      this.language = 0;
+      localStorage.setItem("langauage", JSON.stringify(0));
+    }
+    else{
+      this.language = JSON.parse(tmp);
+    }
+    this.text = [];
+    this.text.push([
+      "Korisničko ime",
+      "Lozinka", 
+      "Nevalidni podaci!",
+      "Uloguj se",
+      "Registruj se",
+      "Izloguj se",
+      "Registruj korisnika",
+      "Moj profil",
+      "Promeni lozinku"
+    ]);
+
+    this.text.push([
+      "Корисничко име",
+      "Лозинка", 
+      "Невалидни подаци!",
+      "Улогуј се",
+      "Региструј се",
+      "Излогуј се",
+      "Региструј корисника",
+      "Мој профил",
+      "Промени лозинку"
+    ]);
+
+    this.text.push([
+      "Username",
+      "Password", 
+      "Invalid data!",
+      "Log In",
+      "Register",
+      "Log Out",
+      "Register user",
+      "My profile",
+      "Change password"
+    ]);
   }
 
+  language: number;
+  text: string[][];
   username: string;
   password: string;
   loginSuccess: boolean = true;
@@ -66,4 +112,11 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/']).then(succ => location.reload());
   }
 
+  /**
+   * odabir jezika
+   */
+  updateLanguage(){
+    localStorage.setItem("language", JSON.stringify(this.language));
+    location.reload();
+  }
 }
