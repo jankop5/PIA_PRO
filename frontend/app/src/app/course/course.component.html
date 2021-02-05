@@ -419,7 +419,7 @@
                       <span *ngIf="type == 1">
                         <button mat-raised-button color="warn" (click) = "closeList(list.idL)">Zatvori prijavu</button>
                       </span>
-                      <span *ngIf="type == 2 && (list.limit == 0 || list.usernames.length < list.limit) && !checkApplied(list.usernames)">
+                      <span *ngIf="type == 2 && (list.limit <= 0 || list.usernames.length < list.limit) && !checkApplied(list.usernames)">
                         <button mat-raised-button (click)="applyOnList(list.idL)">Prijavi se</button>
                       </span>
                       <span *ngIf="type == 2 && checkApplied(list.usernames)">

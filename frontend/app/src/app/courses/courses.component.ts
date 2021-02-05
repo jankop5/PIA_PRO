@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseInfo } from '../model/courseinfo.model';
 import { CoursesService } from '../services/courses.service';
 
@@ -14,7 +14,7 @@ import { CoursesService } from '../services/courses.service';
 })
 export class CoursesComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private coursesService: CoursesService) { }
+  constructor(private route: ActivatedRoute, private coursesService: CoursesService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -31,9 +31,12 @@ export class CoursesComponent implements OnInit {
           this.modulename = "Master";
           this.studylevel = "Master studije";
           break;
-        default:
+        case "ostali":
           this.modulename = "Ostali odseci";
           break;
+        default:
+          this.router.navigate([""]);
+          return;
       }
       this.courses = [];
       this.semesters = [];

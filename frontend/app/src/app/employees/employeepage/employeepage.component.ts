@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/model/employee.model';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { FilesService } from 'src/app/services/files.service';
@@ -17,7 +17,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class EmployeepageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private employeesService: EmployeesService,
-    private filesService: FilesService, private usersService: UsersService) { }
+    private filesService: FilesService, private usersService: UsersService, private router: Router) { }
 
   employee: Employee;
   currentUsername: string;
@@ -30,6 +30,10 @@ export class EmployeepageComponent implements OnInit {
       let username = params['username'];
       this.employeesService.getEmployee(username).subscribe((employee: Employee)=>{
         this.employee = employee;
+        if(!this.employee){ //redirekcija ako parametar nije pravi
+          this.router.navigate([""]);
+          return;
+        }
         if(this.employee.imageName){
           this.filesService.download(this.employee.imageName).subscribe((data)=>{
             var urlCreator = window.URL || window.webkitURL;

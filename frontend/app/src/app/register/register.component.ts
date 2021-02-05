@@ -83,6 +83,13 @@ export class RegisterComponent implements OnInit {
   fileChangeEvent(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       this.fileInfoName = fileInput.target.files[0].name;
+      let img = new Image();
+      img.src = window.URL.createObjectURL(fileInput.target.files[0]);
+      img.onload = () => {
+        if(img.width > 300 || img.height > 300){
+          this.imageTypeOk = false; this.message = "Slika moze biti maksimalno 300x300!"
+        }
+      }
     } 
   }
 

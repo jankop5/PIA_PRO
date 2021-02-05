@@ -30,6 +30,14 @@ export class PasswordchangeComponent implements OnInit {
    * promena lozinke
    */
   changePassword(){
+    if(!this.newPassword || !this.oldPassword){
+      this.changeFailed = "Oba polja su obavezna!";
+      return;
+    }
+    if(this.newPassword == this.oldPassword){
+      this.changeFailed = "Nova lozinka se mora razlikovati od stare!";
+      return;
+    }
     this.loginService.changePassword(this.oldPassword, this.newPassword).subscribe((res: String)=>{
       if(res == "success"){
         localStorage.setItem("passwordChanged", JSON.stringify(true));

@@ -88,6 +88,10 @@ export class CourseComponent implements OnInit {
   private loadCourse(coursename: string){
     this.coursesService.getCourse(coursename).subscribe((course: Course)=>{
       this.course = course;
+      if(!this.course){
+        this.router.navigate([""]);
+        return;
+      }
       this.coursesService.getCourseInfosByCoursename(coursename).subscribe((courseInfos: CourseInfo[])=>{
         this.courseInfos = courseInfos;
         for(let i = 0; i < courseInfos.length; i++){
