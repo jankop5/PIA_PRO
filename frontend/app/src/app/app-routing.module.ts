@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'courses/:module', component: CoursesComponent, canActivate: [FirstLoginGuard]},
   {path: 'course/:coursename', component: CourseComponent, canActivate: [LoggedInGuard, FirstLoginGuard]},
   {path: 'passwordchange', component: PasswordchangeComponent, canActivate: [LoggedInGuard]},
-  {path: 'mycourses', component: MycoursesComponent, canActivate: [LoggedInGuard, EmployeeGuard]},
+  {path: 'mycourses', component: MycoursesComponent, canActivate: [LoggedInGuard, FirstLoginGuard, EmployeeGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [AdminGuard]},
   {path: 'students', component: StudentsComponent, canActivate: [LoggedInGuard, AdminGuard]},
   {path: 'students/:username', component: StudentpageComponent, canActivate: [LoggedInGuard, AdminGuard]},
