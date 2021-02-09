@@ -43,16 +43,7 @@
                 <mat-hint>{{messageCategoryInsert}}</mat-hint>
                 <br>  
                 <button mat-raised-button (click)="insertCategory()">Dodaj kategoriju</button>
-
-                <mat-form-field style="width: 40%;">
-                    <mat-label>Kategorija</mat-label>
-                    <mat-select [(ngModel)]="newsInsert.category" name="cat" >
-                        <mat-option  *ngFor="let cat of allCategories" [value]="cat" >
-                          {{cat}}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-                <br>
+                <br><br>
                 <mat-divider></mat-divider>
                 <br>
                 <mat-form-field style="width: 40%;">

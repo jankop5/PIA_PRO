@@ -72,10 +72,21 @@ export class MycoursesComponent implements OnInit {
             this.courseInfos.push(ci);
             this.selectedCourseInfos.push(false);
             this.filesService.getNoticesForCode(ci.code).subscribe((notices: Notice[])=>{
-              this.myCoursesNotices = this.myCoursesNotices.concat(notices);
+              notices.forEach(notice => {
+                let flag = false;
+                this.myCoursesNotices.forEach(myNotice => {
+                  if(myNotice.idN == notice.idN){
+                    flag = true;
+                  }
+                })
+                if(!flag){
+                  this.myCoursesNotices.push(notice);
+                }
+              });
               this.myCoursesNotices = this.myCoursesNotices.sort((a, b)=>{
                 return (new Date(b.date)).getTime() - (new Date(a.date)).getTime();
               })
+              console.log(this.myCoursesNotices);
             })
           })
         })

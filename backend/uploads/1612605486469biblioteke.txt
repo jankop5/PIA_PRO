@@ -1,0 +1,1 @@
+Koriscene biblioteke su angular-material(frontend), ng2-file-upload(frontend), multer(backend) i file-saver(frontend). Njih je moguce preuzeti i instalirati preko komandne linije. 

@@ -125,9 +125,9 @@ router.route('/updateCourseShow').post((req, res)=>{
 });
 
 router.route('/getNumOfNotices').get((req, res)=>{
-    notices.countDocuments({}, (err, cnt)=>{
-        res.json({num: cnt});
-    })
+    notices.find({}).sort({ idN: -1 }).limit(1).exec((err, n)=>{
+        res.json({num: n[0].idN});
+    });
 });
 
 router.route('/uploadNotice').post((req, res)=>{
@@ -147,7 +147,7 @@ router.route('/uploadNotice').post((req, res)=>{
                             text: req.body.text,
                             originalNames: [req.file.originalname],
                             uploadNames: [req.file.filename],
-                            codes: req.body.codes,
+                            codes: req.body.codes.split(","),
                             date: req.body.date,
                             teacher: req.body.teacher
                         });
